@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cyera SPIS — Sales Planning Intelligence System</title>
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D1B2A;--navy2:#162236;--navy3:#1e2f45;
+  --blue:#1B6FD8;--blue2:#2E85F0;--blue-light:#D6E8FF;
+  --cyan:#00C2CB;--cyan2:#00A8B0;
+  --amber:#F59E0B;--amber-bg:#FEF3C7;
+  --red:#EF4444;--red-bg:#FEE2E2;
+  --green:#10B981;--green-bg:#D1FAE5;
+  --text:#F0F4F8;--text2:#94A3B8;--text3:#64748B;
+  --border:#1E3A5F;--border2:#243B55;
+  --sf:#00A1E0;--ae:#F59E0B;--ai:#00C2CB;
+  --card:#111E2E;--card2:#162638;
+  --font:'IBM Plex Sans',sans-serif;--mono:'IBM Plex Mono',monospace;
+}
+body{background:var(--navy);color:var(--text);font-family:var(--font);font-size:14px;line-height:1.5;min-height:100vh}
+button{cursor:pointer;font-family:var(--font)}
+input,textarea,select{font-family:var(--font);background:var(--navy3);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:8px 12px;width:100%;font-size:13px;outline:none;transition:border .2s}
+input:focus,textarea:focus,select:focus{border-color:var(--blue)}
+textarea{resize:vertical;min-height:80px}
+label{font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:4px}
+.app{display:flex;height:100vh;overflow:hidden}
+/* SIDEBAR */
+.sidebar{width:220px;background:var(--navy2);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0}
+.sidebar-logo{padding:20px 16px 16px;border-bottom:1px solid var(--border)}
+.logo-mark{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--cyan);letter-spacing:.15em;text-transform:uppercase}
+.logo-sub{font-size:10px;color:var(--text3);margin-top:2px;letter-spacing:.05em}
+.sidebar-section{padding:12px 8px 4px 12px;font-size:10px;font-weight:600;color:var(--text3);letter-spacing:.1em;text-transform:uppercase}
+.nav-item{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:6px;margin:1px 8px;cursor:pointer;transition:all .15s;font-size:13px;color:var(--text2);border:1px solid transparent}
+.nav-item:hover{background:var(--navy3);color:var(--text)}
+.nav-item.active{background:var(--navy3);color:var(--text);border-color:var(--border)}
+.nav-icon{width:16px;text-align:center;font-size:14px;flex-shrink:0}
+.nav-badge{margin-left:auto;background:var(--blue);color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px}
+.sidebar-ae{padding:8px;border-top:1px solid var(--border);margin-top:auto}
+.ae-card{padding:8px 10px;border-radius:6px;cursor:pointer;transition:all .15s;border:1px solid transparent}
+.ae-card:hover{background:var(--navy3)}
+.ae-card.selected{background:var(--navy3);border-color:var(--border)}
+.ae-name{font-size:12px;font-weight:600;color:var(--text)}
+.ae-meta{font-size:11px;color:var(--text3)}
+.ae-score{display:flex;align-items:center;gap:4px;margin-top:4px}
+.score-bar{flex:1;height:3px;background:var(--navy);border-radius:2px;overflow:hidden}
+.score-fill{height:100%;border-radius:2px;transition:width .5s}
+.score-pct{font-family:var(--mono);font-size:10px;color:var(--text3)}
+/* MAIN */
+.main{flex:1;overflow-y:auto;display:flex;flex-direction:column}
+.topbar{padding:14px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--navy2);flex-shrink:0}
+.topbar-title{font-size:16px;font-weight:600;color:var(--text)}
+.topbar-sub{font-size:12px;color:var(--text3);margin-top:1px}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.signal-pill{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;border:1px solid}
+.pill-sf{background:#00A1E010;border-color:#00A1E030;color:var(--sf)}
+.pill-ae{background:#F59E0B10;border-color:#F59E0B30;color:var(--ae)}
+.pill-ai{background:#00C2CB10;border-color:#00C2CB30;color:var(--ai)}
+.content{flex:1;padding:24px}
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px}
+.card-sm{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.card-title{font-size:13px;font-weight:600;color:var(--text)}
+.card-sub{font-size:11px;color:var(--text3);margin-top:2px}
+/* GRID */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+/* STATS */
+.stat-val{font-family:var(--mono);font-size:24px;font-weight:500;color:var(--text)}
+.stat-label{font-size:11px;color:var(--text3);margin-top:2px}
+.stat-change{font-size:11px;margin-top:4px}
+.up{color:var(--green)}.down{color:var(--red)}.neutral{color:var(--text3)}
+/* BUTTONS */
+.btn{padding:8px 16px;border-radius:6px;font-size:13px;font-weight:600;border:none;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:var(--blue);color:#fff}.btn-primary:hover{background:var(--blue2)}
+.btn-secondary{background:var(--navy3);color:var(--text);border:1px solid var(--border)}.btn-secondary:hover{border-color:var(--blue);color:var(--blue2)}
+.btn-cyan{background:var(--cyan2);color:var(--navy)}.btn-cyan:hover{background:var(--cyan)}
+.btn-sm{padding:5px 12px;font-size:12px}
+.btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border)}.btn-ghost:hover{color:var(--text);border-color:var(--text3)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+/* TABS */
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:20px;overflow-x:auto}
+.tab{padding:10px 16px;font-size:12px;font-weight:600;color:var(--text3);border-bottom:2px solid transparent;cursor:pointer;transition:all .15s;white-space:nowrap}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--cyan);border-bottom-color:var(--cyan)}
+/* TAGS */
+.tag{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600}
+.tag-green{background:var(--green-bg);color:#065F46}
+.tag-red{background:var(--red-bg);color:#991B1B}
+.tag-amber{background:var(--amber-bg);color:#92400E}
+.tag-blue{background:var(--blue-light);color:#1e40af}
+.tag-cyan{background:#00C2CB15;color:var(--cyan);border:1px solid #00C2CB30}
+.tag-gray{background:var(--navy3);color:var(--text3);border:1px solid var(--border)}
+/* MEDDPICC */
+.medd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.medd-item{background:var(--navy3);border:1px solid var(--border);border-radius:6px;padding:10px;text-align:center}
+.medd-letter{font-family:var(--mono);font-size:18px;font-weight:500}
+.medd-label{font-size:10px;color:var(--text3);margin-top:2px}
+.medd-status{font-size:10px;font-weight:600;margin-top:6px;padding:2px 6px;border-radius:10px;display:inline-block}
+/* SIGNAL SECTION */
+.signal-section{border-left:3px solid;padding:12px 16px;background:var(--navy3);border-radius:0 6px 6px 0;margin-bottom:12px}
+.sig-sf{border-color:var(--sf)}.sig-ae{border-color:var(--ae)}.sig-ai{border-color:var(--ai)}
+.signal-header{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.sf-text{color:var(--sf)}.ae-text{color:var(--ae)}.ai-text{color:var(--ai)}
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;font-size:12px}
+.tbl th{background:var(--navy3);color:var(--text2);font-weight:600;padding:8px 10px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--border)}
+.tbl td{padding:8px 10px;border-bottom:1px solid var(--border2);vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:var(--navy3)}
+/* PROGRESS */
+.progress-bar{height:6px;background:var(--navy3);border-radius:3px;overflow:hidden;margin-top:6px}
+.progress-fill{height:100%;border-radius:3px;transition:width .8s cubic-bezier(.4,0,.2,1)}
+/* CALLOUT */
+.callout{padding:12px 16px;border-radius:8px;border:1px solid;margin-bottom:14px;font-size:12px;line-height:1.6}
+.callout-blue{background:#1B6FD810;border-color:#1B6FD840;color:var(--text2)}
+.callout-amber{background:#F59E0B10;border-color:#F59E0B40;color:#FCD34D}
+.callout-cyan{background:#00C2CB10;border-color:#00C2CB40;color:var(--cyan)}
+.callout-red{background:#EF444410;border-color:#EF444440;color:#FCA5A5}
+/* PIPELINE GAUGE */
+.gauge-wrap{position:relative;text-align:center;padding:10px 0}
+.gauge-val{font-family:var(--mono);font-size:22px;font-weight:500}
+.gauge-label{font-size:11px;color:var(--text3);margin-top:2px}
+/* ENRICHMENT */
+.enrich-item{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--navy3);border:1px solid var(--border);border-radius:6px;margin-bottom:8px}
+.enrich-name{font-size:13px;font-weight:600}
+.enrich-meta{font-size:11px;color:var(--text3);margin-top:2px}
+.enrich-status{font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px}
+.status-done{background:var(--green-bg);color:#065F46}
+.status-loading{background:var(--blue-light);color:#1e40af}
+.status-wait{background:var(--navy);color:var(--text3);border:1px solid var(--border)}
+/* GENERATED CONTENT */
+.gen-block{background:var(--navy3);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:12px;position:relative}
+.gen-block::before{content:'✦ AI';position:absolute;top:10px;right:12px;font-size:10px;font-weight:700;color:var(--cyan);font-family:var(--mono);letter-spacing:.1em}
+.gen-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em}
+.gen-text{font-size:13px;color:var(--text2);line-height:1.7;white-space:pre-wrap}
+/* COACHING */
+.coaching-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.coaching-header{padding:14px 16px;background:var(--navy3);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.heat-dot{width:10px;height:10px;border-radius:50%}
+/* API KEY */
+.apikey-screen{display:flex;align-items:center;justify-content:center;height:100vh;background:var(--navy)}
+.apikey-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:48px;max-width:480px;width:100%}
+.apikey-logo{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--cyan);letter-spacing:.2em;margin-bottom:4px}
+.apikey-brand{font-size:28px;font-weight:700;color:var(--text);margin-bottom:4px}
+.apikey-tag{font-size:14px;color:var(--text3);margin-bottom:32px}
+.legend-box{background:var(--navy3);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:24px}
+.legend-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px}
+.legend-row:last-child{margin-bottom:0}
+.legend-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.legend-text strong{display:block;font-size:12px;font-weight:600}
+.legend-text span{font-size:11px;color:var(--text3)}
+/* DIVIDER */
+.divider{height:1px;background:var(--border);margin:16px 0}
+/* FORM ROW */
+.form-row{display:grid;gap:12px;margin-bottom:12px}
+.form-row.cols-2{grid-template-columns:1fr 1fr}
+.form-row.cols-3{grid-template-columns:1fr 1fr 1fr}
+.form-group{display:flex;flex-direction:column;gap:4px}
+/* SPINNER */
+.spin{display:inline-block;width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--cyan);border-radius:50%;animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--navy)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--text3)}
+/* EMPTY */
+.empty{text-align:center;padding:48px 24px;color:var(--text3)}
+.empty-icon{font-size:32px;margin-bottom:12px}
+.empty-title{font-size:14px;font-weight:600;color:var(--text2);margin-bottom:4px}
+/* ALERT */
+.alert{padding:10px 14px;border-radius:6px;font-size:12px;margin-bottom:12px;display:flex;gap:8px;align-items:flex-start;border:1px solid}
+.alert-info{background:#1B6FD810;border-color:#1B6FD840;color:var(--text2)}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const {useState,useEffect,useRef,useCallback}=React;
+
+// ── MOCK DATA ───────────────────────────────────────────────────────────────
+const AES=[
+  {id:'alex',name:'Alex Rivera',quota:2200000,pipeline:4800000,win_rate:0.21,avg_deal:380000,forecast_commit:900000,forecast_best:1400000,ytd_closed:820000,open_opps:7,plan_status:'approved',plan_score:88,
+   accounts:[
+    {name:'Blackstone Group',industry:'Financial Services',revenue:'$180B',trigger:'Agentic AI production deployment with no data governance layer — board mandate Q3',access:'Warm'},
+    {name:'JPMorgan Chase',industry:'Financial Services',revenue:'$158B',trigger:'SEC Rule 17a-4 compliance gap surfaced in recent audit; CISO mandate to classify all structured data',access:'Partner'},
+    {name:'Cardinal Health',industry:'Healthcare',revenue:'$205B',trigger:'Post-merger integration of two cloud environments with unclassified PHI across 14 SaaS platforms',access:'Cold'},
+    {name:'Anthem Health',industry:'Healthcare / Insurance',revenue:'$138B',trigger:'HIPAA audit exposure; CDO publicly committed to unified data governance by Q4',access:'Warm'},
+    {name:'Northrop Grumman',industry:'Defense / Aerospace',revenue:'$37B',trigger:'CMMC 2.0 compliance deadline; classified data sprawl across contractor cloud environments',access:'Cold'},
+    {name:'Marriott International',industry:'Hospitality',revenue:'$23B',trigger:'GDPR re-assessment following 2024 breach; CTO mandate for real-time sensitive data monitoring',access:'Partner'},
+    {name:'Thermo Fisher Scientific',industry:'Life Sciences',revenue:'$44B',trigger:'Rapid AI adoption in R&D with no data lineage or classification layer',access:'Cold'},
+    {name:'Raytheon Technologies',industry:'Defense',revenue:'$67B',trigger:'Elevated via partner — CISO known to be evaluating DSPM following competitor breach',access:'Partner'},
+   ]},
+  {id:'morgan',name:'Morgan Lee',quota:1900000,pipeline:3200000,win_rate:0.19,avg_deal:340000,forecast_commit:700000,forecast_best:1100000,ytd_closed:560000,open_opps:5,plan_status:'approved',plan_score:74,
+   accounts:[
+    {name:'Cigna Corporation',industry:'Insurance / Healthcare',revenue:'$180B',trigger:'AI underwriting pilot generating unclassified sensitive policyholder data at scale',access:'Warm'},
+    {name:'Archer Daniels Midland',industry:'Agriculture / Commodities',revenue:'$94B',trigger:'M&A integration — three acquired entities with overlapping cloud data environments',access:'Cold'},
+    {name:'Humana',industry:'Healthcare Insurance',revenue:'$58B',trigger:'CMS mandate for Medicare data governance; CDO hired in Q1 with modernization mandate',access:'Partner'},
+    {name:'Baxter International',industry:'Medical Devices',revenue:'$15B',trigger:'FDA data integrity requirements; legacy DLP flagged as insufficient in recent audit',access:'Cold'},
+    {name:'Lear Corporation',industry:'Automotive',revenue:'$22B',trigger:'EV platform transition creating new cloud footprint with no data security posture baseline',access:'Cold'},
+    {name:'Textron',industry:'Aerospace / Defense',revenue:'$13B',trigger:'Varonis contract renewal — CISO dissatisfied with agent overhead and cloud coverage gaps',access:'Partner'},
+    {name:'Allstate Insurance',industry:'Insurance',revenue:'$57B',trigger:'State-level insurance data privacy regulations tightening; legacy classification tools inadequate',access:'Warm'},
+    {name:'Parker Hannifin',industry:'Industrial / Manufacturing',revenue:'$19B',trigger:'Greenfield — no current DSPM solution; CIO cloud-first initiative exposing data governance gap',access:'Cold'},
+   ]},
+  {id:'taylor',name:'Taylor Brooks',quota:2000000,pipeline:2100000,win_rate:0.18,avg_deal:360000,forecast_commit:400000,forecast_best:900000,ytd_closed:210000,open_opps:4,plan_status:'needs_revision',plan_score:52,
+   accounts:[
+    {name:'Exelon Corporation',industry:'Energy / Utilities',revenue:'$21B',trigger:'NERC CIP compliance gaps in OT/IT data environments; CISO under pressure from regulatory review',access:'Cold'},
+    {name:'Zimmer Biomet',industry:'Medical Devices',revenue:'$8B',trigger:'Post-M&A data environment fragmentation; HIPAA exposure from acquired entity cloud migration',access:'Cold'},
+    {name:'Unum Group',industry:'Insurance',revenue:'$12B',trigger:'Data privacy modernization initiative; CDO hired Q2 with board mandate to establish data governance',access:'Warm'},
+    {name:'Mead Johnson',industry:'Consumer Goods',revenue:'$4B',trigger:'GDPR and CCPA compliance pressure; marketing cloud stack generating unclassified personal data',access:'Cold'},
+    {name:'Olin Corporation',industry:'Chemical / Industrial',revenue:'$7B',trigger:'EPA and TSCA data reporting requirements; CIO flagged data classification gap in Q1 board review',access:'Cold'},
+    {name:'Teleflex',industry:'Medical Devices',revenue:'$3B',trigger:'FDA 21 CFR Part 11 compliance; cloud migration exposing unclassified clinical data',access:'Partner'},
+    {name:'Barnes Group',industry:'Industrial Manufacturing',revenue:'$2B',trigger:'Greenfield opportunity — no DSPM in place; CTO evaluating post-merger security stack',access:'Cold'},
+    {name:'Albany International',industry:'Industrial',revenue:'$1B',trigger:'European GDPR exposure from recently acquired German subsidiary with unclassified personal data',access:'Cold'},
+   ]},
+];
+
+const MEDD_FIELDS=[
+  {key:'M',label:'Metrics',q:'What quantifiable business outcome will justify this investment?'},
+  {key:'E',label:'Economic Buyer',q:'Who controls budget and has been confirmed?'},
+  {key:'D1',label:'Decision Criteria',q:'What criteria will they use to select a platform?'},
+  {key:'D2',label:'Decision Process',q:'Who evaluates? What is the approval chain and timeline?'},
+  {key:'I',label:'Implicate Pain',q:'Implicit or Explicit? What specific pain has been surfaced?'},
+  {key:'C1',label:'Champion',q:'Who has taken specific action to advance Cyera\'s position?'},
+  {key:'C2',label:'Competition',q:'Varonis, BigID, Purview, Wiz, or status quo?'},
+  {key:'P',label:'Paper Process',q:'Who owns Legal/Procurement? Known timeline to signed?'},
+];
+
+const CYERA_TRIGGERS=[
+  'Board or CISO mandate to enable agentic AI safely before a specific deadline',
+  'M&A integration creating unclassified data sprawl across cloud and SaaS environments',
+  'Regulatory/compliance audit exposing sensitive data governance gaps (SEC, GDPR, HIPAA, CCPA, PCI-DSS)',
+  'Failed or inadequate incumbent (Varonis, legacy DLP, manual classification)',
+  'CISO/CDO mandate ahead of planned AI production rollout',
+  'Rapid headcount growth or acquisition creating uncontrolled data proliferation',
+  'NERC CIP, CMMC, or industry-specific compliance deadline',
+  'Varonis contract renewal — dissatisfied with agent overhead or cloud coverage gaps',
+];
+
+const CYERA_COMPS=[
+  {name:'Varonis',pos:'Agent-based, on-prem heritage, UEBA strength',diff:'Agentless deployment, cloud-native, AI classification vs rules-based',attack:'Broader DLP and UEBA. Existing relationship.',response:'Reframe around cloud data governance and AI readiness where Varonis has architectural gaps.'},
+  {name:'BigID',pos:'Privacy-first data governance, on-prem strength',diff:'Time-to-value (days not months), petabyte-scale AI classification, simpler deployment',attack:'Stronger governance/privacy workflows. Broader on-prem.',response:'Lead with agentless speed-to-value and classification accuracy at enterprise scale.'},
+  {name:'Microsoft Purview',pos:'Native M365 integration, low-cost perception',diff:'Multi-cloud depth, AI-native classification, no Microsoft lock-in',attack:'Already in the stack. Familiar vendor. Lower cost.',response:'Purview covers the Microsoft surface — Cyera covers everything else. Frame as complementary then demonstrate the gap.'},
+  {name:'Wiz',pos:'CNAPP-first, DSPM as add-on',diff:'Data-security-led depth vs feature parity, classification accuracy, DLP integration',attack:'Broader cloud security platform. Infrastructure and data in one tool.',response:'Wiz wins in infrastructure-led deals. Cyera wins in data-governance-led deals. Own the entry point.'},
+  {name:'Do Nothing / Status Quo',pos:'Manual processes, legacy DLP',diff:'AI mandate is creating data risk at a speed and scale no manual process can govern',attack:'We\'ve managed this for years. Budget is constrained.',response:'Connect inaction to a specific regulatory deadline or a blocked AI initiative.'},
+];
+
+// ── API CALL ────────────────────────────────────────────────────────────────
+async function callClaude(apiKey, prompt, system='') {
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01'},
+    body:JSON.stringify({
+      model:'claude-sonnet-4-20250514',
+      max_tokens:2000,
+      system: system || 'You are an expert enterprise sales planning assistant specializing in data security and DSPM solutions. You help sales teams at Cyera build rigorous, MEDDPICC-qualified territory and account plans grounded in real business triggers. Always write in the voice of an experienced enterprise seller — specific, business-first, never product-led. Use Force Management principles throughout.',
+      messages:[{role:'user',content:prompt}]
+    })
+  });
+  const data = await res.json();
+  if(data.error) throw new Error(data.error.message);
+  return data.content[0].text;
+}
+
+// ── SCORE HELPER ────────────────────────────────────────────────────────────
+function planScore(ae){return ae.plan_score}
+function scoreColor(s){return s>=80?'var(--green)':s>=60?'var(--amber)':'var(--red)'}
+function coverageColor(ae){const x=ae.pipeline/(ae.quota*3.5);return x>=1?'var(--green)':x>=0.7?'var(--amber)':'var(--red)'}
+function fmtM(n){return n>=1000000?'$'+(n/1000000).toFixed(1)+'M':n>=1000?'$'+(n/1000).toFixed(0)+'K':'$'+n}
+function coverageX(ae){return (ae.pipeline/(ae.quota*3.5)).toFixed(2)+'x'}
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  SCREENS
+// ══════════════════════════════════════════════════════════════════════════════
+
+// ── API KEY SCREEN ───────────────────────────────────────────────────────────
+function ApiKeyScreen({onSubmit}){
+  const [key,setKey]=useState('');
+  return(
+    <div className="apikey-screen">
+      <div className="apikey-box">
+        <div className="apikey-logo">CYERA · SPIS</div>
+        <div className="apikey-brand">Sales Planning<br/>Intelligence System</div>
+        <div className="apikey-tag">Majors Segment · MEDDPICC · Force Management</div>
+        <div className="divider"/>
+        <div className="legend-box">
+          <div className="legend-row">
+            <div className="legend-icon" style={{background:'#00A1E015',border:'1px solid #00A1E030'}}>⚡</div>
+            <div className="legend-text"><strong style={{color:'var(--sf)'}}>Salesforce — Auto-populated</strong><span>Quota, pipeline, win rate, forecast — never re-entered</span></div>
+          </div>
+          <div className="legend-row">
+            <div className="legend-icon" style={{background:'#F59E0B15',border:'1px solid #F59E0B30'}}>✏️</div>
+            <div className="legend-text"><strong style={{color:'var(--ae)'}}>Seller Enters — Judgment Only</strong><span>MEDDPICC context, competitive intel, champion evidence, partner strategy</span></div>
+          </div>
+          <div className="legend-row">
+            <div className="legend-icon" style={{background:'#00C2CB15',border:'1px solid #00C2CB30'}}>✦</div>
+            <div className="legend-text"><strong style={{color:'var(--ai)'}}>AI Generates — Everything Else</strong><span>Territory thesis, account tiering, business cases, outreach narratives, coaching agendas</span></div>
+          </div>
+        </div>
+        <div className="form-group" style={{marginBottom:12}}>
+          <label>Anthropic API Key</label>
+          <input type="password" placeholder="sk-ant-..." value={key} onChange={e=>setKey(e.target.value)} onKeyDown={e=>e.key==='Enter'&&key.startsWith('sk-')&&onSubmit(key)}/>
+        </div>
+        <button className="btn btn-cyan" style={{width:'100%'}} onClick={()=>onSubmit(key)} disabled={!key.startsWith('sk-')}>
+          Enter SPIS →
+        </button>
+        <div style={{fontSize:11,color:'var(--text3)',marginTop:10,textAlign:'center'}}>Key stored in browser only · Never transmitted beyond Anthropic API</div>
+      </div>
+    </div>
+  );
+}
+
+// ── REGIONAL DASHBOARD ───────────────────────────────────────────────────────
+function Dashboard({aes, onSelectAE}){
+  const total_pipeline=aes.reduce((s,a)=>s+a.pipeline,0);
+  const total_quota=aes.reduce((s,a)=>s+a.quota,0);
+  const total_commit=aes.reduce((s,a)=>s+a.forecast_commit,0);
+  const total_ytd=aes.reduce((s,a)=>s+a.ytd_closed,0);
+  const coverage=total_pipeline/(total_quota*3.5);
+  return(
+    <div className="content">
+      <div className="callout callout-cyan" style={{marginBottom:20}}>
+        <strong>Regional Overview — Majors Segment</strong> · 3 Strategic/Enterprise Sellers · 24 Majors Accounts · Minimum 3.5x pipeline coverage target
+      </div>
+      <div className="grid-4" style={{marginBottom:20}}>
+        {[
+          {label:'Total Pipeline',val:fmtM(total_pipeline),sub:'vs '+fmtM(total_quota*3.5)+' required',color:coverage>=1?'var(--green)':coverage>=0.7?'var(--amber)':'var(--red)'},
+          {label:'Forecast Commit',val:fmtM(total_commit),sub:'Team total',color:'var(--text)'},
+          {label:'YTD Closed Won',val:fmtM(total_ytd),sub:((total_ytd/total_quota)*100).toFixed(0)+'% of annual quota',color:'var(--green)'},
+          {label:'Pipeline Coverage',val:(total_pipeline/(total_quota*3.5)).toFixed(2)+'x',sub:'3.5x minimum standard',color:coverage>=1?'var(--green)':coverage>=0.7?'var(--amber)':'var(--red)'},
+        ].map(s=>(
+          <div key={s.label} className="card-sm">
+            <div className="stat-label">{s.label}</div>
+            <div className="stat-val" style={{color:s.color}}>{s.val}</div>
+            <div style={{fontSize:11,color:'var(--text3)',marginTop:4}}>{s.sub}</div>
+          </div>
+        ))}
+      </div>
+      <div className="card">
+        <div className="card-header"><div><div className="card-title">Seller Pipeline Health</div><div className="card-sub">Click any row to open Territory Plan</div></div></div>
+        <table className="tbl" style={{width:'100%'}}>
+          <thead><tr>
+            <th>Seller</th><th>Quota</th><th>Pipeline</th><th>Coverage vs 3.5x</th><th>Forecast Commit</th><th>YTD Closed</th><th>Plan Score</th><th>Plan Status</th><th></th>
+          </tr></thead>
+          <tbody>
+            {aes.map(ae=>{
+              const cov=ae.pipeline/(ae.quota*3.5);
+              const covPct=Math.min(100,cov*100);
+              return(
+                <tr key={ae.id} style={{cursor:'pointer'}} onClick={()=>onSelectAE(ae)}>
+                  <td><div style={{fontWeight:600}}>{ae.name}</div><div style={{fontSize:11,color:'var(--text3)'}}>Strategic AE · Majors</div></td>
+                  <td><span style={{fontFamily:'var(--mono)'}}>{fmtM(ae.quota)}</span></td>
+                  <td><span style={{fontFamily:'var(--mono)',color:coverageColor(ae)}}>{fmtM(ae.pipeline)}</span></td>
+                  <td style={{minWidth:140}}>
+                    <div style={{display:'flex',alignItems:'center',gap:8}}>
+                      <div className="progress-bar" style={{flex:1}}>
+                        <div className="progress-fill" style={{width:covPct+'%',background:coverageColor(ae)}}/>
+                      </div>
+                      <span style={{fontFamily:'var(--mono)',fontSize:11,color:coverageColor(ae)}}>{cov.toFixed(2)}x</span>
+                    </div>
+                  </td>
+                  <td><span style={{fontFamily:'var(--mono)'}}>{fmtM(ae.forecast_commit)}</span></td>
+                  <td><span style={{fontFamily:'var(--mono)',color:'var(--green)'}}>{fmtM(ae.ytd_closed)}</span></td>
+                  <td>
+                    <div style={{display:'flex',alignItems:'center',gap:6}}>
+                      <div style={{width:28,height:28,borderRadius:'50%',background:scoreColor(ae.plan_score)+'20',border:'2px solid '+scoreColor(ae.plan_score),display:'flex',alignItems:'center',justifyContent:'center',fontSize:10,fontWeight:700,color:scoreColor(ae.plan_score),fontFamily:'var(--mono)'}}>
+                        {ae.plan_score}
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    {ae.plan_status==='approved'?<span className="tag tag-green">Approved</span>:
+                     ae.plan_status==='needs_revision'?<span className="tag tag-red">Needs Revision</span>:
+                     <span className="tag tag-gray">Draft</span>}
+                  </td>
+                  <td><button className="btn btn-secondary btn-sm" onClick={e=>{e.stopPropagation();onSelectAE(ae)}}>Open →</button></td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <div className="grid-2">
+        <div className="card">
+          <div className="card-header"><div className="card-title">Cyera Trigger Categories — Territory Coverage</div></div>
+          {CYERA_TRIGGERS.map((t,i)=>(
+            <div key={i} style={{display:'flex',gap:8,alignItems:'flex-start',padding:'6px 0',borderBottom:'1px solid var(--border2)'}}>
+              <div style={{width:6,height:6,borderRadius:'50%',background:'var(--cyan)',marginTop:5,flexShrink:0}}/>
+              <div style={{fontSize:12,color:'var(--text2)'}}>{t}</div>
+            </div>
+          ))}
+        </div>
+        <div className="card">
+          <div className="card-header"><div className="card-title">Competitive Landscape — Majors</div></div>
+          {CYERA_COMPS.map((c,i)=>(
+            <div key={i} style={{padding:'8px 0',borderBottom:'1px solid var(--border2)'}}>
+              <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:3}}>
+                <span style={{fontSize:12,fontWeight:600}}>{c.name}</span>
+                <span className="tag tag-gray" style={{fontSize:10}}>{c.pos.split(',')[0]}</span>
+              </div>
+              <div style={{fontSize:11,color:'var(--cyan)'}}>↑ {c.diff.split('.')[0]}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── TERRITORY PLAN BUILDER ───────────────────────────────────────────────────
+function TerritoryPlan({ae,apiKey,planStatus,onUpdateStatus}){
+  const [tab,setTab]=useState(0);
+  const [intake,setIntake]=useState({contacts:'',painHyp:'',competitive:'',partners:'',pipelineStrategy:'',selfAssess:'',managerAsk:''});
+  const [enriched,setEnriched]=useState({});
+  const [enriching,setEnriching]=useState({});
+  const [plan,setPlan]=useState('');
+  const [generating,setGenerating]=useState(false);
+  const [meddpicc,setMeddpicc]=useState({});
+
+  async function enrichAccount(acc){
+    setEnriching(p=>({...p,[acc.name]:'loading'}));
+    try{
+      const txt=await callClaude(apiKey,
+        `Research this Majors account for a Cyera DSPM sales territory plan.\n\nAccount: ${acc.name}\nIndustry: ${acc.industry}\nRevenue: ${acc.revenue}\nKnown Trigger: ${acc.trigger}\nRelationship Access: ${acc.access}\n\nProvide:\n1. BUSINESS OVERVIEW (2 sentences — what they do and how they make money)\n2. STRATEGIC PRIORITIES (3 priorities relevant to data security or AI governance this year)\n3. CYERA TRIGGER HYPOTHESIS (1 paragraph — the specific data security or AI risk problem creating urgency, referencing their industry and public business context)\n4. ECONOMIC BUYER TARGET (likely title: CISO, CIO, CDO, CPO — and why for this account)\n5. MEDDPICC ENTRY POINT (which element is strongest to lead with and why)\n\nWrite as a briefing for an enterprise seller preparing their first outreach. Be specific to this account — not generic data security language.`
+      );
+      setEnriched(p=>({...p,[acc.name]:txt}));
+      setEnriching(p=>({...p,[acc.name]:'done'}));
+    } catch(e){
+      setEnriching(p=>({...p,[acc.name]:'error'}));
+    }
+  }
+
+  async function enrichAll(){
+    for(const acc of ae.accounts){
+      if(!enriched[acc.name]) await enrichAccount(acc);
+    }
+  }
+
+  async function generatePlan(){
+    setGenerating(true);
+    try{
+      const enrichedCtx=ae.accounts.map(a=>enriched[a.name]?`\n[${a.name}]\n${enriched[a.name]}`:`\n[${a.name}] — trigger: ${a.trigger}`).join('\n');
+      const txt=await callClaude(apiKey,
+        `Generate a complete Cyera Territory Plan for this Majors AE.\n\nSELLER: ${ae.name}\nQUOTA: ${fmtM(ae.quota)}\nCURRENT PIPELINE: ${fmtM(ae.pipeline)} (${coverageX(ae)} coverage vs 3.5x target)\nWIN RATE: ${(ae.win_rate*100).toFixed(0)}%\nAVG DEAL SIZE: ${fmtM(ae.avg_deal)}\n\nSELLER JUDGMENT INPUTS:\n- Known Contacts / Relationships: ${intake.contacts||'Not provided'}\n- Pain Hypothesis: ${intake.painHyp||'Not provided'}\n- Competitive Context: ${intake.competitive||'Not provided'}\n- Partner Strategy: ${intake.partners||'Not provided'}\n- Pipeline Generation Strategy: ${intake.pipelineStrategy||'Not provided'}\n\nACCOUNT INTELLIGENCE:\n${enrichedCtx}\n\nGenerate:\n1. TERRITORY THESIS (3-4 sentences — why these 24 Majors accounts represent a high-probability data security opportunity right now, referencing specific industry dynamics)\n2. TIER 1 ACCOUNTS (top 5 with 2-sentence MEDDPICC-grounded rationale for each — why this account, why now, what is the path to the Economic Buyer)\n3. TIER 2 ACCOUNTS (next 8 with one-sentence rationale and elevation trigger each)\n4. TIER 3 ACCOUNTS (remaining with hypothesis for eventual elevation)\n5. PURSUIT MOTION BY TIER (Tier 1: multi-threaded MEDDPICC pursuit with Cyera Point of View; Tier 2: value-led nurture; Tier 3: light touch)\n6. ECOSYSTEM STRATEGY (specific partner types — Big 4 advisory, cloud hyperscalers, MSSPs, ISV co-sell with Wiz/Palo/CrowdStrike)\n7. 30/60/90 DAY MILESTONES (5 per window, account-named, buyer-confirmed where applicable)\n8. KEY RISKS AND MITIGATION\n9. SELLER SELF-ASSESSMENT\n\nUse Force Management and MEDDPICC language throughout. Be specific — not generic.`,
+        'You are a Cyera enterprise sales planning expert. Generate rigorous, MEDDPICC-qualified territory plans in Force Management language. Every account recommendation must reference specific business triggers and Economic Buyer paths. Never use generic data security language — always connect to specific account context.'
+      );
+      setPlan(txt);
+      setTab(2);
+    } catch(e){ alert('Generation error: '+e.message); }
+    setGenerating(false);
+  }
+
+  const intakeScore=Object.values(intake).filter(v=>v.trim().length>20).length;
+  const enrichScore=Object.values(enriched).length;
+  const score=Math.round((intakeScore/7*0.3+enrichScore/8*0.35+(plan?0.35:0))*100);
+
+  return(
+    <div className="content">
+      <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:16}}>
+        <div>
+          <div style={{fontSize:11,color:'var(--text3)',textTransform:'uppercase',letterSpacing:'.1em',marginBottom:4}}>Territory Plan · Majors</div>
+          <div style={{fontSize:18,fontWeight:700}}>{ae.name}</div>
+          <div style={{fontSize:12,color:'var(--text3)'}}>Quota: {fmtM(ae.quota)} · Pipeline: {fmtM(ae.pipeline)} · Coverage: {coverageX(ae)}</div>
+        </div>
+        <div style={{textAlign:'right'}}>
+          <div style={{fontSize:11,color:'var(--text3)',marginBottom:4}}>Plan Completeness</div>
+          <div style={{fontSize:28,fontFamily:'var(--mono)',fontWeight:500,color:scoreColor(score)}}>{score}%</div>
+          {planStatus==='needs_revision'&&<span className="tag tag-red" style={{marginTop:4}}>Needs Revision</span>}
+          {planStatus==='approved'&&<span className="tag tag-green" style={{marginTop:4}}>Approved</span>}
+        </div>
+      </div>
+      <div className="tabs">
+        {['1 · AE Intake','2 · Account Enrichment','3 · Generated Plan'].map((t,i)=>(
+          <div key={i} className={'tab'+(tab===i?' active':'')} onClick={()=>setTab(i)}>{t}</div>
+        ))}
+      </div>
+
+      {tab===0&&(
+        <div>
+          <div className="callout callout-blue" style={{marginBottom:16}}>
+            Fields marked <strong style={{color:'var(--sf)'}}>⚡ Salesforce</strong> are pre-populated from CRM. Fields marked <strong style={{color:'var(--ae)'}}>✏️ AE Enters</strong> require your judgment — these are the things only a great seller can provide.
+          </div>
+          <div className="card" style={{marginBottom:14}}>
+            <div className="card-title" style={{marginBottom:12}}>⚡ Salesforce — Auto-populated</div>
+            <div className="grid-4">
+              {[
+                ['Annual Quota',fmtM(ae.quota)],['Current Pipeline',fmtM(ae.pipeline)],
+                ['Win Rate',(ae.win_rate*100).toFixed(0)+'%'],['Avg Deal Size',fmtM(ae.avg_deal)],
+                ['Forecast Commit',fmtM(ae.forecast_commit)],['Forecast Best Case',fmtM(ae.forecast_best)],
+                ['YTD Closed',fmtM(ae.ytd_closed)],['Open Opportunities',ae.open_opps+' active opps'],
+              ].map(([k,v])=>(
+                <div key={k} className="card-sm" style={{borderColor:'#00A1E030'}}>
+                  <div style={{fontSize:11,color:'var(--sf)',marginBottom:3}}>⚡ {k}</div>
+                  <div style={{fontFamily:'var(--mono)',fontSize:15,fontWeight:500}}>{v}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="card">
+            <div className="card-title" style={{marginBottom:12}}>✏️ Seller Enters — Judgment Only</div>
+            <div className="form-row" style={{marginBottom:12}}>
+              <div className="form-group">
+                <label>Known Contacts and Relationship Context</label>
+                <textarea placeholder="Name any warm relationships, existing connections, or partner contacts across your 8 accounts. Include title, account, and nature of the relationship. These are invisible to Salesforce and essential to your pursuit strategy." rows={3} value={intake.contacts} onChange={e=>setIntake(p=>({...p,contacts:e.target.value}))}/>
+              </div>
+            </div>
+            <div className="form-row cols-2">
+              <div className="form-group">
+                <label>Pain Hypothesis — Primary Trigger Type in Your Territory</label>
+                <textarea placeholder="What is the dominant Cyera trigger you are seeing or hypothesizing across your Majors accounts? AI deployment risk, regulatory pressure, M&A data sprawl, Varonis renewal?" rows={3} value={intake.painHyp} onChange={e=>setIntake(p=>({...p,painHyp:e.target.value}))}/>
+              </div>
+              <div className="form-group">
+                <label>Competitive Presence and Evaluation Context</label>
+                <textarea placeholder="Where do you know or suspect Varonis, BigID, Microsoft Purview, or Wiz is active in your accounts? Any accounts in active evaluation?" rows={3} value={intake.competitive} onChange={e=>setIntake(p=>({...p,competitive:e.target.value}))}/>
+              </div>
+            </div>
+            <div className="form-row cols-2">
+              <div className="form-group">
+                <label>Partner Strategy and Named Partner Contacts</label>
+                <textarea placeholder="Which Big 4, MSSP, hyperscaler alliance, or ISV partner contacts do you have across your accounts? Name the partner, the account they cover, and the contact." rows={3} value={intake.partners} onChange={e=>setIntake(p=>({...p,partners:e.target.value}))}/>
+              </div>
+              <div className="form-group">
+                <label>Pipeline Generation Strategy — How You Will Close the Coverage Gap</label>
+                <textarea placeholder="Specific plan to reach 3.5x coverage — outbound sequences, partner co-sell, Cyera field events, SDR-assisted, exec-led introductions. Not 'I will prospect more.'" rows={3} value={intake.pipelineStrategy} onChange={e=>setIntake(p=>({...p,pipelineStrategy:e.target.value}))}/>
+              </div>
+            </div>
+            <div className="form-row cols-2">
+              <div className="form-group">
+                <label>Seller Self-Assessment — Where You Are Strongest</label>
+                <textarea placeholder="Accounts, relationships, competitive situations, or market knowledge where you have the most confidence." rows={2} value={intake.selfAssess} onChange={e=>setIntake(p=>({...p,selfAssess:e.target.value}))}/>
+              </div>
+              <div className="form-group">
+                <label>What You Need from Your Regional Director</label>
+                <textarea placeholder="Executive sponsorship for specific accounts, competitive coaching, field resources, introductions — be specific." rows={2} value={intake.managerAsk} onChange={e=>setIntake(p=>({...p,managerAsk:e.target.value}))}/>
+              </div>
+            </div>
+            <button className="btn btn-primary" onClick={()=>setTab(1)} style={{marginTop:8}}>
+              Continue to Account Enrichment →
+            </button>
+          </div>
+        </div>
+      )}
+
+      {tab===1&&(
+        <div>
+          <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:14}}>
+            <div className="callout callout-cyan" style={{flex:1,marginBottom:0,marginRight:12}}>
+              ✦ AI researches each account and generates firmographics, strategic priorities, Cyera-specific trigger hypotheses, Economic Buyer targets, and MEDDPICC entry points. Run all accounts before generating the territory plan.
+            </div>
+            <button className="btn btn-cyan" onClick={enrichAll} disabled={Object.values(enriching).some(s=>s==='loading')}>
+              {Object.values(enriching).some(s=>s==='loading')?<><div className="spin"/>Enriching...</>:'✦ Enrich All Accounts'}
+            </button>
+          </div>
+          {ae.accounts.map(acc=>{
+            const st=enriching[acc.name];
+            const done=enriched[acc.name];
+            return(
+              <div key={acc.name} className="enrich-item" style={{flexDirection:'column',alignItems:'stretch',padding:'12px 16px'}}>
+                <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:done?10:0}}>
+                  <div>
+                    <div className="enrich-name">{acc.name}</div>
+                    <div className="enrich-meta">{acc.industry} · {acc.revenue} revenue · Access: {acc.access}</div>
+                    <div style={{fontSize:11,color:'var(--text3)',marginTop:2,fontStyle:'italic'}}>{acc.trigger}</div>
+                  </div>
+                  <div style={{display:'flex',alignItems:'center',gap:8,flexShrink:0,marginLeft:12}}>
+                    {st==='loading'&&<div className="spin"/>}
+                    <span className={'enrich-status '+(done?'status-done':st==='loading'?'status-loading':'status-wait')}>
+                      {done?'✓ Enriched':st==='loading'?'Researching...':'Pending'}
+                    </span>
+                    {!done&&st!=='loading'&&<button className="btn btn-ghost btn-sm" onClick={()=>enrichAccount(acc)}>Enrich →</button>}
+                  </div>
+                </div>
+                {done&&(
+                  <div style={{background:'var(--navy)',border:'1px solid var(--border2)',borderRadius:6,padding:12,fontSize:12,color:'var(--text2)',lineHeight:1.7,whiteSpace:'pre-wrap',maxHeight:200,overflowY:'auto'}}>
+                    {done}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+          <div style={{marginTop:16,display:'flex',gap:10}}>
+            <button className="btn btn-primary" onClick={generatePlan} disabled={generating||enrichScore<3} style={{flex:1}}>
+              {generating?<><div className="spin"/>Generating Territory Plan...</>:'✦ Generate Territory Plan →'}
+            </button>
+          </div>
+          {enrichScore<3&&<div style={{fontSize:11,color:'var(--text3)',marginTop:6,textAlign:'center'}}>Enrich at least 3 accounts before generating the territory plan</div>}
+        </div>
+      )}
+
+      {tab===2&&(
+        <div>
+          {plan?(
+            <>
+              <div className="callout callout-cyan" style={{marginBottom:16}}>
+                ✦ AI-generated territory plan based on Salesforce data, seller judgment inputs, and account enrichment research. All content is grounded in Cyera's selling motion, MEDDPICC qualification framework, and Force Management principles.
+              </div>
+              <div className="gen-block">
+                <div className="gen-title">Complete Territory Plan — {ae.name}</div>
+                <div className="gen-text">{plan}</div>
+              </div>
+            </>
+          ):(
+            <div className="empty">
+              <div className="empty-icon">✦</div>
+              <div className="empty-title">Territory Plan Not Yet Generated</div>
+              <div style={{fontSize:12,color:'var(--text3)',marginBottom:16}}>Complete the intake form and enrich accounts, then generate the plan.</div>
+              <button className="btn btn-cyan" onClick={()=>setTab(1)}>Go to Enrichment →</button>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── ACCOUNT PLAN BUILDER ─────────────────────────────────────────────────────
+function AccountPlan({ae,apiKey}){
+  const [selAcc,setSelAcc]=useState(null);
+  const [tab,setTab]=useState(0);
+  const [intake,setIntake]=useState({contacts:'',painHyp:'',relContext:'',evalCriteria:'',secondaryTrigger:'',execSponsor:'',compContext:''});
+  const [meddpicc,setMeddpicc]=useState(Object.fromEntries(MEDD_FIELDS.map(f=>[f.key,''])));
+  const [generated,setGenerated]=useState({});
+  const [generating,setGenerating]=useState('');
+
+  const tier1Accs=ae.accounts.slice(0,5);
+
+  async function generateSection(section){
+    if(!selAcc) return;
+    setGenerating(section);
+    const meddCtx=MEDD_FIELDS.map(f=>`${f.key} — ${f.label}: ${meddpicc[f.key]||'Not yet qualified'}`).join('\n');
+    const prompts={
+      overview:`Generate an Account Plan executive overview and outreach narrative for a Cyera Majors seller.\n\nACCOUNT: ${selAcc.name}\nINDUSTRY: ${selAcc.industry}\nREVENUE: ${selAcc.revenue}\nPRIMARY TRIGGER: ${selAcc.trigger}\nKNOWN CONTACTS: ${intake.contacts||'None identified'}\nPAIN HYPOTHESIS: ${intake.painHyp||'Not yet defined'}\nRELATIONSHIP CONTEXT: ${intake.relContext||'None'}\nSECONDARY TRIGGERS: ${intake.secondaryTrigger||'None'}\nEXEC SPONSOR: ${intake.execSponsor||'None assigned'}\n\nMEDDPICC CURRENT STATE:\n${meddCtx}\n\nGenerate:\n1. EXECUTIVE SUMMARY (3 sentences — why this account, why now, what is the specific data security or AI risk creating urgency)\n2. POINT OF VIEW / OUTREACH NARRATIVE (4-5 sentences that could be used as-is in an email to the Economic Buyer — references their specific business priority, positions conversation without leading with product, offers a perspective that earns a response)\n3. DEAL SNAPSHOT (current stage assessment, key open MEDDPICC elements, recommended next action)\n\nWrite in the voice of an experienced enterprise seller. Specific to this account — not generic Cyera positioning.`,
+      stakeholders:`Generate a stakeholder map and power map analysis for a Cyera account plan.\n\nACCOUNT: ${selAcc.name} | ${selAcc.industry} | ${selAcc.revenue}\nTRIGGER: ${selAcc.trigger}\nCHAMPION CONTEXT: ${intake.contacts||'Not identified'}\nMEDDPICC — Economic Buyer: ${meddpicc['E']||'Not confirmed'}\nMEDDPICC — Champion: ${meddpicc['C1']||'Not identified'}\nMEDDPICC — Competition: ${meddpicc['C2']||'Not mapped'}\n\nGenerate:\n1. STAKEHOLDER INVENTORY (6-8 roles likely involved in a Cyera DSPM decision at this account — CISO, CIO, CDO, Chief Privacy Officer, VP Cloud Security, Head of Data Governance, etc. — with likely stance and suggested relationship approach)\n2. ECONOMIC BUYER ANALYSIS (who controls budget for a platform of this size, what they care about, how to get access)\n3. CHAMPION PROFILE (ideal champion profile for this account type, what good champion evidence looks like, how to develop one if not yet identified)\n4. KNOWN BLOCKERS (Microsoft Purview incumbent risk, do-nothing bias, budget constraints — with specific mitigation strategies for this account)\n5. STAKEHOLDERS TO REACH (3 gaps in coverage with specific access paths)`,
+      businesscase:`Generate an account-specific business case for Cyera at ${selAcc.name}.\n\nACCOUNT: ${selAcc.name} | ${selAcc.industry} | ${selAcc.revenue}\nPRIMARY TRIGGER: ${selAcc.trigger}\nSECONDARY TRIGGER: ${intake.secondaryTrigger||'None'}\nPAIN HYPOTHESIS: ${intake.painHyp||'Not yet surfaced'}\nMEDDPICC — Metrics: ${meddpicc['M']||'Not yet defined'}\nMEDDPICC — Implicate Pain: ${meddpicc['I']||'Not yet surfaced'}\nEVAL CRITERIA: ${intake.evalCriteria||'Not yet known'}\n\nGenerate:\n1. CURRENT STATE (3-4 sentences — the specific data security problem this account has today, written in their language about their environment)\n2. BUSINESS IMPACT (quantified cost of inaction — compliance penalty exposure specific to their industry, cost of manual classification workflows, AI deployment risk, breach exposure from overexposed sensitive data)\n3. FUTURE STATE (measurable outcomes Cyera delivers for this account — framed in their KPIs, tied to a business initiative already on their agenda)\n4. CYERA DIFFERENTIATION (why Cyera is uniquely positioned for this account versus Varonis, BigID, Purview, or status quo — specific to their environment and situation)\n5. ROI FRAMEWORK (time-to-answer reduction, onboarding ramp, compliance automation, AI readiness — with specific estimates for this account type and industry)`,
+      pursuit:`Generate a pursuit strategy and sequenced access plan for Cyera at ${selAcc.name}.\n\nACCOUNT: ${selAcc.name} | ${selAcc.industry} | ${selAcc.revenue}\nTRIGGER: ${selAcc.trigger}\nACCESS TYPE: ${selAcc.access}\nKNOWN CONTACTS: ${intake.contacts||'None'}\nEXEC SPONSOR: ${intake.execSponsor||'None assigned'}\nPARTNER / COMPETITIVE CONTEXT: ${intake.compContext||'None'}\nMEDDPICC — Decision Process: ${meddpicc['D2']||'Not yet mapped'}\nMEDDPICC — Competition: ${meddpicc['C2']||'Not mapped'}\n\nGenerate:\n1. TARGET EXECUTIVE AND ACCESS STRATEGY (who is the Economic Buyer target, what is their stated business priority, what is the warm path vs cold outreach plan)\n2. SEQUENCED ACCESS PLAN (8 specific steps from first outreach to Economic Buyer meeting — with stakeholder, action, and estimated timeline for each)\n3. COMPETITIVE STRATEGY (specific differentiation vs the most likely competitors in this account with evaluation criteria to set in Cyera's favor)\n4. EXECUTIVE SPONSORSHIP PLAN (how to engage Cyera executive sponsor, briefing content, goal of their engagement)\n5. PARTNER LEVERAGE (which partner type is most relevant for this account and how to activate them for access or co-sell)`,
+    };
+    try{
+      const txt=await callClaude(apiKey, prompts[section]);
+      setGenerated(p=>({...p,[selAcc.name+'_'+section]:txt}));
+    } catch(e){ alert('Error: '+e.message); }
+    setGenerating('');
+  }
+
+  const tabs_ap=['Intake','Overview','Stakeholders','Business Case','Pursuit','MEDDPICC','Close Plan'];
+
+  return(
+    <div className="content">
+      <div style={{marginBottom:16}}>
+        <div style={{fontSize:11,color:'var(--text3)',textTransform:'uppercase',letterSpacing:'.1em',marginBottom:4}}>Account Plan Builder · Tier 1 Accounts</div>
+        <div style={{fontSize:18,fontWeight:700}}>{ae.name}</div>
+      </div>
+      <div style={{display:'flex',gap:8,marginBottom:20,flexWrap:'wrap'}}>
+        {tier1Accs.map(acc=>(
+          <button key={acc.name} className={'btn '+(selAcc?.name===acc.name?'btn-cyan':'btn-ghost')} onClick={()=>{setSelAcc(acc);setTab(0);}}>
+            {acc.name}
+          </button>
+        ))}
+      </div>
+      {!selAcc?(
+        <div className="empty">
+          <div className="empty-icon">🏢</div>
+          <div className="empty-title">Select a Tier 1 Account</div>
+          <div style={{fontSize:12,color:'var(--text3)'}}>Choose one of the five Tier 1 accounts above to build a full account plan</div>
+        </div>
+      ):(
+        <>
+          <div className="card-sm" style={{marginBottom:16,borderColor:'#00C2CB20',background:'#00C2CB05'}}>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start'}}>
+              <div>
+                <div style={{fontSize:16,fontWeight:700}}>{selAcc.name}</div>
+                <div style={{fontSize:12,color:'var(--text3)'}}>{selAcc.industry} · {selAcc.revenue} revenue · Access: {selAcc.access}</div>
+              </div>
+              <span className="tag tag-cyan">Tier 1</span>
+            </div>
+            <div style={{marginTop:8,fontSize:12,color:'var(--amber)',background:'var(--amber-bg)',border:'1px solid #F59E0B30',borderRadius:6,padding:'6px 10px'}}>
+              <strong>Primary Trigger:</strong> {selAcc.trigger}
+            </div>
+          </div>
+          <div className="tabs">
+            {tabs_ap.map((t,i)=>(
+              <div key={i} className={'tab'+(tab===i?' active':'')} onClick={()=>setTab(i)}>{t}</div>
+            ))}
+          </div>
+
+          {tab===0&&(
+            <div>
+              <div className="card" style={{marginBottom:14}}>
+                <div className="card-title" style={{marginBottom:12}}>⚡ Salesforce — Pre-populated</div>
+                <div className="grid-3">
+                  {[['Account','Tier 1 — Active Pursuit'],['Stage','Discovery / Targeting'],['Assigned SE','Pending'],['Exec Sponsor','Pending assignment'],['Fiscal Year End','December 2026'],['Next Review Date','MM/DD/YYYY']].map(([k,v])=>(
+                    <div key={k} className="card-sm" style={{borderColor:'#00A1E030'}}>
+                      <div style={{fontSize:11,color:'var(--sf)'}}>⚡ {k}</div>
+                      <div style={{fontSize:13,fontWeight:600,marginTop:2}}>{v}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="card">
+                <div className="card-title" style={{marginBottom:12}}>✏️ Seller Enters — Judgment Only</div>
+                <div className="form-row">
+                  <div className="form-group">
+                    <label>Known Contacts and Relationship Context</label>
+                    <textarea placeholder={`Names, titles, and relationship context for any contacts at ${selAcc.name}. How did you meet them? What is the depth of the relationship? Have they done anything to advance Cyera's position?`} rows={3} value={intake.contacts} onChange={e=>setIntake(p=>({...p,contacts:e.target.value}))}/>
+                  </div>
+                </div>
+                <div className="form-row cols-2">
+                  <div className="form-group">
+                    <label>Pain Hypothesis — What Specific Problem Do They Have?</label>
+                    <textarea placeholder={`Specific to ${selAcc.name}: what is the data security or AI governance gap you believe exists? Connect it to the trigger.`} rows={3} value={intake.painHyp} onChange={e=>setIntake(p=>({...p,painHyp:e.target.value}))}/>
+                  </div>
+                  <div className="form-group">
+                    <label>Secondary Triggers (if known)</label>
+                    <textarea placeholder="Additional business events supporting urgency — new exec hire, competitor breach, upcoming audit, board AI mandate." rows={3} value={intake.secondaryTrigger} onChange={e=>setIntake(p=>({...p,secondaryTrigger:e.target.value}))}/>
+                  </div>
+                </div>
+                <div className="form-row cols-2">
+                  <div className="form-group">
+                    <label>Evaluation Criteria (if known or hypothesized)</label>
+                    <textarea placeholder="What factors will this account use to select a DSPM platform? What criteria can you influence through your Champion?" rows={2} value={intake.evalCriteria} onChange={e=>setIntake(p=>({...p,evalCriteria:e.target.value}))}/>
+                  </div>
+                  <div className="form-group">
+                    <label>Competitive and Partner Context</label>
+                    <textarea placeholder={`Known or suspected competitors in ${selAcc.name}. Any partner contacts who have relationships inside this account?`} rows={2} value={intake.compContext} onChange={e=>setIntake(p=>({...p,compContext:e.target.value}))}/>
+                  </div>
+                </div>
+                <div className="form-row cols-2">
+                  <div className="form-group">
+                    <label>Relationship Context and Access Path</label>
+                    <textarea placeholder="How are you getting in? Warm intro, partner, Cyera exec, cold outbound? What is the sequenced plan?" rows={2} value={intake.relContext} onChange={e=>setIntake(p=>({...p,relContext:e.target.value}))}/>
+                  </div>
+                  <div className="form-group">
+                    <label>Internal Exec Sponsor (Cyera)</label>
+                    <textarea placeholder="Name and title of Cyera executive sponsor if assigned. What is the plan for their engagement?" rows={2} value={intake.execSponsor} onChange={e=>setIntake(p=>({...p,execSponsor:e.target.value}))}/>
+                  </div>
+                </div>
+                <button className="btn btn-primary" onClick={()=>setTab(1)} style={{marginTop:8}}>Save and Build Plan →</button>
+              </div>
+            </div>
+          )}
+
+          {tab===1&&(
+            <div>
+              {generated[selAcc.name+'_overview']?(
+                <div className="gen-block"><div className="gen-title">Executive Overview + Point of View — {selAcc.name}</div><div className="gen-text">{generated[selAcc.name+'_overview']}</div></div>
+              ):(
+                <div className="empty">
+                  <div className="empty-icon">✦</div>
+                  <div className="empty-title">Generate Executive Overview</div>
+                  <div style={{fontSize:12,color:'var(--text3)',marginBottom:16}}>AI generates the executive summary, Point of View, and outreach narrative grounded in {selAcc.name}'s specific business context and trigger.</div>
+                  <button className="btn btn-cyan" onClick={()=>generateSection('overview')} disabled={generating==='overview'}>
+                    {generating==='overview'?<><div className="spin"/>Generating...</>:'✦ Generate Overview + Point of View'}
+                  </button>
+                </div>
+              )}
+              {generated[selAcc.name+'_overview']&&(
+                <button className="btn btn-ghost btn-sm" onClick={()=>generateSection('overview')} disabled={!!generating} style={{marginTop:8}}>↺ Regenerate</button>
+              )}
+            </div>
+          )}
+
+          {tab===2&&(
+            <div>
+              {generated[selAcc.name+'_stakeholders']?(
+                <div className="gen-block"><div className="gen-title">Stakeholder Map + Power Map — {selAcc.name}</div><div className="gen-text">{generated[selAcc.name+'_stakeholders']}</div></div>
+              ):(
+                <div className="empty">
+                  <div className="empty-icon">👥</div>
+                  <div className="empty-title">Generate Stakeholder Map</div>
+                  <div style={{fontSize:12,color:'var(--text3)',marginBottom:16}}>AI generates the full stakeholder inventory, Economic Buyer analysis, Champion profile, and coverage gaps for {selAcc.name}.</div>
+                  <button className="btn btn-cyan" onClick={()=>generateSection('stakeholders')} disabled={generating==='stakeholders'}>
+                    {generating==='stakeholders'?<><div className="spin"/>Generating...</>:'✦ Generate Stakeholder Map'}
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
+          {tab===3&&(
+            <div>
+              {generated[selAcc.name+'_businesscase']?(
+                <div className="gen-block"><div className="gen-title">Business Case — {selAcc.name}</div><div className="gen-text">{generated[selAcc.name+'_businesscase']}</div></div>
+              ):(
+                <div className="empty">
+                  <div className="empty-icon">💼</div>
+                  <div className="empty-title">Generate Business Case</div>
+                  <div style={{fontSize:12,color:'var(--text3)',marginBottom:16}}>AI generates current state, business impact, future state, and Cyera differentiation — account-specific, in {selAcc.name}'s language.</div>
+                  <button className="btn btn-cyan" onClick={()=>generateSection('businesscase')} disabled={generating==='businesscase'}>
+                    {generating==='businesscase'?<><div className="spin"/>Generating...</>:'✦ Generate Business Case'}
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
+          {tab===4&&(
+            <div>
+              {generated[selAcc.name+'_pursuit']?(
+                <div className="gen-block"><div className="gen-title">Pursuit Strategy + Access Plan — {selAcc.name}</div><div className="gen-text">{generated[selAcc.name+'_pursuit']}</div></div>
+              ):(
+                <div className="empty">
+                  <div className="empty-icon">🎯</div>
+                  <div className="empty-title">Generate Pursuit Strategy</div>
+                  <div style={{fontSize:12,color:'var(--text3)',marginBottom:16}}>AI generates the sequenced access plan, competitive strategy, exec sponsorship plan, and partner leverage strategy for {selAcc.name}.</div>
+                  <button className="btn btn-cyan" onClick={()=>generateSection('pursuit')} disabled={generating==='pursuit'}>
+                    {generating==='pursuit'?<><div className="spin"/>Generating...</>:'✦ Generate Pursuit Strategy'}
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
+          {tab===5&&(
+            <div>
+              <div className="callout callout-blue" style={{marginBottom:16}}>
+                <strong>✏️ MEDDPICC Qualification Record</strong> — Complete each element as intelligence is gathered. Gaps are not failures — they are the coaching agenda. Every blank field is a named next action for the next customer conversation.
+              </div>
+              {MEDD_FIELDS.map(f=>(
+                <div key={f.key} className="card-sm" style={{marginBottom:10}}>
+                  <div style={{display:'flex',gap:12,alignItems:'flex-start'}}>
+                    <div style={{width:40,height:40,borderRadius:8,background:'var(--blue)15',border:'1px solid var(--blue)30',display:'flex',alignItems:'center',justifyContent:'center',fontFamily:'var(--mono)',fontSize:14,fontWeight:700,color:'var(--blue)',flexShrink:0}}>{f.key.replace('1','').replace('2','')}</div>
+                    <div style={{flex:1}}>
+                      <div style={{fontWeight:600,fontSize:13,marginBottom:2}}>{f.label}</div>
+                      <div style={{fontSize:11,color:'var(--text3)',marginBottom:8,fontStyle:'italic'}}>{f.q}</div>
+                      <textarea placeholder={`Document current qualification status for ${f.label}. What do you know? What is the gap? What is the next action to advance this element?`} rows={2} value={meddpicc[f.key]} onChange={e=>setMeddpicc(p=>({...p,[f.key]:e.target.value}))}/>
+                      <div style={{display:'flex',gap:6,marginTop:6}}>
+                        {['Confirmed','Partial','Unknown'].map(s=>(
+                          <button key={s} className="btn btn-ghost btn-sm" style={{fontSize:10,padding:'2px 8px',color:meddpicc[f.key]?'var(--cyan)':'var(--text3)'}} onClick={()=>setMeddpicc(p=>({...p,[f.key]:(p[f.key]?p[f.key]+' ['+s+']':s)}))}>
+                            {s}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <div className="medd-grid">
+                {MEDD_FIELDS.map(f=>{
+                  const val=meddpicc[f.key];
+                  const color=val&&val.length>10?'var(--green)':val?'var(--amber)':'var(--red)';
+                  return(
+                    <div key={f.key} className="medd-item">
+                      <div className="medd-letter" style={{color}}>{f.key.replace('1','').replace('2','')}</div>
+                      <div className="medd-label">{f.label}</div>
+                      <div className="medd-status" style={{background:color+'20',color}}>{val&&val.length>10?'Qualified':val?'Partial':'Open'}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {tab===6&&(
+            <div>
+              <div className="callout callout-amber" style={{marginBottom:16}}>
+                <strong>Force Management Standard:</strong> Every milestone must be buyer-confirmed with a specific date. A milestone the buyer has not committed to is a seller assumption — not a pipeline milestone.
+              </div>
+              <table className="tbl">
+                <thead><tr><th>Milestone</th><th>Description and Exit Criteria</th><th>Owner</th><th>Target Date</th><th>Buyer Confirmed?</th><th>Status</th></tr></thead>
+                <tbody>
+                  {[
+                    ['Economic Buyer First Meeting','Direct conversation with confirmed EB — not a practitioner meeting with exec appearance','AE + Exec Sponsor'],
+                    ['Discovery Complete','All 8 MEDDPICC elements have partial+ data. Pain is Explicit from Economic Buyer.','AE + Champion'],
+                    ['POC Initiated','POC scope agreed in writing. Success criteria defined before POC begins.','AE + SE'],
+                    ['POC Completed','Results reviewed with Technical Buyer. Summary prepared for Economic Buyer.','AE + SE + Champion'],
+                    ['Eval Criteria Finalized','Decision criteria confirmed with Champion. Cyera position on each is favorable.','AE + Champion'],
+                    ['Business Case Presented to EB','Formal value framework and proposal to Economic Buyer — not Champion proxy.','AE + RD + Exec Sponsor'],
+                    ['Verbal Commitment','EB confirmed intent. Legal and Procurement formally initiated.','AE'],
+                    ['Contract Executed','Signed contract received. CSM intro scheduled.','AE + Legal'],
+                  ].map(([m,d,o])=>(
+                    <tr key={m}>
+                      <td style={{fontWeight:600,fontSize:12}}>{m}</td>
+                      <td style={{fontSize:11,color:'var(--text3)'}}>{d}</td>
+                      <td style={{fontSize:11}}>{o}</td>
+                      <td><input type="text" placeholder="MM/DD" style={{width:80,padding:'4px 8px',fontSize:11}}/></td>
+                      <td>
+                        <select style={{width:90,padding:'4px 8px',fontSize:11}}>
+                          <option>Pending</option><option>Yes</option><option>No</option>
+                        </select>
+                      </td>
+                      <td>
+                        <select style={{width:110,padding:'4px 8px',fontSize:11}}>
+                          <option>Not Started</option><option>In Progress</option><option>Complete</option><option>At Risk</option>
+                        </select>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
+// ── MANAGER REVIEW ───────────────────────────────────────────────────────────
+function ManagerReview({aes,apiKey,onUpdateStatus}){
+  const [selAE,setSelAE]=useState(aes[0]);
+  const [decision,setDecision]=useState({});
+  const [coaching,setCoaching]=useState({});
+  const [genCoaching,setGenCoaching]=useState('');
+  const [generating,setGenerating]=useState(false);
+
+  async function generateCoachingBrief(ae){
+    setGenerating(true);
+    try{
+      const txt=await callClaude(apiKey,
+        `Generate a MEDDPICC-based coaching brief for a Regional Director reviewing a Cyera Majors territory plan.\n\nSELLER: ${ae.name}\nQUOTA: ${fmtM(ae.quota)}\nPIPELINE: ${fmtM(ae.pipeline)} (${coverageX(ae)} vs 3.5x target)\nWIN RATE: ${(ae.win_rate*100).toFixed(0)}%\nFORECAST COMMIT: ${fmtM(ae.forecast_commit)}\nYTD CLOSED: ${fmtM(ae.ytd_closed)}\nPLAN SCORE: ${ae.plan_score}/100\nPLAN STATUS: ${ae.plan_status}\nACCOUNTS: ${ae.accounts.map(a=>a.name+' ('+a.access+')').join(', ')}\n\nGenerate:\n1. PIPELINE HEALTH ASSESSMENT (2-3 sentences on coverage gap, forecast confidence, and pipeline quality signal based on win rate)\n2. MEDDPICC COACHING PRIORITIES (top 3 elements most likely to be weak based on this seller's pipeline situation — be specific)\n3. TOP 3 COACHING OBSERVATIONS (specific, actionable observations for the 1:1 — not generic sales coaching)\n4. RECOMMENDED COACHING AGENDA (5 specific questions to ask this seller in the next 30-minute coaching session)\n5. RISKS TO WATCH (2 deal-level or territory-level risks the RD should monitor)\n\nUse Force Management language. Be specific to this seller's numbers and account set — not generic.`,
+        'You are a senior enterprise sales leader coaching a Majors Regional Director. Provide rigorous, MEDDPICC-grounded coaching that is specific to the seller\'s numbers and accounts. Force Management principles throughout.'
+      );
+      setGenCoaching(txt);
+    } catch(e){ alert('Error: '+e.message); }
+    setGenerating(false);
+  }
+
+  const CRITERIA=[
+    ['Pipeline Coverage Math','3.5x minimum. Assumptions documented and grounded in actuals or team benchmarks.'],
+    ['Tiering Rationale','Every Tier 1 account has a named trigger and a specific Economic Buyer access path.'],
+    ['MEDDPICC Qualification Depth','Every Tier 1 account has a MEDDPICC tracker with honest gap assessment and named next actions.'],
+    ['Value Wedge Clarity','Seller can articulate before-and-after business outcome for each Tier 1 account in the customer\'s language.'],
+    ['Economic Buyer Access Plan','Each Tier 1 account has a named EB target and a specific, sequenced path to engagement.'],
+    ['Champion Assessment','Where a Champion exists, seller can articulate what they have specifically done — not just that they are friendly.'],
+    ['Competitive Clarity','Competitive landscape documented for each Tier 1. "No known competition" in a Majors account is a coaching flag.'],
+    ['Partner Ecosystem Leverage','Named partners with named contacts and specific planned engagements.'],
+    ['30/60/90 Milestone Quality','Account-named, dated, owned, buyer-confirmed next steps where applicable.'],
+    ['Pipeline Generation Specificity','Pipeline sources named, conversion assumptions documented, path to 3.5x credible.'],
+  ];
+
+  return(
+    <div className="content">
+      <div style={{marginBottom:16}}>
+        <div style={{fontSize:11,color:'var(--text3)',textTransform:'uppercase',letterSpacing:'.1em',marginBottom:4}}>Manager Review · MEDDPICC Standard</div>
+        <div style={{fontSize:18,fontWeight:700}}>Territory Plan Review</div>
+      </div>
+      <div style={{display:'flex',gap:8,marginBottom:20}}>
+        {aes.map(ae=>(
+          <button key={ae.id} className={'btn '+(selAE.id===ae.id?'btn-primary':'btn-ghost')} onClick={()=>{setSelAE(ae);setGenCoaching('');}}>
+            {ae.name}
+            <span className="tag" style={{marginLeft:4,fontSize:10,background:scoreColor(ae.plan_score)+'20',color:scoreColor(ae.plan_score),border:'1px solid '+scoreColor(ae.plan_score)+'40'}}>{ae.plan_score}</span>
+          </button>
+        ))}
+      </div>
+      <div className="grid-4" style={{marginBottom:16}}>
+        {[
+          {label:'Quota',val:fmtM(selAE.quota),color:'var(--text)'},
+          {label:'Pipeline',val:fmtM(selAE.pipeline),color:coverageColor(selAE)},
+          {label:'Coverage',val:coverageX(selAE),color:coverageColor(selAE)},
+          {label:'Plan Score',val:selAE.plan_score+'%',color:scoreColor(selAE.plan_score)},
+        ].map(s=>(
+          <div key={s.label} className="card-sm">
+            <div className="stat-label">{s.label}</div>
+            <div className="stat-val" style={{fontSize:18,color:s.color}}>{s.val}</div>
+          </div>
+        ))}
+      </div>
+      <div className="card" style={{marginBottom:14}}>
+        <div className="card-header">
+          <div className="card-title">MEDDPICC Review Criteria</div>
+          <div style={{display:'flex',gap:8}}>
+            <button className="btn btn-secondary btn-sm" onClick={()=>onUpdateStatus(selAE.id,'needs_revision')}>Request Revision</button>
+            <button className="btn btn-cyan btn-sm" onClick={()=>onUpdateStatus(selAE.id,'approved')}>Approve Plan ✓</button>
+          </div>
+        </div>
+        <table className="tbl">
+          <thead><tr><th>Review Criterion</th><th>Standard</th><th>Assessment</th><th>Coaching Notes</th></tr></thead>
+          <tbody>
+            {CRITERIA.map(([crit,std])=>(
+              <tr key={crit}>
+                <td style={{fontWeight:600,fontSize:12,maxWidth:180}}>{crit}</td>
+                <td style={{fontSize:11,color:'var(--text3)',maxWidth:220}}>{std}</td>
+                <td>
+                  <select value={decision[crit]||''} onChange={e=>setDecision(p=>({...p,[crit]:e.target.value}))} style={{width:150,padding:'4px 8px',fontSize:11}}>
+                    <option value=''>Select...</option>
+                    <option>Strong</option><option>Acceptable</option><option>Needs Revision</option>
+                  </select>
+                </td>
+                <td><textarea placeholder="Specific coaching note..." rows={1} style={{minHeight:32,fontSize:11}} value={coaching[crit]||''} onChange={e=>setCoaching(p=>({...p,[crit]:e.target.value}))}/></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="card">
+        <div className="card-header">
+          <div><div className="card-title">✦ AI Coaching Brief — {selAE.name}</div><div className="card-sub">MEDDPICC-grounded coaching agenda for next 1:1</div></div>
+          <button className="btn btn-cyan btn-sm" onClick={()=>generateCoachingBrief(selAE)} disabled={generating}>
+            {generating?<><div className="spin"/>Generating...</>:'✦ Generate Coaching Brief'}
+          </button>
+        </div>
+        {genCoaching?(
+          <div className="gen-block" style={{marginBottom:0}}>
+            <div className="gen-text">{genCoaching}</div>
+          </div>
+        ):(
+          <div className="empty" style={{padding:24}}>
+            <div style={{fontSize:12,color:'var(--text3)'}}>Generate a MEDDPICC-based coaching brief with pipeline assessment, coaching priorities, and a 1:1 agenda for {selAE.name}.</div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── WEEKLY COACHING DASHBOARD ────────────────────────────────────────────────
+function WeeklyCoaching({aes,apiKey}){
+  const [selAE,setSelAE]=useState(null);
+  const [agenda,setAgenda]=useState('');
+  const [generating,setGenerating]=useState(false);
+
+  async function generateAgenda(ae){
+    setGenerating(true);
+    try{
+      const txt=await callClaude(apiKey,
+        `Generate a weekly 1:1 coaching agenda for a Cyera Majors Regional Director meeting with their seller.\n\nSELLER: ${ae.name}\nQUOTA: ${fmtM(ae.quota)}\nPIPELINE: ${fmtM(ae.pipeline)} (${coverageX(ae)} coverage)\nFORECAST COMMIT: ${fmtM(ae.forecast_commit)}\nYTD CLOSED: ${fmtM(ae.ytd_closed)}\nOPEN OPPS: ${ae.open_opps}\nWIN RATE: ${(ae.win_rate*100).toFixed(0)}%\nPLAN STATUS: ${ae.plan_status}\nPLAN SCORE: ${ae.plan_score}\nTIER 1 ACCOUNTS: ${ae.accounts.slice(0,5).map(a=>a.name).join(', ')}\nKEY TRIGGERS ACROSS TERRITORY: ${ae.accounts.slice(0,3).map(a=>a.name+': '+a.trigger.split(';')[0]).join(' | ')}\n\nGenerate a 30-minute 1:1 coaching agenda covering:\n1. PIPELINE SNAPSHOT (30 seconds — one headline observation about coverage and forecast)\n2. DEAL SPOTLIGHT (pick the highest-risk or highest-value Tier 1 account — 3 specific MEDDPICC questions to ask)\n3. MEDDPICC COACHING MOMENT (the single MEDDPICC element most likely to be weak for this seller right now — and the coaching approach)\n4. ACTIVITY AND NEXT STEPS REVIEW (2-3 things the seller committed to last week — and how to confirm they were completed)\n5. THIS WEEK'S FOCUS (one specific action the seller should take this week that will have the highest impact on pipeline or deal progression)\n6. RD COMMITMENT (one thing the RD will do this week to support this seller)\n\nWrite as a practical, time-bound coaching agenda. Specific to this seller's numbers and accounts.`
+      );
+      setAgenda(txt);
+    } catch(e){ alert('Error: '+e.message); }
+    setGenerating(false);
+  }
+
+  const coverage=(ae)=>ae.pipeline/(ae.quota*3.5);
+  const heatColor=(ae)=>{
+    const c=coverage(ae);
+    return c>=1?'var(--green)':c>=0.7?'var(--amber)':'var(--red)';
+  };
+
+  return(
+    <div className="content">
+      <div style={{marginBottom:20}}>
+        <div style={{fontSize:11,color:'var(--text3)',textTransform:'uppercase',letterSpacing:'.1em',marginBottom:4}}>Weekly Coaching Dashboard</div>
+        <div style={{fontSize:18,fontWeight:700}}>Regional Director · Majors Team</div>
+      </div>
+      <div className="grid-3" style={{marginBottom:20}}>
+        {aes.map(ae=>(
+          <div key={ae.id} className="coaching-card" style={{cursor:'pointer',border:'1px solid '+(selAE?.id===ae.id?'var(--cyan)':'var(--border)')}} onClick={()=>{setSelAE(ae);setAgenda('');}}>
+            <div className="coaching-header">
+              <div>
+                <div style={{fontWeight:700,fontSize:14}}>{ae.name}</div>
+                <div style={{fontSize:11,color:'var(--text3)',marginTop:2}}>{ae.plan_status==='approved'?'Plan Approved':ae.plan_status==='needs_revision'?'Plan Needs Revision':'Plan Draft'}</div>
+              </div>
+              <div className="heat-dot" style={{background:heatColor(ae),width:14,height:14,boxShadow:'0 0 8px '+heatColor(ae)+'60'}}/>
+            </div>
+            <div style={{padding:'12px 16px'}}>
+              <div className="grid-2" style={{gap:8,marginBottom:10}}>
+                {[['Pipeline',fmtM(ae.pipeline)],[`Coverage`,coverageX(ae)],['Commit',fmtM(ae.forecast_commit)],['YTD',fmtM(ae.ytd_closed)]].map(([k,v])=>(
+                  <div key={k}>
+                    <div style={{fontSize:10,color:'var(--text3)'}}>{k}</div>
+                    <div style={{fontFamily:'var(--mono)',fontSize:13,fontWeight:500}}>{v}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="progress-bar">
+                <div className="progress-fill" style={{width:Math.min(100,coverage(ae)*100)+'%',background:heatColor(ae)}}/>
+              </div>
+              <div style={{fontSize:11,color:'var(--text3)',marginTop:4}}>vs 3.5x target · Score: {ae.plan_score}/100</div>
+              {ae.plan_score<60&&<div className="callout callout-red" style={{marginTop:8,marginBottom:0,padding:'6px 10px'}}>⚠ Plan below minimum standard — coaching intervention needed</div>}
+              {coverage(ae)<0.7&&<div className="callout callout-red" style={{marginTop:8,marginBottom:0,padding:'6px 10px'}}>⚠ Pipeline below 70% of 3.5x target — pipeline generation focus required</div>}
+            </div>
+          </div>
+        ))}
+      </div>
+      {selAE&&(
+        <div className="card">
+          <div className="card-header">
+            <div><div className="card-title">✦ AI Coaching Agenda — {selAE.name}</div><div className="card-sub">30-minute 1:1 · MEDDPICC-grounded · Force Management standard</div></div>
+            <button className="btn btn-cyan" onClick={()=>generateAgenda(selAE)} disabled={generating}>
+              {generating?<><div className="spin"/>Building Agenda...</>:'✦ Generate Coaching Agenda'}
+            </button>
+          </div>
+          {agenda?(
+            <div className="gen-block" style={{marginBottom:0}}><div className="gen-text">{agenda}</div></div>
+          ):(
+            <div className="empty" style={{padding:24}}>
+              <div style={{fontSize:12,color:'var(--text3)'}}>Generate a 30-minute 1:1 agenda for {selAE.name} — MEDDPICC coaching questions, deal spotlight, pipeline snapshot, and weekly commitments.</div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── EXECUTIVE SUMMARY ────────────────────────────────────────────────────────
+function ExecSummary({aes,apiKey}){
+  const [summary,setSummary]=useState('');
+  const [generating,setGenerating]=useState(false);
+
+  async function generateSummary(){
+    setGenerating(true);
+    try{
+      const aeCtx=aes.map(ae=>`${ae.name}: Quota ${fmtM(ae.quota)}, Pipeline ${fmtM(ae.pipeline)} (${coverageX(ae)}), Commit ${fmtM(ae.forecast_commit)}, YTD ${fmtM(ae.ytd_closed)}, Win Rate ${(ae.win_rate*100).toFixed(0)}%, Plan Score ${ae.plan_score}, Plan Status: ${ae.plan_status}, Top Tier 1: ${ae.accounts.slice(0,3).map(a=>a.name).join(', ')}`).join('\n');
+      const total_pipeline=aes.reduce((s,a)=>s+a.pipeline,0);
+      const total_quota=aes.reduce((s,a)=>s+a.quota,0);
+      const total_commit=aes.reduce((s,a)=>s+a.forecast_commit,0);
+      const txt=await callClaude(apiKey,
+        `Generate a CRO-ready executive summary for a Cyera Majors regional team.\n\nTEAM METRICS:\n- Total Quota: ${fmtM(total_quota)}\n- Total Pipeline: ${fmtM(total_pipeline)} (${(total_pipeline/(total_quota*3.5)).toFixed(2)}x vs 3.5x target)\n- Total Forecast Commit: ${fmtM(total_commit)}\n- Coverage Status: ${total_pipeline/(total_quota*3.5)>=1?'At Target':'Below Target'}\n\nSELLER BREAKDOWN:\n${aeCtx}\n\nGenerate:\n1. EXECUTIVE HEADLINE (one sentence capturing the state of the Majors region)\n2. PIPELINE HEALTH ASSESSMENT (3-4 sentences — overall coverage, quality of pipeline by seller, biggest risk and biggest opportunity)\n3. FORECAST COMMENTARY (commit confidence, best case probability, what could move the number up or down)\n4. TOP OPPORTUNITIES (3 highest-probability deals with deal size estimate and current status)\n5. RISKS REQUIRING LEADERSHIP ATTENTION (2-3 risks that need VP or CRO-level action)\n6. RECOMMENDED EXECUTIVE ACTIONS (2-3 specific actions leadership should take this quarter to accelerate the region)\n7. FORWARD OUTLOOK (what the region needs to close the quarter and what momentum looks like)\n\nWrite in executive register — crisp, specific, no generic language.`
+      );
+      setSummary(txt);
+    } catch(e){ alert('Error: '+e.message); }
+    setGenerating(false);
+  }
+
+  const total_pipeline=aes.reduce((s,a)=>s+a.pipeline,0);
+  const total_quota=aes.reduce((s,a)=>s+a.quota,0);
+  const total_commit=aes.reduce((s,a)=>s+a.forecast_commit,0);
+  const total_ytd=aes.reduce((s,a)=>s+a.ytd_closed,0);
+  const coverage=total_pipeline/(total_quota*3.5);
+
+  return(
+    <div className="content">
+      <div style={{marginBottom:20}}>
+        <div style={{fontSize:11,color:'var(--text3)',textTransform:'uppercase',letterSpacing:'.1em',marginBottom:4}}>Executive Summary</div>
+        <div style={{fontSize:18,fontWeight:700}}>Majors Region — Leadership Briefing</div>
+      </div>
+      <div className="grid-4" style={{marginBottom:20}}>
+        {[
+          {label:'Total Quota',val:fmtM(total_quota),color:'var(--text)'},
+          {label:'Total Pipeline',val:fmtM(total_pipeline),color:coverage>=1?'var(--green)':'var(--amber)'},
+          {label:'Pipeline Coverage',val:(coverage).toFixed(2)+'x',color:coverage>=1?'var(--green)':'var(--amber)'},
+          {label:'Forecast Commit',val:fmtM(total_commit),color:'var(--text)'},
+          {label:'YTD Closed Won',val:fmtM(total_ytd),color:'var(--green)'},
+          {label:'Sellers At/Above 3.5x',val:aes.filter(a=>a.pipeline/(a.quota*3.5)>=1).length+' of '+aes.length,color:'var(--text)'},
+          {label:'Plans Approved',val:aes.filter(a=>a.plan_status==='approved').length+' of '+aes.length,color:'var(--text)'},
+          {label:'Avg Plan Score',val:Math.round(aes.reduce((s,a)=>s+a.plan_score,0)/aes.length)+'%',color:'var(--text)'},
+        ].map(s=>(
+          <div key={s.label} className="card-sm">
+            <div className="stat-label">{s.label}</div>
+            <div style={{fontFamily:'var(--mono)',fontSize:16,fontWeight:500,color:s.color,marginTop:4}}>{s.val}</div>
+          </div>
+        ))}
+      </div>
+      {/* Simple bar chart */}
+      <div className="card" style={{marginBottom:16}}>
+        <div className="card-title" style={{marginBottom:16}}>Pipeline vs Quota · By Seller</div>
+        {aes.map(ae=>{
+          const cov=ae.pipeline/(ae.quota*3.5);
+          return(
+            <div key={ae.id} style={{marginBottom:12}}>
+              <div style={{display:'flex',justifyContent:'space-between',marginBottom:4}}>
+                <span style={{fontSize:12,fontWeight:600}}>{ae.name}</span>
+                <span style={{fontFamily:'var(--mono)',fontSize:12,color:coverageColor(ae)}}>{fmtM(ae.pipeline)} · {coverageX(ae)}</span>
+              </div>
+              <div className="progress-bar" style={{height:10}}>
+                <div className="progress-fill" style={{width:Math.min(100,cov*100)+'%',background:coverageColor(ae)}}/>
+              </div>
+              <div style={{display:'flex',justifyContent:'space-between',fontSize:10,color:'var(--text3)',marginTop:3}}>
+                <span>$0</span><span style={{color:coverageColor(ae),fontWeight:600}}>{(cov*100).toFixed(0)}% of 3.5x target</span><span>{fmtM(ae.quota*3.5)} target</span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div className="card">
+        <div className="card-header">
+          <div><div className="card-title">✦ AI Executive Summary — CRO Brief</div><div className="card-sub">AI-generated from all plan and pipeline data</div></div>
+          <button className="btn btn-cyan" onClick={generateSummary} disabled={generating}>
+            {generating?<><div className="spin"/>Generating...</>:'✦ Generate Executive Summary'}
+          </button>
+        </div>
+        {summary?(
+          <div className="gen-block" style={{marginBottom:0}}><div className="gen-text">{summary}</div></div>
+        ):(
+          <div className="empty" style={{padding:24}}>
+            <div style={{fontSize:12,color:'var(--text3)'}}>Generate a CRO-ready executive summary covering pipeline health, forecast confidence, top opportunities, risks, and recommended leadership actions.</div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  MAIN APP
+// ══════════════════════════════════════════════════════════════════════════════
+function App(){
+  const [apiKey,setApiKey]=useState(()=>localStorage.getItem('cyera_spis_key')||'');
+  const [screen,setScreen]=useState('dashboard');
+  const [selAE,setSelAE]=useState(null);
+  const [aes,setAes]=useState(AES);
+
+  function handleApiKey(k){
+    localStorage.setItem('cyera_spis_key',k);
+    setApiKey(k);
+  }
+
+  function handleUpdateStatus(aeId,status){
+    setAes(prev=>prev.map(a=>a.id===aeId?{...a,plan_status:status,plan_score:status==='approved'?Math.max(a.plan_score,75):a.plan_score}:a));
+  }
+
+  function handleSelectAE(ae){
+    setSelAE(ae);
+    setScreen('territory');
+  }
+
+  if(!apiKey) return <ApiKeyScreen onSubmit={handleApiKey}/>;
+
+  const topbar={
+    dashboard:{title:'Regional Dashboard',sub:'Majors Segment · 3 Sellers · 24 Accounts'},
+    territory:{title:selAE?selAE.name+' — Territory Plan':'Territory Plan',sub:'Majors Segment · MEDDPICC · Force Management'},
+    account:{title:selAE?selAE.name+' — Account Plans':'Account Plans',sub:'Tier 1 Accounts · New Logo Acquisition'},
+    review:{title:'Manager Review',sub:'Territory Plan Review · MEDDPICC Standard'},
+    coaching:{title:'Weekly Coaching Dashboard',sub:'Regional Director · 30-min 1:1 Agendas'},
+    exec:{title:'Executive Summary',sub:'CRO Brief · Majors Region'},
+  }[screen]||{title:'SPIS',sub:''};
+
+  const nav=[
+    {id:'dashboard',icon:'▦',label:'Dashboard'},
+    {id:'territory',icon:'◈',label:'Territory Plan'},
+    {id:'account',icon:'◉',label:'Account Plans'},
+    {id:'review',icon:'◎',label:'Manager Review'},
+    {id:'coaching',icon:'◆',label:'Coaching'},
+    {id:'exec',icon:'◇',label:'Exec Summary'},
+  ];
+
+  return(
+    <div className="app">
+      <div className="sidebar">
+        <div className="sidebar-logo">
+          <div className="logo-mark">CYERA · SPIS</div>
+          <div className="logo-sub">Sales Planning Intelligence System</div>
+        </div>
+        <div className="sidebar-section">Navigation</div>
+        {nav.map(n=>(
+          <div key={n.id} className={'nav-item'+(screen===n.id?' active':'')} onClick={()=>setScreen(n.id)}>
+            <span className="nav-icon">{n.icon}</span>
+            <span>{n.label}</span>
+            {n.id==='review'&&aes.some(a=>a.plan_status==='needs_revision')&&<span className="nav-badge">!</span>}
+          </div>
+        ))}
+        <div className="sidebar-section">Sellers</div>
+        <div className="sidebar-ae">
+          {aes.map(ae=>(
+            <div key={ae.id} className={'ae-card'+(selAE?.id===ae.id?' selected':'')} onClick={()=>{setSelAE(ae);setScreen('territory');}}>
+              <div className="ae-name">{ae.name}</div>
+              <div className="ae-meta">{fmtM(ae.quota)} quota · {coverageX(ae)} coverage</div>
+              <div className="ae-score">
+                <div className="score-bar"><div className="score-fill" style={{width:ae.plan_score+'%',background:scoreColor(ae.plan_score)}}/></div>
+                <span className="score-pct">{ae.plan_score}%</span>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div style={{padding:'8px 12px',borderTop:'1px solid var(--border)'}}>
+          <div style={{fontSize:10,color:'var(--text3)',marginBottom:4}}>Signal Legend</div>
+          <div style={{fontSize:10,color:'var(--sf)',marginBottom:2}}>⚡ Salesforce Auto-populated</div>
+          <div style={{fontSize:10,color:'var(--ae)',marginBottom:2}}>✏️ Seller Enters</div>
+          <div style={{fontSize:10,color:'var(--ai)'}}>✦ AI Generates</div>
+        </div>
+      </div>
+      <div className="main">
+        <div className="topbar">
+          <div>
+            <div className="topbar-title">{topbar.title}</div>
+            <div className="topbar-sub">{topbar.sub}</div>
+          </div>
+          <div className="topbar-right">
+            <span className="signal-pill pill-sf">⚡ Salesforce</span>
+            <span className="signal-pill pill-ae">✏️ Seller</span>
+            <span className="signal-pill pill-ai">✦ AI</span>
+            <button className="btn btn-ghost btn-sm" onClick={()=>{localStorage.removeItem('cyera_spis_key');setApiKey('');}}>Sign Out</button>
+          </div>
+        </div>
+        {screen==='dashboard'&&<Dashboard aes={aes} onSelectAE={handleSelectAE}/>}
+        {screen==='territory'&&selAE&&<TerritoryPlan ae={selAE} apiKey={apiKey} planStatus={selAE.plan_status} onUpdateStatus={handleUpdateStatus}/>}
+        {screen==='territory'&&!selAE&&<div className="content"><div className="empty"><div className="empty-icon">◈</div><div className="empty-title">Select a Seller</div><div style={{fontSize:12,color:'var(--text3)'}}>Choose a seller from the sidebar to open their territory plan.</div></div></div>}
+        {screen==='account'&&selAE&&<AccountPlan ae={selAE} apiKey={apiKey}/>}
+        {screen==='account'&&!selAE&&<div className="content"><div className="empty"><div className="empty-icon">◉</div><div className="empty-title">Select a Seller</div><div style={{fontSize:12,color:'var(--text3)'}}>Choose a seller from the sidebar to build their Tier 1 account plans.</div></div></div>}
+        {screen==='review'&&<ManagerReview aes={aes} apiKey={apiKey} onUpdateStatus={handleUpdateStatus}/>}
+        {screen==='coaching'&&<WeeklyCoaching aes={aes} apiKey={apiKey}/>}
+        {screen==='exec'&&<ExecSummary aes={aes} apiKey={apiKey}/>}
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
