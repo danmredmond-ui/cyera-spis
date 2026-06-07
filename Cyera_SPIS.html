@@ -375,7 +375,7 @@ async function callAPI(prompt, systemPrompt) {
         'anthropic-dangerous-direct-browser-access': 'true'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-5',
         max_tokens: 2000,
         system: systemPrompt || 'You are an expert enterprise sales planning assistant for Cyera, a data security company. Generate specific, account-grounded content for territory and account planning. Never use generic language.',
         messages: [{ role: 'user', content: prompt }]
