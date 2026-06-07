@@ -1212,32 +1212,30 @@ RD commits to executive sponsorship for PG&E cold outreach — a peer RD-to-CISO
 // ─── PRE-WRITTEN EXECUTIVE SUMMARY ───────────────────────────────────────────
 
 const PRE_EXECUTIVE_SUMMARY = `HEADLINE
-The region is at 1.85x pipeline coverage against a 3.5x target with Alex Rivera carrying a credible near-term pipeline and both Morgan Lee and Taylor Brooks significantly below coverage thresholds — intervention needed on the bottom two sellers to protect the quarter.
+The Majors region is at 1.85x coverage against a 3.5x target — Alex Rivera has a credible pipeline but Morgan and Taylor need immediate intervention to protect the quarter.
 
 PIPELINE HEALTH
-- Regional coverage at 1.85x vs 3.5x target — 47% of goal, driven by Morgan and Taylor gaps
-- Alex Rivera at 2.2x coverage with credible Tier 1 pipeline; Morgan at 1.7x; Taylor at 1.05x is critical risk
-- Pipeline quality is good where it exists — account-specific triggers and warm access paths are defined for all Tier 1 accounts
+- Regional coverage is 1.85x vs the 3.5x target, representing 47% of the pipeline goal
+- Alex Rivera at 2.2x is the strongest performer with account-specific triggers confirmed at all five Tier 1 accounts
+- Taylor Brooks at 1.05x is the most at-risk territory on the team and requires a coaching and pipeline intervention this week
 
 FORECAST
-- Hard commit of $2.0M across region represents 32% of $6.1M combined quota
-- Best case of $3.5M requires Salesforce and NetApp advancing to evaluation stage this quarter
-- Commit confidence is moderate — Alex's Salesforce opportunity is real but CISO introduction timing is not confirmed
+- Total hard commit of $2.0M against $6.1M combined quota — commit confidence is moderate given CISO introduction timing at Salesforce is not yet confirmed
+- Best case of $3.5M is achievable if Salesforce and NetApp both advance to evaluation stage this quarter
 
 TOP OPPORTUNITIES
-- Alex Rivera — Salesforce: Highest-urgency AI governance deal; CISO intro pending via champion; Q3 board deadline creates pressure
-- Morgan Lee — NetApp: Varonis displacement with confirmed CISO dissatisfaction and Insight Enterprises warm intro; fastest path to close
-- Morgan Lee — Applied Materials: Board IP mandate and warm CISO contact; evaluation window open with no incumbent
+- Salesforce: CISO has blocked Agentforce production expansion pending a data governance layer — champion introduction via Sara Chen is the critical next step
+- Wells Fargo: OCC consent order requires classification remediation by Q4 with CDO budget confirmed — Deloitte co-sponsorship is the entry path
+- Applied Materials: Board IP protection mandate with warm CISO contact and no incumbent — evaluation window is open now
 
 RISKS
-- Taylor Brooks pipeline gap is critical — 1.05x coverage means a single deal slip eliminates all forecast optionality
-- Alex's Salesforce opportunity depends on Sara Chen champion conversion — single point of failure on entry path
-- Morgan's semiconductor narrative is strong but Applied Materials and Lam Research are new relationships with 60-90 day cycle risk
+- Taylor Brooks at 1.05x pipeline coverage has no margin for a single deal slip — pipeline intervention and RD executive sponsorship are needed this week
+- Cold access at McKesson and Chevron creates single points of failure — partner activation via Deloitte and Palo Alto Networks must be prioritized
 
 RECOMMENDED ACTIONS
-- Assign RD executive sponsorship to PG&E cold outreach for Taylor this week — CISO-level intro dramatically improves Taylor's entry odds
-- Review Insight Enterprises NetApp introduction progress with Morgan — this should have been initiated already
-- Brief Alex on executive escalation path at Salesforce if Sara Chen introduction does not materialize in next 10 days`;
+- Provide executive sponsorship for Salesforce — a VP-to-CISO peer outreach accelerates the champion conversion Alex cannot achieve alone
+- Activate Deloitte managing director relationship at McKesson this week — the HIPAA audit finding creates urgency that makes co-sponsorship compelling right now
+- Schedule a pipeline intervention with Taylor Brooks to identify first meetings within 10 days and assign RD executive sponsorship at PG&E`;
 
 // ─── UTILITIES ───────────────────────────────────────────────────────────────
 
@@ -1612,7 +1610,7 @@ function Screen2({ seller, sellers, setSellers }) {
       setEnriched(prev => ({ ...prev, [acc.name]: content }));
       setExpanded(prev => ({ ...prev, [acc.name]: true }));
       setEnriching(prev => ({ ...prev, [acc.name]: false }));
-    }, 1500);
+    }, 600);
   };
 
   const enrichAll = () => {
@@ -1626,7 +1624,7 @@ function Screen2({ seller, sellers, setSellers }) {
         setEnriched(prev => ({ ...prev, [acc.name]: content }));
         setExpanded(prev => ({ ...prev, [acc.name]: true }));
         resolve();
-      }, 1500))
+      }, 600))
     )).then(() => setEnriching({}));
   };
 
@@ -1640,7 +1638,7 @@ function Screen2({ seller, sellers, setSellers }) {
       setGenPlan(planContent);
       setGenLoading(false);
       setTab(2);
-    }, 1500);
+    }, 600);
   };
 
   const tierGroups = [1,2,3].map(t => ({ tier:t, accounts: accounts.filter(a => a.tier === t) }));
@@ -2164,7 +2162,7 @@ function AccountPlanSection({ acc, seller, sectionKey, sectionLabel }) {
     setTimeout(() => {
       setContent(simContent);
       setLoading(false);
-    }, 1500);
+    }, 600);
   };
 
   const renderContent = () => {
@@ -2370,7 +2368,7 @@ function Screen5({ sellers }) {
     setTimeout(() => {
       setAgenda(content);
       setLoading(false);
-    }, 1500);
+    }, 600);
   };
 
   return (
@@ -2473,7 +2471,7 @@ function Screen6({ sellers }) {
     setTimeout(() => {
       setSummary(PRE_EXECUTIVE_SUMMARY);
       setLoading(false);
-    }, 1500);
+    }, 600);
   };
 
   return (
