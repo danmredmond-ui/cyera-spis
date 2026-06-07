@@ -16,7 +16,6 @@
   --text:#F0F4F8;--muted:#94A3B8;--dim:#64748B;
   --r:10px;
 }
-html{scroll-behavior:smooth}
 body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6}
 .mono{font-family:'IBM Plex Mono',monospace}
 ::-webkit-scrollbar{width:5px}
@@ -36,16 +35,17 @@ body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--tex
 .brand-name{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:var(--cyan);letter-spacing:.15em}
 .brand-sub{font-size:10px;color:var(--dim);letter-spacing:.05em}
 .nav-links{display:flex;gap:2px;list-style:none}
-.nav-links a{
-  text-decoration:none;color:var(--muted);font-size:12.5px;font-weight:500;
-  padding:6px 13px;border-radius:6px;transition:all .15s;
+.nav-tab{
+  background:none;border:none;border-bottom:2px solid transparent;
+  color:var(--muted);font-size:12.5px;font-weight:500;font-family:'IBM Plex Sans',sans-serif;
+  padding:6px 13px;cursor:pointer;transition:all .15s;margin-bottom:-1px;
 }
-.nav-links a:hover{color:var(--text);background:rgba(255,255,255,.05)}
-.nav-links a.active{color:var(--cyan);background:rgba(0,194,203,.08)}
+.nav-tab:hover{color:var(--text)}
+.nav-tab.active{color:var(--cyan);border-bottom-color:var(--cyan)}
 
 /* SECTIONS */
-section{padding:72px 0 60px;border-bottom:1px solid var(--border)}
-section:last-of-type{border-bottom:none}
+.section{padding:72px 0 60px;border-bottom:1px solid var(--border)}
+.section:last-of-type{border-bottom:none}
 .sec-label{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px}
 .sec-heading{font-size:26px;font-weight:700;margin-bottom:10px;line-height:1.25}
 .sec-sub{font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:40px;max-width:680px}
@@ -276,18 +276,18 @@ hr.div{border:none;border-top:1px solid var(--border);margin:40px 0}
     <div class="brand-sub">Sales Planning Intelligence System</div>
   </div>
   <ul class="nav-links">
-    <li><a href="#overview" class="active">Overview</a></li>
-    <li><a href="#territory">Territory Plan</a></li>
-    <li><a href="#account">Account Plan</a></li>
-    <li><a href="#coaching">Coaching</a></li>
-    <li><a href="#get-started">Get Started</a></li>
+    <li><button class="nav-tab active" id="tab-overview" onclick="showSection('overview')">Overview</button></li>
+    <li><button class="nav-tab" id="tab-territory" onclick="showSection('territory')">Territory Plan</button></li>
+    <li><button class="nav-tab" id="tab-account" onclick="showSection('account')">Account Plan</button></li>
+    <li><button class="nav-tab" id="tab-coaching" onclick="showSection('coaching')">Coaching</button></li>
+    <li><button class="nav-tab" id="tab-getstarted" onclick="showSection('getstarted')">Get Started</button></li>
   </ul>
 </nav>
 
 <!-- ══════════════════════════════════════════
      SECTION 1 — OVERVIEW
 ══════════════════════════════════════════ -->
-<section id="overview">
+<div class="section" id="overview">
 <div class="wrap">
 
   <!-- HERO -->
@@ -397,12 +397,12 @@ hr.div{border:none;border-top:1px solid var(--border);margin:40px 0}
 
   <div class="sec-footer">Screen 1 of 4 · Cyera SPIS · Sales Planning Intelligence System</div>
 </div>
-</section>
+</div>
 
 <!-- ══════════════════════════════════════════
      SECTION 2 — TERRITORY PLAN
 ══════════════════════════════════════════ -->
-<section id="territory">
+<div class="section" id="territory" style="display:none">
 <div class="wrap">
   <div class="sec-label">Screen 2 of 4</div>
   <h2 class="sec-heading">Territory Plan Builder — Three Signal Types in One Workflow</h2>
@@ -529,12 +529,12 @@ hr.div{border:none;border-top:1px solid var(--border);margin:40px 0}
 
   <div class="sec-footer">Screen 2 of 4 · Cyera SPIS · Territory Plan Builder</div>
 </div>
-</section>
+</div>
 
 <!-- ══════════════════════════════════════════
      SECTION 3 — ACCOUNT PLAN
 ══════════════════════════════════════════ -->
-<section id="account">
+<div class="section" id="account" style="display:none">
 <div class="wrap">
   <div class="sec-label">Screen 3 of 4</div>
   <h2 class="sec-heading">Account Plan Builder — Five Tabs Per Tier 1 Account</h2>
@@ -647,12 +647,12 @@ hr.div{border:none;border-top:1px solid var(--border);margin:40px 0}
 
   <div class="sec-footer">Screen 3 of 4 · Cyera SPIS · Account Plan Builder</div>
 </div>
-</section>
+</div>
 
 <!-- ══════════════════════════════════════════
      SECTION 4 — COACHING
 ══════════════════════════════════════════ -->
-<section id="coaching">
+<div class="section" id="coaching" style="display:none">
 <div class="wrap">
   <div class="sec-label">Screen 4 of 4</div>
   <h2 class="sec-heading">Weekly Coaching Dashboard — The Plan Data Drives the Agenda</h2>
@@ -762,12 +762,12 @@ hr.div{border:none;border-top:1px solid var(--border);margin:40px 0}
 
   <div class="sec-footer">Screen 4 of 4 · Cyera SPIS · Weekly Coaching Dashboard</div>
 </div>
-</section>
+</div>
 
 <!-- ══════════════════════════════════════════
      SECTION 5 — GET STARTED
 ══════════════════════════════════════════ -->
-<section id="get-started" style="border-bottom:none">
+<div class="section" id="getstarted" style="display:none;border-bottom:none">
 <div class="wrap">
   <div class="sec-label">Get Started</div>
   <h2 class="sec-heading">Get Started</h2>
@@ -838,7 +838,7 @@ hr.div{border:none;border-top:1px solid var(--border);margin:40px 0}
 
   <div class="closing">Questions or want a live walkthrough? Happy to walk through SPIS on your schedule.</div>
 </div>
-</section>
+</div>
 
 <!-- PAGE FOOTER -->
 <footer class="pg-footer">
@@ -847,19 +847,13 @@ hr.div{border:none;border-top:1px solid var(--border);margin:40px 0}
 </footer>
 
 <script>
-const sections = document.querySelectorAll('section[id]');
-const links = document.querySelectorAll('.nav-links a');
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      const id = e.target.id;
-      links.forEach(l => {
-        l.classList.toggle('active', l.getAttribute('href') === '#' + id);
-      });
-    }
-  });
-}, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
-sections.forEach(s => obs.observe(s));
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).style.display = 'block';
+  document.getElementById('tab-' + id).classList.add('active');
+  window.scrollTo(0, 0);
+}
 </script>
 </body>
 </html>
