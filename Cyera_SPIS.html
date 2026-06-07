@@ -1237,6 +1237,56 @@ RECOMMENDED ACTIONS
 - Activate Deloitte managing director relationship at McKesson this week — the HIPAA audit finding creates urgency that makes co-sponsorship compelling right now
 - Schedule a pipeline intervention with Taylor Brooks to identify first meetings within 10 days and assign RD executive sponsorship at PG&E`;
 
+// ─── PRE-POPULATED ACCOUNT INTAKE (ALEX RIVERA) ──────────────────────────────
+
+const PRE_INTAKE_ALEX = {
+  'Salesforce': {
+    known_contacts: 'Sara Chen, VP Data Governance — met at Dreamforce 2024, strong relationship, has offered to introduce us to the CISO. Mark Torres, CISO — not yet met directly, Sara has confirmed he is the Economic Buyer for any data security platform decision.',
+    pain_hypothesis: 'Agentforce production expansion is blocked by the CISO until a data classification and governance layer is confirmed across CRM data. The board has set a Q3 deadline for Agentforce rollout — creating direct executive pressure on the security team to approve or find a solution.',
+    secondary_triggers: 'CCPA compliance exposure from Data Cloud customer data processing. Salesforce is also facing increased scrutiny from enterprise customers asking how their data is governed inside Agentforce workflows.',
+    evaluation_criteria: 'Time to value — CISO needs a solution deployable before Q3 board presentation. Agentless architecture — no agent deployment on production CRM systems. Coverage of Salesforce native cloud and connected SaaS platforms.',
+    competitive_context: 'No known incumbent DSPM. Varonis was evaluated 18 months ago but rejected due to agent overhead on Salesforce infrastructure. Microsoft Purview covers M365 but not Salesforce cloud. Deloitte has a relationship at the VP level and has offered to co-sponsor an intro.',
+    relationship_context: 'Warm access via Sara Chen champion relationship. Sara has offered to facilitate CISO introduction through the weekly security leadership briefing. Backup path is Deloitte managing director relationship.',
+    internal_exec_sponsor: 'Requesting Cyera Chief Revenue Officer for joint executive meeting with CISO. Goal is to demonstrate Cyera executive commitment to the Salesforce relationship given the strategic account value.',
+  },
+  'Wells Fargo': {
+    known_contacts: 'Michael Chen, CDO — identified as Economic Buyer through Deloitte financial services partner. Not yet met directly. Sarah Martinez, VP Cloud Security — Deloitte partner has offered a warm introduction. Patricia Wong, Chief Compliance Officer — secondary stakeholder for OCC consent order remediation.',
+    pain_hypothesis: 'OCC consent order requires Wells Fargo to demonstrate a credible data classification and governance posture across cloud environments. The CDO has a funded Q4 deadline to remediate. Legacy DLP was explicitly flagged as insufficient in the most recent audit finding.',
+    secondary_triggers: 'Multi-cloud migration accelerating faster than governance controls can keep pace. New cloud-native applications are generating sensitive financial data outside the perimeter of existing DLP coverage.',
+    evaluation_criteria: 'OCC audit readiness — solution must produce documentation acceptable to OCC examiners. Multi-cloud coverage across AWS, Azure, and on-premises. Time to compliance demonstration — CDO needs to show progress before Q4 deadline.',
+    competitive_context: 'Microsoft Purview is deployed for M365 but the CDO is not satisfied with multi-cloud coverage. BigID was evaluated by the privacy team last year — feedback was slow deployment and limited financial services use cases. No current DSPM in place.',
+    relationship_context: 'Partner path via Deloitte financial services practice. Deloitte managing director has agreed to co-sponsor a CDO introduction. Targeting a joint executive briefing in the next 30 days.',
+    internal_exec_sponsor: 'Requesting Cyera VP of Financial Services for joint CDO meeting co-sponsored by Deloitte. Deloitte relationship adds credibility in a regulated environment where vendor endorsement from a trusted advisor accelerates the evaluation.',
+  },
+  'McKesson Corporation': {
+    known_contacts: 'No warm contacts confirmed yet. James Rodriguez, CISO — identified as Economic Buyer through LinkedIn research and industry contacts. Dr. Lisa Park, Chief Privacy Officer — secondary stakeholder for HIPAA remediation. Pursuing introduction through Deloitte healthcare practice.',
+    pain_hypothesis: 'Post-divestiture cloud migration has created unclassified PHI across separated infrastructure. Internal audit confirmed the HIPAA exposure. The CISO has a remediation mandate but no current platform solution. This is a cold account requiring partner activation for access.',
+    secondary_triggers: 'AI-assisted supply chain optimization initiatives are creating new data flows across cloud environments that include sensitive pharmaceutical and patient data. These AI workloads are not covered by any current classification layer.',
+    evaluation_criteria: 'HIPAA compliance coverage — solution must classify and govern PHI across all cloud environments. Healthcare-specific classification models. Audit trail and documentation for HIPAA breach remediation evidence.',
+    competitive_context: 'No known DSPM incumbent. Legacy DLP covers on-premises systems but has no cloud visibility. Deloitte healthcare practice has a managing director relationship at McKesson and has agreed to co-sponsor an executive briefing.',
+    relationship_context: 'Cold account — no direct relationship confirmed. Primary access strategy is Deloitte co-sponsored executive briefing. Secondary path is outbound to CISO using confirmed HIPAA audit finding as the entry point.',
+    internal_exec_sponsor: 'Requesting Cyera Chief Revenue Officer for Deloitte co-sponsored executive briefing. A CRO-level engagement signals strategic commitment and matches the seniority of the CISO Economic Buyer.',
+  },
+  'Visa Inc.': {
+    known_contacts: 'David Kim, CISO — confirmed as Economic Buyer through AWS alliance team contact. Warm introduction pending via AWS. Jennifer Lee, Chief Risk Officer — key influencer for PCI-DSS compliance decisions. Robert Chen, VP Payment Security — technical stakeholder for fraud detection AI governance.',
+    pain_hypothesis: 'PCI-DSS 4.0 deadline requires classification controls on cardholder data processed by AI fraud detection models. The current classification layer does not extend to AI workloads. The CISO has acknowledged the gap internally according to AWS alliance contact.',
+    secondary_triggers: 'Real-time payment infrastructure expansion into new markets is creating new data environments that require PCI-DSS classification from day one. The pace of expansion is outpacing manual governance processes.',
+    evaluation_criteria: 'PCI-DSS 4.0 compliance coverage — must address cardholder data in AI workloads specifically. Real-time classification for payment processing environments. Global coverage across all Visa data centers and cloud regions.',
+    competitive_context: 'Tokenization vendor covers payment data in transit but does not address classification at rest or in AI models. Microsoft Purview evaluated but rejected due to limited coverage outside M365. No current DSPM in place for AI workloads.',
+    relationship_context: 'Warm access via AWS alliance team contact who has a direct relationship with the CISO. AWS has agreed to facilitate an introduction. Targeting first CISO meeting within 3 weeks.',
+    internal_exec_sponsor: 'Requesting Cyera VP of Financial Services for joint CISO meeting with AWS alliance team. AWS co-presence adds credibility given Visa runs significant workloads on AWS infrastructure.',
+  },
+  'Chevron Corporation': {
+    known_contacts: 'No confirmed warm contacts. Thomas Anderson, CISO — identified as Economic Buyer through industry research. Dr. Sarah Johnson, VP Digital and Technology — key sponsor for OT/IT convergence initiative. Pursuing introduction through Palo Alto Networks alliance team who has existing security relationship at Chevron.',
+    pain_hypothesis: 'OT/IT convergence is moving sensitive operational data into cloud environments for analytics and AI applications without a corresponding classification or access governance layer. CIO cloud-first mandate is accelerating the exposure window faster than the security team can govern it.',
+    secondary_triggers: 'Energy transition initiatives are creating new data environments for renewable energy operations that have no established data security baseline. These are greenfield environments where Cyera can establish the governance standard from day one.',
+    evaluation_criteria: 'OT data classification coverage — must handle operational technology data types specific to energy infrastructure. Multi-cloud coverage for hybrid OT/IT environments. Integration with existing OT security tools including Palo Alto Networks.',
+    competitive_context: 'Palo Alto Networks has an existing security relationship at Chevron covering network and endpoint security. No current DSPM in place. Legacy data governance tools cover structured data in core ERP systems but have no OT or cloud coverage.',
+    relationship_context: 'Cold account — no direct relationship. Primary access strategy is outbound to CISO using OT/IT convergence angle. Secondary path is activation of Palo Alto Networks alliance relationship for a warm introduction.',
+    internal_exec_sponsor: 'Requesting Cyera VP of Energy and Industrial for joint CISO outreach. Industry-specific executive presence is important in the energy sector where OT security expertise is a key credibility signal.',
+  },
+};
+
 // ─── UTILITIES ───────────────────────────────────────────────────────────────
 
 const fmtM = n => {
@@ -2205,7 +2255,9 @@ function Screen3({ seller }) {
   const tier1 = accounts.filter(a => a.tier === 1);
   const [selAcc, setSelAcc] = useState(() => tier1[0]?.name || '');
   const [accTab, setAccTab] = useState(0);
-  const [accIntake, setAccIntake] = useState({});
+  const [accIntake, setAccIntake] = useState(() =>
+    seller.name === 'Alex Rivera' ? { ...PRE_INTAKE_ALEX } : {}
+  );
   const [showBanner, setShowBanner] = useState(true);
 
   const acc = accounts.find(a => a.name === selAcc);
