@@ -3,511 +3,397 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cyera SPIS — Executive Overview</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>CYERA · SPIS — One-Pager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --navy:#0D1B2A;--navy2:#111E2E;--navy3:#162236;
-  --blue:#1B6FD8;--blue2:#2E85F0;
-  --cyan:#00C2CB;--cyan2:#00A8B0;
-  --amber:#F59E0B;
-  --text:#F0F4F8;--text2:#94A3B8;--text3:#64748B;
-  --border:#1E3A5F;--border2:#1a3050;
-  --sf:#00A1E0;--ae:#F59E0B;--ai:#00C2CB;
-  --font:'IBM Plex Sans',sans-serif;--mono:'IBM Plex Mono',monospace;
+  --bg:#0D1B2A;--card:#111E2E;--border:#1E3A5F;
+  --cyan:#00C2CB;--blue:#00A1E0;--amber:#F59E0B;
+  --text:#E2E8F0;--muted:#94A3B8;--dim:#64748B;
+  --green:#22C55E;--red:#EF4444;
 }
-body{background:var(--navy);color:var(--text);font-family:var(--font);min-height:100vh;font-size:14px;line-height:1.5}
-/* NAV */
-.nav{display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:var(--navy2);border-bottom:1px solid var(--border);height:52px;position:sticky;top:0;z-index:100}
-.nav-brand{display:flex;align-items:center;gap:12px}
-.nav-logo{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--cyan);letter-spacing:.2em}
-.nav-sep{width:1px;height:20px;background:var(--border)}
-.nav-title{font-size:13px;color:var(--text2)}
-.ntabs{display:flex;gap:0}
-.ntab{padding:0 18px;height:52px;display:flex;align-items:center;font-size:12px;font-weight:600;color:var(--text3);border-bottom:2px solid transparent;cursor:pointer;transition:all .15s;letter-spacing:.02em}
-.ntab:hover{color:var(--text)}
-.ntab.on{color:var(--cyan);border-bottom-color:var(--cyan)}
-/* PAGES */
-.pg{display:none;min-height:calc(100vh - 52px)}
-.pg.on{display:block}
-/* PAGE: THE IDEA */
-.idea-hero{padding:64px 40px 48px;max-width:900px;margin:0 auto}
-.idea-eyebrow{font-family:var(--mono);font-size:11px;color:var(--cyan);letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px}
-.idea-h1{font-size:44px;font-weight:700;line-height:1.1;margin-bottom:20px;letter-spacing:-.02em}
-.idea-h1 em{font-style:normal;color:var(--cyan)}
-.idea-body{font-size:16px;color:var(--text2);line-height:1.7;max-width:680px;margin-bottom:40px}
-.signal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:900px;margin:0 auto 48px;padding:0 40px}
-.signal-card{background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:24px}
-.signal-icon{font-size:22px;margin-bottom:12px}
-.signal-label{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.15em;margin-bottom:8px;text-transform:uppercase}
-.signal-title{font-size:15px;font-weight:600;margin-bottom:10px}
-.signal-items{font-size:12px;color:var(--text2);line-height:2}
-.signal-note{font-size:11px;font-style:italic;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
-.screens-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:900px;margin:0 auto 48px;padding:0 40px}
-.screen-chip{background:var(--navy2);border:1px solid var(--border);border-radius:8px;padding:14px 16px}
-.screen-num{font-family:var(--mono);font-size:10px;color:var(--text3);margin-bottom:4px}
-.screen-name{font-size:13px;font-weight:600;margin-bottom:4px}
-.screen-desc{font-size:11px;color:var(--text2);line-height:1.5}
-/* PAGE: TERRITORY PLAN MOCKUP */
-.mockup-page{padding:32px 40px;max-width:1100px;margin:0 auto}
-.mockup-h{font-size:11px;font-family:var(--mono);color:var(--cyan);letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
-.mockup-title{font-size:22px;font-weight:700;margin-bottom:4px}
-.mockup-sub{font-size:13px;color:var(--text3);margin-bottom:24px}
-/* mock app chrome */
-.mock-app{background:var(--navy2);border:1px solid var(--border);border-radius:12px;overflow:hidden}
-.mock-topbar{background:#0A1520;border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:8px}
-.mock-dot{width:10px;height:10px;border-radius:50%}
-.mock-title{font-size:12px;color:var(--text3);margin-left:8px;font-family:var(--mono)}
-.mock-body{display:flex;min-height:480px}
-.mock-sidebar{width:180px;background:var(--navy);border-right:1px solid var(--border);padding:12px 0;flex-shrink:0}
-.mock-nav-item{padding:7px 14px;font-size:11px;color:var(--text3);display:flex;align-items:center;gap:6px;cursor:default}
-.mock-nav-item.active{color:var(--text);background:var(--navy2)}
-.mock-nav-item.active-blue{color:var(--cyan);background:#00C2CB08}
-.mock-content{flex:1;padding:20px;overflow:hidden}
-.mock-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:16px}
-.mock-tab{padding:6px 14px;font-size:11px;color:var(--text3);border-bottom:2px solid transparent;cursor:default}
-.mock-tab.on{color:var(--cyan);border-bottom-color:var(--cyan)}
-/* mock cards */
-.m-grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
-.m-card{background:var(--navy3);border:1px solid var(--border);border-radius:6px;padding:10px 12px}
-.m-label{font-size:9px;color:var(--text3);margin-bottom:3px}
-.m-val{font-family:var(--mono);font-size:16px;font-weight:500}
-.m-sub{font-size:9px;color:var(--text3);margin-top:2px}
-/* mock signal blocks */
-.m-sig{border-left:3px solid;padding:10px 12px;background:var(--navy3);border-radius:0 6px 6px 0;margin-bottom:8px}
-.m-sig-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
-.m-field{background:var(--navy);border:1px solid var(--border);border-radius:4px;padding:6px 8px;font-size:10px;color:var(--text2);margin-bottom:4px}
-.m-field.sf{border-color:#00A1E030;color:var(--sf)}
-.m-gen{background:var(--navy3);border:1px solid var(--border);border-radius:6px;padding:10px 12px;position:relative;margin-bottom:8px}
-.m-gen::after{content:'✦ AI';position:absolute;top:6px;right:8px;font-size:8px;color:var(--cyan);font-family:var(--mono);font-weight:700}
-.m-gen-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;color:var(--text)}
-.m-gen-text{font-size:10px;color:var(--text2);line-height:1.6}
-/* MEDDPICC mockup */
-.medd-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
-.medd-cell{background:var(--navy3);border:1px solid var(--border);border-radius:5px;padding:8px;text-align:center}
-.medd-l{font-family:var(--mono);font-size:16px;font-weight:600}
-.medd-n{font-size:8px;color:var(--text3);margin-top:2px}
-.medd-s{font-size:8px;font-weight:700;margin-top:4px;padding:1px 5px;border-radius:8px;display:inline-block}
-/* mock table */
-.m-tbl{width:100%;border-collapse:collapse;font-size:10px;margin-bottom:10px}
-.m-tbl th{background:var(--navy);color:var(--text3);padding:5px 8px;text-align:left;font-size:9px;border-bottom:1px solid var(--border)}
-.m-tbl td{padding:5px 8px;border-bottom:1px solid var(--border2);color:var(--text2)}
-.m-tag{display:inline-block;padding:1px 6px;border-radius:8px;font-size:9px;font-weight:700}
-/* mock progress */
-.m-prog{height:4px;background:var(--navy);border-radius:2px;overflow:hidden;margin-top:3px}
-.m-prog-fill{height:100%;border-radius:2px}
-/* PAGE: ACCOUNT PLAN MOCKUP */
-/* PAGE: COACHING MOCKUP */
-/* VISION PAGE */
-.vision-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:900px;margin:0 auto;padding:0 40px 48px}
-.vision-card{background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:24px}
-.vision-num{font-family:var(--mono);font-size:32px;font-weight:600;color:var(--cyan);margin-bottom:4px}
-.vision-label{font-size:14px;font-weight:600;margin-bottom:8px}
-.vision-body{font-size:13px;color:var(--text2);line-height:1.7}
-.vision-q{background:var(--navy);border-left:3px solid var(--cyan);border-radius:0 8px 8px 0;padding:20px 24px;margin:24px 40px 0;max-width:820px;margin-left:auto;margin-right:auto;font-size:16px;color:var(--text);line-height:1.7;font-style:italic}
-.footer-bar{border-top:1px solid var(--border);padding:20px 40px;display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--text3)}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.mono{font-family:'IBM Plex Mono',monospace}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+/* ── LAYOUT ── */
+.page{max-width:900px;margin:0 auto;padding:40px 24px 0}
+
+/* ── HEADER ── */
+.header{text-align:center;margin-bottom:40px}
+.logo{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:18px}
+.headline{font-size:28px;font-weight:700;line-height:1.3;margin-bottom:12px}
+.headline span{color:var(--cyan)}
+.subhead{font-size:14px;color:var(--muted);line-height:1.7;max-width:600px;margin:0 auto}
+
+/* ── TABS ── */
+.tabs-bar{display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:36px}
+.tab-btn{padding:10px 18px;cursor:pointer;font-size:13px;font-family:'IBM Plex Sans',sans-serif;font-weight:500;color:var(--muted);border:none;border-bottom:2px solid transparent;margin-bottom:-1px;background:none;transition:all .12s}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{color:var(--cyan);border-bottom-color:var(--cyan)}
+
+/* ── SIGNAL BADGES ── */
+.signal-row{display:flex;justify-content:center;gap:10px;margin-bottom:36px;flex-wrap:wrap}
+.signal-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600}
+.sig-sf{background:rgba(0,161,224,.12);border:1px solid rgba(0,161,224,.3);color:var(--blue)}
+.sig-seller{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);color:var(--amber)}
+.sig-ai{background:rgba(0,194,203,.12);border:1px solid rgba(0,194,203,.3);color:var(--cyan)}
+
+/* ── SCREEN CHIPS ── */
+.chips-section{margin-bottom:36px}
+.chips-section-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);text-align:center;margin-bottom:16px}
+.chips-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.chip{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px 16px;transition:border-color .15s}
+.chip:hover{border-color:rgba(0,194,203,.4)}
+.chip-icon{font-size:18px;margin-bottom:10px;font-family:monospace}
+.chip-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+.chip-title{font-size:14px;font-weight:700;margin-bottom:6px}
+.chip-desc{font-size:12px;color:var(--muted);line-height:1.6}
+
+/* ── HOW TO NAVIGATE ── */
+.nav-section{margin-bottom:36px}
+.nav-section-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:16px}
+.nav-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:10px}
+.nav-card{background:var(--card);border:1px solid var(--cyan);border-radius:10px;padding:20px}
+.nav-card-heading{font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px}
+.nav-card-body{font-size:12.5px;color:var(--muted);line-height:1.75}
+.badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px}
+.badge-green{background:rgba(34,197,94,.14);color:var(--green);border:1px solid rgba(34,197,94,.3)}
+.badge-cyan{background:rgba(0,194,203,.14);color:var(--cyan);border:1px solid rgba(0,194,203,.3)}
+.nav-note{font-size:11px;color:var(--dim);text-align:center}
+
+/* ── SIGNALS TAB ── */
+.signals-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:36px}
+.signal-card{border-radius:10px;padding:20px}
+.signal-card-sf{background:rgba(0,161,224,.07);border:1px solid rgba(0,161,224,.25)}
+.signal-card-seller{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.25)}
+.signal-card-ai{background:rgba(0,194,203,.07);border:1px solid rgba(0,194,203,.25)}
+.signal-card-icon{font-size:22px;margin-bottom:12px}
+.signal-card-title{font-size:14px;font-weight:700;margin-bottom:4px}
+.signal-card-sub{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px}
+.signal-card-sf .signal-card-sub{color:var(--blue)}
+.signal-card-seller .signal-card-sub{color:var(--amber)}
+.signal-card-ai .signal-card-sub{color:var(--cyan)}
+.signal-card-body{font-size:12px;color:var(--muted);line-height:1.7}
+.signal-examples{margin-top:12px;display:flex;flex-direction:column;gap:5px}
+.sig-example{font-size:11px;padding:4px 10px;border-radius:4px;font-family:'IBM Plex Mono',monospace}
+.sig-example-sf{background:rgba(0,161,224,.1);color:var(--blue)}
+.sig-example-seller{background:rgba(245,158,11,.1);color:var(--amber)}
+.sig-example-ai{background:rgba(0,194,203,.1);color:var(--cyan)}
+
+/* ── THE FORMAT TAB ── */
+.format-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:36px}
+.format-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px}
+.format-card-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px}
+.format-card-sub{font-size:10px;color:var(--dim);margin-bottom:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase}
+.format-card-body{font-size:12px;color:var(--muted);line-height:1.7}
+.format-sample{margin-top:12px;background:rgba(0,194,203,.05);border:1px solid rgba(0,194,203,.18);border-left:3px solid var(--cyan);border-radius:6px;padding:10px 12px;font-size:11px;font-family:'IBM Plex Mono',monospace;color:var(--text);line-height:1.7}
+.format-section-label{font-size:10px;color:var(--cyan);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+
+/* ── FOOTER ── */
+.footer{border-top:1px solid var(--border);padding:28px 0;text-align:center;margin-top:8px}
+.footer-logo{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.18em;color:var(--cyan);margin-bottom:6px}
+.footer-text{font-size:11px;color:var(--dim);line-height:1.6}
+
+/* ── UTILITY ── */
+.section-gap{margin-bottom:32px}
+.divider{border:none;border-top:1px solid var(--border);margin:32px 0}
 </style>
 </head>
 <body>
+<div class="page">
 
-<div class="nav">
-  <div class="nav-brand">
-    <div class="nav-logo">CYERA · SPIS</div>
-    <div class="nav-sep"></div>
-    <div class="nav-title">Sales Planning Intelligence System</div>
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">Cyera · SPIS · Internal Demo</div>
+    <div class="headline">Sales Planning Intelligence System<br><span>Built for Cyera Regional Directors</span></div>
+    <div class="subhead">SPIS turns territory planning from a once-a-quarter Word doc into a living, AI-assisted workflow — helping RDs run better coaching conversations and helping AEs build sharper account plans in less time.</div>
   </div>
-  <div class="ntabs">
-    <div class="ntab on" onclick="show(0,this)">The Idea</div>
-    <div class="ntab" onclick="show(1,this)">Territory Plan</div>
-    <div class="ntab" onclick="show(2,this)">Account Plan</div>
-    <div class="ntab" onclick="show(3,this)">Coaching Dashboard</div>
-  </div>
-</div>
 
-<!-- PAGE 0: THE IDEA -->
-<div class="pg on" id="pg-0">
-  <div class="idea-hero">
-    <div class="idea-eyebrow">Cyera · Majors Segment · MEDDPICC · Force Management</div>
-    <div class="idea-h1">The four-document planning framework I described,<br/><em>built and running.</em></div>
-    <div class="idea-body">
-      SPIS is a working AI-powered sales planning system built on the Territory Plan, Account Plan, and planning methodology we discussed — adapted specifically for Cyera's Majors motion, MEDDPICC qualification standard, and Force Management principles. Every territory thesis, business case, stakeholder map, and outreach narrative is generated from three signal types: what Salesforce already knows, what only a great seller can provide, and what AI generates in seconds that used to take hours.
-    </div>
+  <!-- TABS -->
+  <div class="tabs-bar">
+    <button class="tab-btn active" onclick="showTab('idea', this)">The Idea</button>
+    <button class="tab-btn" onclick="showTab('signals', this)">The Signals</button>
+    <button class="tab-btn" onclick="showTab('format', this)">The Format</button>
   </div>
-  <div class="signal-grid">
-    <div class="signal-card" style="border-color:#00A1E030">
-      <div class="signal-icon">⚡</div>
-      <div class="signal-label" style="color:var(--sf)">Salesforce — Auto-populated</div>
-      <div class="signal-title">What the CRM Already Knows</div>
-      <div class="signal-items">
-        Quota and current pipeline value<br/>
-        Win rate and average deal size<br/>
-        Forecast commit and best case<br/>
-        Opportunity stage and close date<br/>
-        YTD closed and open opp count
-      </div>
-      <div class="signal-note" style="color:var(--sf)">AE never re-enters what Salesforce already knows</div>
-    </div>
-    <div class="signal-card" style="border-color:#F59E0B30">
-      <div class="signal-icon">✏️</div>
-      <div class="signal-label" style="color:var(--ae)">Seller Enters — Judgment Only</div>
-      <div class="signal-title">What Only a Great Seller Can Provide</div>
-      <div class="signal-items">
-        Known contacts and relationship context<br/>
-        MEDDPICC qualification by element<br/>
-        Pain hypothesis — specific trigger type<br/>
-        Competitive presence and eval criteria<br/>
-        Partner strategy and named contacts
-      </div>
-      <div class="signal-note" style="color:var(--ae)">The judgment Salesforce can never capture</div>
-    </div>
-    <div class="signal-card" style="border-color:#00C2CB30">
-      <div class="signal-icon">✦</div>
-      <div class="signal-label" style="color:var(--ai)">AI Generates — Everything Else</div>
-      <div class="signal-title">Hours of Work in Seconds</div>
-      <div class="signal-items">
-        Territory thesis and account tiering<br/>
-        Account intelligence and trigger hypotheses<br/>
-        Stakeholder maps and champion assessment<br/>
-        Business case — current state, impact, future<br/>
-        Outreach narrative and MEDDPICC coaching agenda
-      </div>
-      <div class="signal-note" style="color:var(--ai)">All prompts built around Cyera's DSPM selling motion</div>
-    </div>
-  </div>
-  <div class="screens-row">
-    <div class="screen-chip">
-      <div class="screen-num">01</div>
-      <div class="screen-name">Regional Dashboard</div>
-      <div class="screen-desc">Pipeline coverage vs 3.5x, forecast commit, plan completeness scores, and plan status for every seller — pulled from mock Salesforce data.</div>
-    </div>
-    <div class="screen-chip">
-      <div class="screen-num">02</div>
-      <div class="screen-name">Territory Plan Builder</div>
-      <div class="screen-desc">Three-tab workflow: Salesforce + seller intake → AI account enrichment with Cyera trigger hypotheses → AI-generated plan with MEDDPICC tiering and 30/60/90 milestones.</div>
-    </div>
-    <div class="screen-chip">
-      <div class="screen-num">03</div>
-      <div class="screen-name">Account Plan Builder</div>
-      <div class="screen-desc">Seven-tab plan per Tier 1 account: intake, executive overview, stakeholder map, business case, pursuit strategy, MEDDPICC tracker, and close plan.</div>
-    </div>
-    <div class="screen-chip">
-      <div class="screen-num">04</div>
-      <div class="screen-name">Manager Review</div>
-      <div class="screen-desc">MEDDPICC-based review rubric with Force Management coaching criteria. Approve or request revision. AI generates a coaching brief and 1:1 agenda from plan data.</div>
-    </div>
-    <div class="screen-chip">
-      <div class="screen-num">05</div>
-      <div class="screen-name">Weekly Coaching Dashboard</div>
-      <div class="screen-desc">Heat map cards for each seller with pipeline movement, stalled opps, and plan score. Click any seller to generate a 30-minute MEDDPICC-grounded 1:1 agenda.</div>
-    </div>
-    <div class="screen-chip">
-      <div class="screen-num">06</div>
-      <div class="screen-name">Executive Summary</div>
-      <div class="screen-desc">CRO-ready briefing with team pipeline health, forecast confidence, top opportunities, risks, and recommended leadership actions — generated by AI from all plan data.</div>
-    </div>
-  </div>
-  <div class="footer-bar">
-    <span>Cyera SPIS · Sales Planning Intelligence System · Majors Segment</span>
-    <span>Built on Cyera's Territory and Account Plan Framework · MEDDPICC · Force Management</span>
-  </div>
-</div>
 
-<!-- PAGE 1: TERRITORY PLAN MOCKUP -->
-<div class="pg" id="pg-1">
-  <div class="mockup-page">
-    <div class="mockup-h">Screen 02 · Territory Plan Builder</div>
-    <div class="mockup-title">Three Signal Types in One Workflow</div>
-    <div class="mockup-sub">Salesforce fields pre-populated in blue · Seller judgment fields in amber · AI-generated plan in cyan — all clearly distinguished so the demo narrative writes itself.</div>
-    <div class="mock-app">
-      <div class="mock-topbar">
-        <div class="mock-dot" style="background:#EF4444"></div>
-        <div class="mock-dot" style="background:#F59E0B"></div>
-        <div class="mock-dot" style="background:#10B981"></div>
-        <div class="mock-title">Cyera SPIS · Alex Rivera — Territory Plan · Majors</div>
-      </div>
-      <div class="mock-body">
-        <div class="mock-sidebar">
-          <div style="padding:8px 14px 6px;font-size:8px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase">Navigation</div>
-          <div class="mock-nav-item">▦ Dashboard</div>
-          <div class="mock-nav-item active-blue">◈ Territory Plan</div>
-          <div class="mock-nav-item">◉ Account Plans</div>
-          <div class="mock-nav-item">◎ Manager Review</div>
-          <div class="mock-nav-item">◆ Coaching</div>
-          <div class="mock-nav-item">◇ Exec Summary</div>
-          <div style="padding:10px 14px 6px;margin-top:8px;border-top:1px solid var(--border);font-size:8px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase">Sellers</div>
-          <div class="mock-nav-item active" style="font-size:10px">Alex Rivera<br/><span style="color:var(--text3);font-size:9px">$2.2M · 2.19x · Score 88%</span></div>
-          <div class="mock-nav-item" style="font-size:10px">Morgan Lee<br/><span style="color:var(--text3);font-size:9px">$1.9M · 1.69x · Score 74%</span></div>
-          <div class="mock-nav-item" style="font-size:10px">Taylor Brooks<br/><span style="color:var(--text3);font-size:9px">$2.0M · 1.05x · Score 52%</span></div>
-        </div>
-        <div class="mock-content">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-            <div>
-              <div style="font-size:11px;color:var(--text3)">Territory Plan · Majors</div>
-              <div style="font-size:15px;font-weight:700">Alex Rivera</div>
-              <div style="font-size:10px;color:var(--text3)">Quota: $2.2M · Pipeline: $4.8M · Coverage: 2.19x</div>
-            </div>
-            <div style="text-align:right">
-              <div style="font-size:10px;color:var(--text3)">Plan Completeness</div>
-              <div style="font-family:var(--mono);font-size:22px;font-weight:500;color:var(--green)">88%</div>
-              <span style="background:#D1FAE5;color:#065F46;font-size:9px;font-weight:700;padding:2px 8px;border-radius:10px">Approved</span>
-            </div>
-          </div>
-          <div class="mock-tabs">
-            <div class="mock-tab on">1 · AE Intake</div>
-            <div class="mock-tab">2 · Account Enrichment</div>
-            <div class="mock-tab">3 · Generated Plan</div>
-          </div>
-          <!-- SF fields -->
-          <div class="m-sig" style="border-color:var(--sf)">
-            <div class="m-sig-label" style="color:var(--sf)">⚡ Salesforce — Auto-populated</div>
-            <div class="m-grid4" style="margin-bottom:0">
-              <div class="m-card" style="border-color:#00A1E030"><div class="m-label">Annual Quota</div><div class="m-val" style="color:var(--sf);font-size:14px">$2.2M</div></div>
-              <div class="m-card" style="border-color:#00A1E030"><div class="m-label">Current Pipeline</div><div class="m-val" style="color:var(--sf);font-size:14px">$4.8M</div></div>
-              <div class="m-card" style="border-color:#00A1E030"><div class="m-label">Win Rate</div><div class="m-val" style="color:var(--sf);font-size:14px">21%</div></div>
-              <div class="m-card" style="border-color:#00A1E030"><div class="m-label">Forecast Commit</div><div class="m-val" style="color:var(--sf);font-size:14px">$900K</div></div>
-            </div>
-          </div>
-          <!-- AE fields -->
-          <div class="m-sig" style="border-color:var(--ae)">
-            <div class="m-sig-label" style="color:var(--ae)">✏️ Seller Enters — Judgment Only</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-              <div>
-                <div style="font-size:8px;color:var(--ae);margin-bottom:3px">Known Contacts and Relationship Context</div>
-                <div class="m-field">Karen Walsh, VP Data Governance, Blackstone — met at RSA 2025. Strong. Has shared internal CISO brief...</div>
-              </div>
-              <div>
-                <div style="font-size:8px;color:var(--ae);margin-bottom:3px">Pain Hypothesis — Territory Trigger Type</div>
-                <div class="m-field">Dominant trigger: agentic AI deployment with no data governance layer. 4 of 8 accounts have announced AI production...</div>
-              </div>
-              <div>
-                <div style="font-size:8px;color:var(--ae);margin-bottom:3px">Competitive Context</div>
-                <div class="m-field">Varonis renewal at Blackstone (Q4). Microsoft Purview preferred at JPMorgan IT level — CISO not satisfied...</div>
-              </div>
-              <div>
-                <div style="font-size:8px;color:var(--ae);margin-bottom:3px">Partner Strategy</div>
-                <div class="m-field">Deloitte relationship covers Blackstone and Cardinal Health. AWS alliance team has Anthem contact...</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Enrichment mockup -->
-    <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:16px">
-      <div>
-        <div style="font-size:11px;color:var(--text2);margin-bottom:8px;font-weight:600">Tab 2 · Account Enrichment — AI Researches All 8 Accounts</div>
-        <div class="mock-app" style="border-radius:8px">
-          <div style="padding:10px 14px">
-            {['Blackstone Group — ✓ Enriched','JPMorgan Chase — ✓ Enriched','Cardinal Health — Researching...','Anthem Health — Pending'].map((n,i)=>`
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border2)">
-              <div style="font-size:11px;font-weight:600">${n.split(' — ')[0]}</div>
-              <span style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:10px;background:${i<2?'#D1FAE5':i===2?'#DBEAFE':'var(--navy)'};color:${i<2?'#065F46':i===2?'#1e40af':'var(--text3)'}">${n.split(' — ')[1]}</span>
-            </div>`).join('')}
-          </div>
-        </div>
-      </div>
-      <div>
-        <div style="font-size:11px;color:var(--text2);margin-bottom:8px;font-weight:600">Tab 3 · AI-Generated Territory Plan — MEDDPICC Tiering and 30/60/90</div>
-        <div class="m-gen" style="border-radius:8px">
-          <div class="m-gen-title">Territory Thesis</div>
-          <div class="m-gen-text">Five of eight Majors accounts have announced agentic AI production deployments in the past 90 days without a visible data governance or classification layer — creating the exact board-level risk condition Cyera is built to resolve. Three accounts face active regulatory pressure (SEC, HIPAA, GDPR) with classification gaps surfaced in recent audits. Relationship access via Deloitte (Blackstone, Cardinal Health) and AWS alliance (Anthem) gives this territory meaningful warm-path advantages versus a cold outbound motion...</div>
-        </div>
-        <div class="m-gen">
-          <div class="m-gen-title">Tier 1 · Priority Pursuit (Top 5)</div>
-          <div class="m-gen-text" style="font-size:9px">
-            <strong style="color:var(--text)">1. Blackstone Group</strong> — Varonis renewal Q4 + agentic AI pilot with no governance layer. Champion in place (Karen Walsh). MEDDPICC: E confirmed, I explicit, C1 strong. Access: warm via champion.<br/><br/>
-            <strong style="color:var(--text)">2. JPMorgan Chase</strong> — SEC Rule 17a-4 gap surfaced in audit. CISO dissatisfied with Purview on multi-cloud coverage. Path: Deloitte partner intro to CISO. MEDDPICC: M defined, D1 influencing in progress...
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+  <!-- ── TAB: THE IDEA ── -->
+  <div id="tab-idea">
 
-<!-- PAGE 2: ACCOUNT PLAN MOCKUP -->
-<div class="pg" id="pg-2">
-  <div class="mockup-page">
-    <div class="mockup-h">Screen 03 · Account Plan Builder</div>
-    <div class="mockup-title">MEDDPICC-Qualified Plans at Account Level</div>
-    <div class="mockup-sub">Seven-tab plan per Tier 1 account. Intake captures seller judgment. AI generates the business case, stakeholder map, and outreach narrative. MEDDPICC tracker surfaces qualification gaps as a coaching agenda — not a compliance checkbox.</div>
-    <div class="mock-app">
-      <div class="mock-topbar">
-        <div class="mock-dot" style="background:#EF4444"></div>
-        <div class="mock-dot" style="background:#F59E0B"></div>
-        <div class="mock-dot" style="background:#10B981"></div>
-        <div class="mock-title">Cyera SPIS · Alex Rivera — Account Plan · Blackstone Group</div>
-      </div>
-      <div class="mock-body">
-        <div class="mock-sidebar">
-          <div style="padding:8px 14px 6px;font-size:8px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase">Tier 1 Accounts</div>
-          <div class="mock-nav-item active-blue" style="font-size:10px">Blackstone Group<br/><span style="color:var(--cyan);font-size:9px">Tier 1 · Discovery</span></div>
-          <div class="mock-nav-item" style="font-size:10px">JPMorgan Chase</div>
-          <div class="mock-nav-item" style="font-size:10px">Cardinal Health</div>
-          <div class="mock-nav-item" style="font-size:10px">Anthem Health</div>
-          <div class="mock-nav-item" style="font-size:10px">Northrop Grumman</div>
+    <div class="signal-row">
+      <span class="signal-badge sig-sf">⚡ Salesforce pulls CRM data automatically</span>
+      <span class="signal-badge sig-seller">✏️ Seller adds judgment and context</span>
+      <span class="signal-badge sig-ai">✦ AI generates structured output</span>
+    </div>
+
+    <div class="chips-section">
+      <div class="chips-section-label">Six screens · One workflow</div>
+      <div class="chips-grid">
+
+        <div class="chip">
+          <div class="chip-icon">◉</div>
+          <div class="chip-label">Screen 1</div>
+          <div class="chip-title">Regional Dashboard</div>
+          <div class="chip-desc">Pipeline, coverage, forecast, and plan health for all three sellers at a glance. The RD's single view of the region — no spreadsheet required.</div>
         </div>
-        <div class="mock-content">
-          <div style="background:#00C2CB08;border:1px solid #00C2CB20;border-radius:6px;padding:10px 12px;margin-bottom:12px">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start">
-              <div><div style="font-size:14px;font-weight:700">Blackstone Group</div><div style="font-size:10px;color:var(--text3)">Financial Services · $180B revenue · Access: Warm</div></div>
-              <span style="background:#00C2CB15;color:var(--cyan);border:1px solid #00C2CB30;font-size:9px;font-weight:700;padding:2px 8px;border-radius:10px">Tier 1</span>
-            </div>
-            <div style="margin-top:6px;background:#FEF3C720;border:1px solid #F59E0B30;border-radius:4px;padding:5px 8px;font-size:10px;color:#FCD34D"><strong>Trigger:</strong> Agentic AI production deployment with no data governance layer — board mandate Q3. Varonis renewal Q4.</div>
-          </div>
-          <div class="mock-tabs">
-            <div class="mock-tab">Intake</div>
-            <div class="mock-tab">Overview</div>
-            <div class="mock-tab">Stakeholders</div>
-            <div class="mock-tab on">Business Case</div>
-            <div class="mock-tab">Pursuit</div>
-            <div class="mock-tab">MEDDPICC</div>
-            <div class="mock-tab">Close Plan</div>
-          </div>
-          <!-- Business Case AI output -->
-          <div class="m-gen">
-            <div class="m-gen-title">Current State — The Problem Blackstone Has Today</div>
-            <div class="m-gen-text">Blackstone has deployed three separate agentic AI systems across its PE portfolio management, investor reporting, and deal sourcing workflows — each accessing unclassified data repositories containing proprietary deal data, LP information, and sensitive financial models. The classification layer is manual, performed quarterly by a two-person data governance team, and covers less than 30% of the cloud data estate. With the board's Q3 mandate to expand AI usage to front-office functions, the exposure window is widening faster than any manual process can close it.</div>
-          </div>
-          <div class="m-gen">
-            <div class="m-gen-title">Business Impact — What This Is Costing Them</div>
-            <div class="m-gen-text">SEC Reg S-P and proposed data broker rules create direct breach notification risk estimated at $2–8M per incident for a firm managing $1T+ in assets. The current manual classification gap introduces approximately 340 hours per quarter in analyst time that produces incomplete results. More critically, the AI deployment mandate is blocked: the CISO has not approved production expansion until a data governance layer is in place — creating direct board-level tension between the AI growth agenda and the security team's open risk position.</div>
-          </div>
-          <div class="m-gen">
-            <div class="m-gen-title">Future State — What Success Looks Like</div>
-            <div class="m-gen-text">Complete visibility into all sensitive data across Blackstone's cloud and SaaS estate within 72 hours of Cyera deployment — enabling the CISO to approve AI production expansion to front-office functions before the Q3 board presentation. Automated classification eliminates the 340 analyst hours per quarter and creates a continuous compliance posture for SEC reporting. AI expansion proceeds on the board's timeline with documented data governance controls.</div>
-          </div>
+
+        <div class="chip">
+          <div class="chip-icon">◈</div>
+          <div class="chip-label">Screen 2</div>
+          <div class="chip-title">Territory Plan</div>
+          <div class="chip-desc">AE enters their pain hypothesis, competitive context, and partner strategy. The tool enriches all eight accounts with AI intelligence and generates a structured territory plan with tier breakdown, pursuit motion, and 30/60/90 milestones.</div>
         </div>
+
+        <div class="chip">
+          <div class="chip-icon">◆</div>
+          <div class="chip-label">Screen 3</div>
+          <div class="chip-title">Account Plans</div>
+          <div class="chip-desc">Deep-dive into each Tier 1 account. Generates account overview and outreach point of view, a named stakeholder map with stance and recommended action, a CURRENT STATE / BUSINESS IMPACT / FUTURE STATE business case, and an eight-step pursuit task list.</div>
+        </div>
+
+        <div class="chip">
+          <div class="chip-icon">◐</div>
+          <div class="chip-label">Screen 4</div>
+          <div class="chip-title">Weekly Coaching</div>
+          <div class="chip-desc">RD selects a seller and generates a structured coaching agenda — pipeline snapshot, account spotlight with coaching questions, a targeted strategy coaching moment, and explicit commitments from both AE and RD for the week.</div>
+        </div>
+
+        <div class="chip">
+          <div class="chip-icon">◇</div>
+          <div class="chip-label">Screen 5</div>
+          <div class="chip-title">Executive Summary</div>
+          <div class="chip-desc">One-click regional summary formatted for VP and CRO consumption. Covers pipeline health, forecast confidence, top opportunities, key risks, and recommended actions — structured for a 30-second read.</div>
+        </div>
+
+        <div class="chip">
+          <div class="chip-icon">✦</div>
+          <div class="chip-label">Across All Screens</div>
+          <div class="chip-title">Inline AI Generation</div>
+          <div class="chip-desc">Every Generate and Enrich button in the tool produces output in a structured, pre-defined format — never a wall of text. Outputs are immediately readable and actionable without editing or reformatting.</div>
+        </div>
+
       </div>
     </div>
-    <!-- MEDDPICC tracker mockup -->
-    <div style="margin-top:16px">
-      <div style="font-size:11px;color:var(--text2);margin-bottom:8px;font-weight:600">Tab 6 · MEDDPICC Qualification Tracker — Qualification Gaps Become the Coaching Agenda</div>
-      <div class="mock-app" style="border-radius:8px;padding:14px">
-        <div class="medd-row">
-          <div class="medd-cell"><div class="medd-l" style="color:var(--green)">M</div><div class="medd-n">Metrics</div><div class="medd-s" style="background:#D1FAE5;color:#065F46">Confirmed</div></div>
-          <div class="medd-cell"><div class="medd-l" style="color:var(--green)">E</div><div class="medd-n">Econ. Buyer</div><div class="medd-s" style="background:#D1FAE5;color:#065F46">Confirmed</div></div>
-          <div class="medd-cell"><div class="medd-l" style="color:var(--amber)">D</div><div class="medd-n">Dec. Criteria</div><div class="medd-s" style="background:#FEF3C7;color:#92400E">Influencing</div></div>
-          <div class="medd-cell"><div class="medd-l" style="color:var(--amber)">D</div><div class="medd-n">Dec. Process</div><div class="medd-s" style="background:#FEF3C7;color:#92400E">Partial</div></div>
-          <div class="medd-cell"><div class="medd-l" style="color:var(--green)">I</div><div class="medd-n">Pain</div><div class="medd-s" style="background:#D1FAE5;color:#065F46">Explicit</div></div>
-          <div class="medd-cell"><div class="medd-l" style="color:var(--green)">C</div><div class="medd-n">Champion</div><div class="medd-s" style="background:#D1FAE5;color:#065F46">Strong</div></div>
-          <div class="medd-cell"><div class="medd-l" style="color:var(--amber)">C</div><div class="medd-n">Competition</div><div class="medd-s" style="background:#FEF3C7;color:#92400E">Partial</div></div>
-          <div class="medd-cell"><div class="medd-l" style="color:#EF4444">P</div><div class="medd-n">Paper Process</div><div class="medd-s" style="background:#FEE2E2;color:#991B1B">Open</div></div>
+
+    <!-- HOW TO NAVIGATE THE DEMO -->
+    <div class="nav-section">
+      <div class="nav-section-title">How to Navigate the Demo</div>
+      <div class="nav-cards">
+
+        <div class="nav-card">
+          <div class="badge badge-green">Pre-Populated</div>
+          <div class="nav-card-heading">Alex Rivera — Full Demo Experience</div>
+          <div class="nav-card-body">Alex Rivera's territory and account plans are fully built out so you can see exactly what SPIS looks like in practice. His territory plan shows a complete tier breakdown, pursuit strategy, and 30/60/90 milestones. All five of his Tier 1 account plans — Salesforce, Wells Fargo, McKesson, Visa, and Chevron — are pre-populated across every tab including the stakeholder map, business case, and pursuit task list. Start here to see the full picture.</div>
         </div>
-        <div style="background:var(--navy3);border:1px solid #F59E0B30;border-radius:6px;padding:10px 12px">
-          <div style="font-size:9px;font-weight:700;color:var(--amber);margin-bottom:4px">⚠ MEDDPICC Coaching Flag — Decision Process and Paper Process Open</div>
-          <div style="font-size:10px;color:var(--text2)">Decision Process: Champion has not yet mapped the formal evaluation committee. Next action: ask Karen Walsh who participates in vendor selection decisions above $500K. Target: confirmed by MM/DD. | Paper Process: Blackstone Legal is not yet engaged. Procurement lead unknown. Risk to Q4 close if not initiated by MM/DD.</div>
+
+        <div class="nav-card">
+          <div class="badge badge-cyan">Try It Live</div>
+          <div class="nav-card-heading">Morgan Lee and Taylor Brooks — Test Drive</div>
+          <div class="nav-card-body">Morgan Lee and Taylor Brooks are set up for you to explore the simulation. Select either seller from the sidebar, navigate to their Territory Plan or Account Plans, and click any Generate or Enrich button. The system will simulate AI generation in real time — spinning for half a second then delivering structured output specific to that account. Try enriching an account, generating a business case, or building a pursuit plan to see how the tool works in practice.</div>
         </div>
+
+      </div>
+      <div class="nav-note">No API key required — all content is pre-written and loads instantly.</div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-logo">CYERA · SPIS</div>
+      <div class="footer-text">Sales Planning Intelligence System · Internal Demo · Q2 FY2026</div>
+    </div>
+
+  </div><!-- /tab-idea -->
+
+  <!-- ── TAB: THE SIGNALS ── -->
+  <div id="tab-signals" style="display:none">
+
+    <div style="text-align:center;margin-bottom:28px">
+      <div style="font-size:14px;color:var(--muted);line-height:1.7;max-width:580px;margin:0 auto">
+        Every field in SPIS is labeled with one of three signals so the AE always knows where the data came from and what they own. This removes the friction of re-entering data that already exists in Salesforce and makes the seller's judgment inputs explicit.
       </div>
     </div>
-  </div>
-</div>
 
-<!-- PAGE 3: COACHING MOCKUP -->
-<div class="pg" id="pg-3">
-  <div class="mockup-page">
-    <div class="mockup-h">Screen 05 · Weekly Coaching Dashboard</div>
-    <div class="mockup-title">The Plan Data Drives the Coaching Agenda</div>
-    <div class="mockup-sub">Heat map cards show pipeline coverage, plan score, and risk signals at a glance. Click any seller to generate a 30-minute MEDDPICC-grounded 1:1 agenda — no status report required, no pre-read needed.</div>
-    <div class="mock-app">
-      <div class="mock-topbar">
-        <div class="mock-dot" style="background:#EF4444"></div>
-        <div class="mock-dot" style="background:#F59E0B"></div>
-        <div class="mock-dot" style="background:#10B981"></div>
-        <div class="mock-title">Cyera SPIS · Weekly Coaching Dashboard · Majors Region</div>
-      </div>
-      <div style="padding:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
-        <!-- Alex card (green) -->
-        <div style="background:var(--navy3);border:1px solid var(--border);border-radius:8px;overflow:hidden">
-          <div style="padding:10px 14px;background:var(--navy);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
-            <div><div style="font-weight:700;font-size:13px">Alex Rivera</div><div style="font-size:10px;color:var(--text3)">Plan Approved</div></div>
-            <div style="width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 8px #10B98160"></div>
-          </div>
-          <div style="padding:12px 14px">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
-              <div><div style="font-size:9px;color:var(--text3)">Pipeline</div><div style="font-family:var(--mono);font-size:12px;font-weight:500">$4.8M</div></div>
-              <div><div style="font-size:9px;color:var(--text3)">Coverage</div><div style="font-family:var(--mono);font-size:12px;color:var(--green)">2.19x</div></div>
-              <div><div style="font-size:9px;color:var(--text3)">Commit</div><div style="font-family:var(--mono);font-size:12px">$900K</div></div>
-              <div><div style="font-size:9px;color:var(--text3)">Plan Score</div><div style="font-family:var(--mono);font-size:12px;color:var(--green)">88%</div></div>
-            </div>
-            <div class="m-prog"><div class="m-prog-fill" style="width:63%;background:var(--green)"></div></div>
-            <div style="font-size:9px;color:var(--text3);margin-top:3px">63% of 3.5x target</div>
-          </div>
-        </div>
-        <!-- Morgan card (amber) -->
-        <div style="background:var(--navy3);border:1px solid var(--border);border-radius:8px;overflow:hidden">
-          <div style="padding:10px 14px;background:var(--navy);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
-            <div><div style="font-weight:700;font-size:13px">Morgan Lee</div><div style="font-size:10px;color:var(--text3)">Plan Approved</div></div>
-            <div style="width:12px;height:12px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px #F59E0B60"></div>
-          </div>
-          <div style="padding:12px 14px">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
-              <div><div style="font-size:9px;color:var(--text3)">Pipeline</div><div style="font-family:var(--mono);font-size:12px;font-weight:500">$3.2M</div></div>
-              <div><div style="font-size:9px;color:var(--text3)">Coverage</div><div style="font-family:var(--mono);font-size:12px;color:var(--amber)">1.69x</div></div>
-              <div><div style="font-size:9px;color:var(--text3)">Commit</div><div style="font-family:var(--mono);font-size:12px">$700K</div></div>
-              <div><div style="font-size:9px;color:var(--text3)">Plan Score</div><div style="font-family:var(--mono);font-size:12px;color:var(--amber)">74%</div></div>
-            </div>
-            <div class="m-prog"><div class="m-prog-fill" style="width:48%;background:var(--amber)"></div></div>
-            <div style="font-size:9px;color:var(--text3);margin-top:3px">48% of 3.5x target</div>
-          </div>
-        </div>
-        <!-- Taylor card (red) -->
-        <div style="background:var(--navy3);border:1px solid #EF444430;border-radius:8px;overflow:hidden">
-          <div style="padding:10px 14px;background:var(--navy);border-bottom:1px solid #EF444430;display:flex;justify-content:space-between;align-items:center">
-            <div><div style="font-weight:700;font-size:13px">Taylor Brooks</div><div style="font-size:10px;color:#EF4444">⚠ Plan Needs Revision</div></div>
-            <div style="width:12px;height:12px;border-radius:50%;background:#EF4444;box-shadow:0 0 8px #EF444460"></div>
-          </div>
-          <div style="padding:12px 14px">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
-              <div><div style="font-size:9px;color:var(--text3)">Pipeline</div><div style="font-family:var(--mono);font-size:12px;font-weight:500">$2.1M</div></div>
-              <div><div style="font-size:9px;color:var(--text3)">Coverage</div><div style="font-family:var(--mono);font-size:12px;color:#EF4444">1.05x</div></div>
-              <div><div style="font-size:9px;color:var(--text3)">Commit</div><div style="font-family:var(--mono);font-size:12px">$400K</div></div>
-              <div><div style="font-size:9px;color:var(--text3)">Plan Score</div><div style="font-family:var(--mono);font-size:12px;color:#EF4444">52%</div></div>
-            </div>
-            <div class="m-prog"><div class="m-prog-fill" style="width:30%;background:#EF4444"></div></div>
-            <div style="font-size:9px;color:#EF4444;margin-top:3px">⚠ Below 70% of 3.5x target — pipeline generation focus required</div>
-            <div style="margin-top:8px;background:#FEE2E220;border:1px solid #EF444430;border-radius:4px;padding:5px 8px;font-size:9px;color:#FCA5A5">⚠ Plan below minimum standard — coaching intervention needed</div>
-          </div>
+    <div class="signals-grid">
+
+      <div class="signal-card signal-card-sf">
+        <div class="signal-card-icon">⚡</div>
+        <div class="signal-card-title">Salesforce</div>
+        <div class="signal-card-sub">Auto-populated · Never re-entered</div>
+        <div class="signal-card-body">Quota, pipeline, win rate, average deal size, forecast commit, YTD closed, open opportunities — all pulled from Salesforce and displayed automatically. The AE never types these fields. If the CRM data is wrong, fix it in Salesforce.</div>
+        <div class="signal-examples">
+          <div class="sig-example sig-example-sf">Quota: $2.2M</div>
+          <div class="sig-example sig-example-sf">Pipeline: $4.8M · 2.2x coverage</div>
+          <div class="sig-example sig-example-sf">Win Rate: 21%</div>
         </div>
       </div>
-      <!-- Coaching panel -->
-      <div style="margin:0 16px 16px;background:var(--navy3);border:1px solid var(--border);border-radius:8px;padding:16px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-          <div>
-            <div style="font-size:12px;font-weight:700">✦ AI Coaching Agenda — Taylor Brooks</div>
-            <div style="font-size:10px;color:var(--text3)">30-minute 1:1 · MEDDPICC-grounded · Force Management standard</div>
-          </div>
-          <span style="background:var(--cyan2);color:var(--navy);font-size:10px;font-weight:700;padding:4px 12px;border-radius:6px">✦ Generated</span>
+
+      <div class="signal-card signal-card-seller">
+        <div class="signal-card-icon">✏️</div>
+        <div class="signal-card-title">Seller Enters</div>
+        <div class="signal-card-sub">Judgment-based · The AE's perspective</div>
+        <div class="signal-card-body">Pain hypothesis, competitive context, partner strategy, self-assessment, and manager ask — these are the fields where the seller's judgment and knowledge of the territory actually lives. SPIS makes this judgment explicit, structured, and visible to the RD before the coaching conversation.</div>
+        <div class="signal-examples">
+          <div class="sig-example sig-example-seller">Pain hypothesis</div>
+          <div class="sig-example sig-example-seller">Competitive presence</div>
+          <div class="sig-example sig-example-seller">Manager ask</div>
         </div>
-        <div style="font-size:11px;color:var(--text2);line-height:1.8;white-space:pre-wrap;max-height:200px;overflow:hidden">
-<strong style="color:var(--text)">1. PIPELINE SNAPSHOT (60 seconds)</strong>
-Taylor is at 1.05x coverage against a 3.5x target — the largest pipeline gap on the team. With a 18% win rate and $360K average deal size, closing the quarter requires 4 new qualified opportunities in the next 30 days. The question is not activity — it is whether current Tier 1 accounts have real MEDDPICC qualification or are in the pipeline as aspirations.
+      </div>
 
-<strong style="color:var(--text)">2. DEAL SPOTLIGHT — Exelon Corporation</strong>
-Three MEDDPICC questions to ask: (1) "Have you confirmed that the Economic Buyer for a DSPM decision at this size is the CISO — or does it require CIO and CFO sign-off?" (2) "What has your contact specifically done to move Cyera forward internally — beyond agreeing to meet again?" (3) "Is the NERC CIP gap Implicit — meaning they know they have it but haven't committed to solving it — or Explicit, meaning there is a stated initiative with a budget owner?"
+      <div class="signal-card signal-card-ai">
+        <div class="signal-card-icon">✦</div>
+        <div class="signal-card-title">AI Generates</div>
+        <div class="signal-card-sub">Structured output · Account-specific</div>
+        <div class="signal-card-body">Account intelligence, territory plans, stakeholder maps, business cases, pursuit task lists, coaching agendas, and executive summaries — all generated in structured, pre-defined formats that are immediately readable. The AI never produces a wall of text; every output is parsed into a visual layout.</div>
+        <div class="signal-examples">
+          <div class="sig-example sig-example-ai">Territory plan · 30/60/90</div>
+          <div class="sig-example sig-example-ai">Stakeholder map · Stance + Action</div>
+          <div class="sig-example sig-example-ai">Business case · Current / Impact / Future</div>
+        </div>
+      </div>
 
-<strong style="color:var(--text)">3. MEDDPICC COACHING MOMENT</strong>
-The biggest risk across Taylor's territory is Implicit Pain that has not been moved to Explicit. Three accounts are in pipeline with no documented commitment from a buyer to solve the identified problem. The coaching question: "For each of your Tier 1 accounts — what has the Economic Buyer said that tells you they are committed to solving this, not just interested in learning about it?"</div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:36px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:12px">Why this matters for coaching</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.8">
+        When an RD opens SPIS before a 1:1, they can see exactly what the seller has entered versus what the system generated. If the pain hypothesis is thin, that's a coaching signal. If the competitive section is blank, that's another signal. The three-signal design makes the quality of the seller's thinking visible before the conversation starts — which means the RD can spend the coaching session on the actual gaps instead of asking the AE to explain their territory from scratch.
       </div>
     </div>
-    <div class="vision-q" style="margin-top:24px">
-      "If your sellers spent two fewer hours per week on planning and reporting and two more hours in front of Economic Buyers — what does that do to your number?"
-    </div>
-  </div>
-</div>
 
-<div class="footer-bar">
-  <span>Cyera SPIS · Sales Planning Intelligence System · Majors Segment · Confidential</span>
-  <span>Built on Cyera's Territory and Account Plan Framework · MEDDPICC · Force Management</span>
-</div>
+    <div class="footer">
+      <div class="footer-logo">CYERA · SPIS</div>
+      <div class="footer-text">Sales Planning Intelligence System · Internal Demo · Q2 FY2026</div>
+    </div>
+
+  </div><!-- /tab-signals -->
+
+  <!-- ── TAB: THE FORMAT ── -->
+  <div id="tab-format" style="display:none">
+
+    <div style="text-align:center;margin-bottom:28px">
+      <div style="font-size:14px;color:var(--muted);line-height:1.7;max-width:580px;margin:0 auto">
+        Every AI output in SPIS is rendered into a structured visual layout — not displayed as raw text. The tool parses the AI response and maps it to pre-defined visual components so every generate produces output that is immediately readable and shareable.
+      </div>
+    </div>
+
+    <div class="format-grid">
+
+      <div class="format-card">
+        <div class="format-card-title">Account Overview</div>
+        <div class="format-card-sub">Overview Tab · OverviewRenderer</div>
+        <div class="format-card-body">Splits into two sections: an executive summary card and a Point of View outreach block. The Point of View is styled as ready-to-use cold outreach copy — the AE can paste it directly into an email.</div>
+        <div class="format-sample">
+          <div class="format-section-label">Executive Summary</div>
+          Salesforce's Agentforce rollout is blocked by the CISO pending a governance layer on CRM data...
+          <br><br>
+          <div class="format-section-label">Point of View · Ready to use as outreach</div>
+          Before Agentforce goes to production, every enterprise security leader at a company of your scale is asking...
+        </div>
+      </div>
+
+      <div class="format-card">
+        <div class="format-card-title">Stakeholder Map</div>
+        <div class="format-card-sub">Stakeholders Tab · StakeholderRenderer</div>
+        <div class="format-card-body">Parsed from pipe-delimited text into a structured table with name, title, department, color-coded stance (Supporter / Neutral / Risk), and a recommended next action for each stakeholder.</div>
+        <div class="format-sample">
+          <div style="display:flex;gap:8px;font-size:10px;color:var(--dim);margin-bottom:6px;border-bottom:1px solid var(--border);padding-bottom:4px">
+            <span style="width:100px">Name</span><span style="width:130px">Title</span><span style="flex:1">Action</span>
+          </div>
+          <div style="display:flex;gap:8px;font-size:11px;margin-bottom:4px">
+            <span style="width:100px;color:var(--text);font-weight:600">Sara Chen</span>
+            <span style="width:130px;color:var(--muted)">VP Data Governance</span>
+            <span style="flex:1;color:var(--muted)">Request CISO intro</span>
+          </div>
+          <div style="display:flex;gap:8px;font-size:11px">
+            <span style="width:100px;color:var(--text);font-weight:600">Mark Torres</span>
+            <span style="width:130px;color:var(--muted)">CISO</span>
+            <span style="flex:1;color:var(--muted)">Economic Buyer</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="format-card">
+        <div class="format-card-title">Business Case</div>
+        <div class="format-card-sub">Business Case Tab · BusinessCaseRenderer</div>
+        <div class="format-card-body">Three colored sections — amber for Current State, red for Business Impact, cyan for Future State — each rendered as a bulleted list with color-coded leading dots. Structured for executive consumption.</div>
+        <div class="format-sample">
+          <div style="color:var(--amber);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">● CURRENT STATE</div>
+          <div style="color:var(--muted);font-size:11px;margin-bottom:8px">Agentforce agents access unclassified CRM data including customer PII and deal records...</div>
+          <div style="color:#EF4444;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">● BUSINESS IMPACT</div>
+          <div style="color:var(--muted);font-size:11px">Board AI mandate delayed — direct revenue implications from Agentforce timeline slip...</div>
+        </div>
+      </div>
+
+      <div class="format-card">
+        <div class="format-card-title">Pursuit Task List</div>
+        <div class="format-card-sub">Pursuit Tab · PursuitTaskList</div>
+        <div class="format-card-body">Eight pursuit actions rendered as interactive task cards — each with a bold action, stakeholder pill, timeline pill, and a status dropdown the AE updates as they work the account. Border color updates with status.</div>
+        <div class="format-sample">
+          <div style="border-left:3px solid var(--border);border:1px solid var(--border);border-left-width:3px;border-radius:6px;padding:8px 10px;margin-bottom:6px">
+            <div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:4px">Brief Sara Chen on Cyera Agentforce governance positioning</div>
+            <div style="display:flex;gap:12px;font-size:10px;color:var(--muted)">
+              <span>👤 Sara Chen, VP Data Governance</span>
+              <span>🗓 Week 1</span>
+            </div>
+          </div>
+          <div style="border-left:3px solid var(--green);border:1px solid rgba(34,197,94,.3);border-left-width:3px;border-radius:6px;padding:8px 10px;background:rgba(34,197,94,.05)">
+            <div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:4px">Sara Chen facilitates introduction to CISO Mark Torres</div>
+            <div style="display:flex;gap:12px;font-size:10px;color:var(--muted)">
+              <span>👤 Mark Torres, CISO</span>
+              <span style="color:var(--green)">✓ Complete</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="format-card">
+        <div class="format-card-title">Territory Plan</div>
+        <div class="format-card-sub">Generated Plan Tab · TerritoryPlanRenderer</div>
+        <div class="format-card-body">Ten structured sections rendered in a visual grid — Tier 1/2/3 accounts side by side, milestones in a three-column 30/60/90 grid, and cyan-bordered cards for thesis, pursuit motion, ecosystem, and risks.</div>
+        <div class="format-sample">
+          <div style="font-size:10px;font-weight:700;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;border-bottom:1px solid rgba(0,194,203,.18);padding-bottom:4px">TERRITORY THESIS</div>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:2px">• Five of eight accounts have AI production initiatives without a governance layer</div>
+          <div style="font-size:11px;color:var(--muted)">• Three accounts face active regulatory pressure with confirmed audit findings</div>
+        </div>
+      </div>
+
+      <div class="format-card">
+        <div class="format-card-title">Coaching Agenda</div>
+        <div class="format-card-sub">Coaching Tab · CoachingAgendaRenderer</div>
+        <div class="format-card-body">Five colored sections with left-border styling — Pipeline Snapshot (blue), Account Spotlight (cyan), Strategy Coaching Moment (amber), This Week's Focus (green), and RD Commitment (green). Built for a 30-minute 1:1.</div>
+        <div class="format-sample">
+          <div style="border-left:3px solid var(--blue);padding-left:8px;margin-bottom:8px">
+            <div style="font-size:10px;font-weight:700;color:var(--blue);letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px">◉ PIPELINE SNAPSHOT</div>
+            <div style="font-size:11px;color:var(--muted)">Alex is at 2.2x coverage against a 3.5x target — below goal but Salesforce and Wells Fargo are credible...</div>
+          </div>
+          <div style="border-left:3px solid var(--amber);padding-left:8px">
+            <div style="font-size:10px;font-weight:700;color:var(--amber);letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px">◐ STRATEGY COACHING MOMENT</div>
+            <div style="font-size:11px;color:var(--muted)">Alex has not yet tested the champion relationship with a specific ask...</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer">
+      <div class="footer-logo">CYERA · SPIS</div>
+      <div class="footer-text">Sales Planning Intelligence System · Internal Demo · Q2 FY2026</div>
+    </div>
+
+  </div><!-- /tab-format -->
+
+</div><!-- /page -->
 
 <script>
-function show(id,tab){
-  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
-  document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('on'));
-  document.getElementById('pg-'+id).classList.add('on');
-  tab.classList.add('on');
-  window.scrollTo(0,0);
+function showTab(id, btn) {
+  document.querySelectorAll('[id^="tab-"]').forEach(el => el.style.display = 'none');
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + id).style.display = '';
+  btn.classList.add('active');
 }
 </script>
 </body>
