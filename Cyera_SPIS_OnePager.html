@@ -3,398 +3,863 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CYERA · SPIS — One-Pager</title>
+<title>CYERA · SPIS — Sales Planning Intelligence System</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#0D1B2A;--card:#111E2E;--border:#1E3A5F;
   --cyan:#00C2CB;--blue:#00A1E0;--amber:#F59E0B;
-  --text:#E2E8F0;--muted:#94A3B8;--dim:#64748B;
-  --green:#22C55E;--red:#EF4444;
+  --green:#10B981;--red:#EF4444;
+  --text:#F0F4F8;--muted:#94A3B8;--dim:#64748B;
+  --r:10px;
 }
-body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+html{scroll-behavior:smooth}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6}
 .mono{font-family:'IBM Plex Mono',monospace}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 
-/* ── LAYOUT ── */
-.page{max-width:900px;margin:0 auto;padding:40px 24px 0}
+/* CONTAINER */
+.wrap{max-width:900px;margin:0 auto;padding:0 24px}
 
-/* ── HEADER ── */
-.header{text-align:center;margin-bottom:40px}
-.logo{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:18px}
-.headline{font-size:28px;font-weight:700;line-height:1.3;margin-bottom:12px}
-.headline span{color:var(--cyan)}
-.subhead{font-size:14px;color:var(--muted);line-height:1.7;max-width:600px;margin:0 auto}
+/* TOP NAV */
+.topnav{
+  position:sticky;top:0;z-index:100;
+  background:var(--bg);border-bottom:1px solid var(--border);
+  height:56px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 28px;
+}
+.brand-name{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:var(--cyan);letter-spacing:.15em}
+.brand-sub{font-size:10px;color:var(--dim);letter-spacing:.05em}
+.nav-links{display:flex;gap:2px;list-style:none}
+.nav-links a{
+  text-decoration:none;color:var(--muted);font-size:12.5px;font-weight:500;
+  padding:6px 13px;border-radius:6px;transition:all .15s;
+}
+.nav-links a:hover{color:var(--text);background:rgba(255,255,255,.05)}
+.nav-links a.active{color:var(--cyan);background:rgba(0,194,203,.08)}
 
-/* ── TABS ── */
-.tabs-bar{display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:36px}
-.tab-btn{padding:10px 18px;cursor:pointer;font-size:13px;font-family:'IBM Plex Sans',sans-serif;font-weight:500;color:var(--muted);border:none;border-bottom:2px solid transparent;margin-bottom:-1px;background:none;transition:all .12s}
-.tab-btn:hover{color:var(--text)}
-.tab-btn.active{color:var(--cyan);border-bottom-color:var(--cyan)}
+/* SECTIONS */
+section{padding:72px 0 60px;border-bottom:1px solid var(--border)}
+section:last-of-type{border-bottom:none}
+.sec-label{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px}
+.sec-heading{font-size:26px;font-weight:700;margin-bottom:10px;line-height:1.25}
+.sec-sub{font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:40px;max-width:680px}
+.sec-footer{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--dim);margin-top:44px;padding-top:16px;border-top:1px solid rgba(30,58,95,.5)}
 
-/* ── SIGNAL BADGES ── */
-.signal-row{display:flex;justify-content:center;gap:10px;margin-bottom:36px;flex-wrap:wrap}
-.signal-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600}
-.sig-sf{background:rgba(0,161,224,.12);border:1px solid rgba(0,161,224,.3);color:var(--blue)}
-.sig-seller{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);color:var(--amber)}
-.sig-ai{background:rgba(0,194,203,.12);border:1px solid rgba(0,194,203,.3);color:var(--cyan)}
+/* HERO */
+.hero{text-align:center;padding:80px 0 60px}
+.hero-h{font-size:38px;font-weight:700;line-height:1.18;margin-bottom:16px}
+.hero-p{font-size:16px;color:var(--muted);line-height:1.75;max-width:640px;margin:0 auto 48px}
 
-/* ── SCREEN CHIPS ── */
-.chips-section{margin-bottom:36px}
-.chips-section-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);text-align:center;margin-bottom:16px}
-.chips-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.chip{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px 16px;transition:border-color .15s}
-.chip:hover{border-color:rgba(0,194,203,.4)}
-.chip-icon{font-size:18px;margin-bottom:10px;font-family:monospace}
-.chip-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
-.chip-title{font-size:14px;font-weight:700;margin-bottom:6px}
-.chip-desc{font-size:12px;color:var(--muted);line-height:1.6}
+/* SIGNAL CARDS */
+.signal-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:48px}
+.sig-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:22px 20px;position:relative;overflow:hidden}
+.sig-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.sig-sf::before{background:var(--blue)}
+.sig-sel::before{background:var(--amber)}
+.sig-ai::before{background:var(--cyan)}
+.sig-icon{font-size:22px;margin-bottom:10px;display:block}
+.sig-type{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+.sig-sf .sig-type{color:var(--blue)}
+.sig-sel .sig-type{color:var(--amber)}
+.sig-ai .sig-type{color:var(--cyan)}
+.sig-title{font-size:13px;font-weight:700;margin-bottom:14px}
+.sig-list{list-style:none;margin-bottom:14px}
+.sig-list li{font-size:12px;color:var(--muted);padding:4px 0;border-bottom:1px solid rgba(30,58,95,.5);display:flex;gap:8px;align-items:flex-start}
+.sig-list li::before{content:'—';color:var(--dim);flex-shrink:0}
+.sig-note{font-size:11px;font-style:italic}
+.sig-sf .sig-note{color:var(--blue)}
+.sig-sel .sig-note{color:var(--amber)}
+.sig-ai .sig-note{color:var(--cyan)}
 
-/* ── HOW TO NAVIGATE ── */
-.nav-section{margin-bottom:36px}
-.nav-section-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:16px}
-.nav-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:10px}
-.nav-card{background:var(--card);border:1px solid var(--cyan);border-radius:10px;padding:20px}
-.nav-card-heading{font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px}
-.nav-card-body{font-size:12.5px;color:var(--muted);line-height:1.75}
-.badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px}
-.badge-green{background:rgba(34,197,94,.14);color:var(--green);border:1px solid rgba(34,197,94,.3)}
-.badge-cyan{background:rgba(0,194,203,.14);color:var(--cyan);border:1px solid rgba(0,194,203,.3)}
+/* SCREEN CHIPS */
+.chips-head{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-align:center;margin-bottom:16px}
+.chips-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:48px}
+.s-chip{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;transition:border-color .15s}
+.s-chip:hover{border-color:rgba(0,194,203,.35)}
+.chip-num{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--dim);font-weight:600;margin-bottom:6px}
+.chip-title{font-size:13px;font-weight:700;margin-bottom:6px}
+.chip-desc{font-size:11.5px;color:var(--muted);line-height:1.6}
+
+/* DIVIDER */
+hr.div{border:none;border-top:1px solid var(--border);margin:40px 0}
+
+/* HOW TO NAVIGATE */
+.nav-demo-h{font-size:16px;font-weight:700;margin-bottom:16px}
+.nav-demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:12px}
+.nav-demo-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;border-left-width:3px}
+.nd-green{border-left-color:var(--green)}
+.nd-cyan{border-left-color:var(--cyan)}
+.badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px}
+.bg-green{background:rgba(16,185,129,.14);color:var(--green);border:1px solid rgba(16,185,129,.3)}
+.bg-cyan{background:rgba(0,194,203,.14);color:var(--cyan);border:1px solid rgba(0,194,203,.3)}
+.nd-head{font-size:13px;font-weight:700;margin-bottom:8px}
+.nd-body{font-size:12px;color:var(--muted);line-height:1.7}
 .nav-note{font-size:11px;color:var(--dim);text-align:center}
 
-/* ── SIGNALS TAB ── */
-.signals-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:36px}
-.signal-card{border-radius:10px;padding:20px}
-.signal-card-sf{background:rgba(0,161,224,.07);border:1px solid rgba(0,161,224,.25)}
-.signal-card-seller{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.25)}
-.signal-card-ai{background:rgba(0,194,203,.07);border:1px solid rgba(0,194,203,.25)}
-.signal-card-icon{font-size:22px;margin-bottom:12px}
-.signal-card-title{font-size:14px;font-weight:700;margin-bottom:4px}
-.signal-card-sub{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px}
-.signal-card-sf .signal-card-sub{color:var(--blue)}
-.signal-card-seller .signal-card-sub{color:var(--amber)}
-.signal-card-ai .signal-card-sub{color:var(--cyan)}
-.signal-card-body{font-size:12px;color:var(--muted);line-height:1.7}
-.signal-examples{margin-top:12px;display:flex;flex-direction:column;gap:5px}
-.sig-example{font-size:11px;padding:4px 10px;border-radius:4px;font-family:'IBM Plex Mono',monospace}
-.sig-example-sf{background:rgba(0,161,224,.1);color:var(--blue)}
-.sig-example-seller{background:rgba(245,158,11,.1);color:var(--amber)}
-.sig-example-ai{background:rgba(0,194,203,.1);color:var(--cyan)}
+/* APP CHROME */
+.chrome{background:#090F1A;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:24px}
+.chrome-bar{background:#0A1421;border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:12px}
+.dots{display:flex;gap:6px}
+.dot{width:10px;height:10px;border-radius:50%}
+.dot-r{background:#FF5F57}.dot-y{background:#FEBC2E}.dot-g{background:#28C840}
+.chrome-ttl{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--dim);font-weight:500}
+.chrome-body{padding:20px}
+.chrome-cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.col-head{font-size:11px;font-weight:600;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
 
-/* ── THE FORMAT TAB ── */
-.format-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:36px}
-.format-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px}
-.format-card-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px}
-.format-card-sub{font-size:10px;color:var(--dim);margin-bottom:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase}
-.format-card-body{font-size:12px;color:var(--muted);line-height:1.7}
-.format-sample{margin-top:12px;background:rgba(0,194,203,.05);border:1px solid rgba(0,194,203,.18);border-left:3px solid var(--cyan);border-radius:6px;padding:10px 12px;font-size:11px;font-family:'IBM Plex Mono',monospace;color:var(--text);line-height:1.7}
-.format-section-label{font-size:10px;color:var(--cyan);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+/* SF BLOCK */
+.sf-blk{background:rgba(0,161,224,.06);border:1px solid rgba(0,161,224,.2);border-radius:8px;padding:14px;margin-bottom:14px}
+.sf-lbl{font-size:10px;font-weight:600;color:var(--blue);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.sf-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sf-m{background:rgba(0,161,224,.08);border:1px solid rgba(0,161,224,.2);border-radius:6px;padding:8px 10px}
+.sf-ml{font-size:9px;color:var(--blue);font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px}
+.sf-mv{font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--blue);font-weight:600}
 
-/* ── FOOTER ── */
-.footer{border-top:1px solid var(--border);padding:28px 0;text-align:center;margin-top:8px}
-.footer-logo{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.18em;color:var(--cyan);margin-bottom:6px}
-.footer-text{font-size:11px;color:var(--dim);line-height:1.6}
+/* SELLER BLOCK */
+.sel-blk{background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:14px}
+.sel-lbl{font-size:10px;font-weight:600;color:var(--amber);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.sel-f{background:rgba(245,158,11,.04);border:1px solid rgba(245,158,11,.15);border-radius:6px;padding:8px 10px;margin-bottom:8px}
+.sel-fl{font-size:9px;color:var(--amber);font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.sel-fv{font-size:11px;color:rgba(245,158,11,.85);line-height:1.5}
 
-/* ── UTILITY ── */
-.section-gap{margin-bottom:32px}
-.divider{border:none;border-top:1px solid var(--border);margin:32px 0}
+/* AI BLOCK */
+.ai-blk{background:rgba(0,194,203,.05);border:1px solid rgba(0,194,203,.2);border-radius:8px;padding:14px}
+.ai-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(0,194,203,.12);border:1px solid rgba(0,194,203,.3);border-radius:4px;padding:3px 8px;font-size:10px;font-weight:700;color:var(--cyan);letter-spacing:.05em;margin-bottom:12px}
+.ai-sec{margin-bottom:14px}
+.ai-sh{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid rgba(0,194,203,.15)}
+.ai-b{display:flex;gap:8px;font-size:11.5px;color:var(--text);margin-bottom:4px;line-height:1.5}
+.ai-b::before{content:'•';color:var(--cyan);flex-shrink:0}
+
+/* ENRICHMENT */
+.enrich-r{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border-radius:6px;background:var(--card);border:1px solid var(--border);margin-bottom:6px}
+.enrich-name{font-size:12px;font-weight:600}
+.enrich-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;background:rgba(16,185,129,.12);color:var(--green);border:1px solid rgba(16,185,129,.25)}
+
+/* TIER SUMMARY */
+.tier-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px}
+.tier-ttl{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-bottom:12px}
+.tier-g{margin-bottom:12px}
+.tier-lbl{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.tier-accs{display:flex;flex-wrap:wrap;gap:4px}
+.t-chip{font-size:11px;padding:3px 8px;border-radius:4px;border:1px solid}
+
+/* ACCOUNT HEADER */
+.acc-hdr{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:16px}
+.acc-name-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.acc-name{font-size:16px;font-weight:700}
+.acc-badges{display:flex;gap:6px}
+.ab{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.04em}
+.ab-ind{background:rgba(100,116,139,.15);color:var(--muted);border:1px solid rgba(100,116,139,.3)}
+.ab-rev{background:rgba(0,161,224,.1);color:var(--blue);border:1px solid rgba(0,161,224,.25)}
+.ab-tier{background:rgba(0,194,203,.12);color:var(--cyan);border:1px solid rgba(0,194,203,.3)}
+.trigger{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:6px;padding:8px 12px;font-size:12px;color:rgba(245,158,11,.9);line-height:1.5}
+
+/* MOCK TABS */
+.mock-tabs{display:flex;gap:2px;border-bottom:1px solid var(--border);margin-bottom:20px}
+.m-tab{padding:8px 14px;font-size:12px;color:var(--dim);border-bottom:2px solid transparent;margin-bottom:-1px}
+.m-tab.on{color:var(--cyan);border-bottom-color:var(--cyan);font-weight:600}
+
+/* BUSINESS CASE */
+.biz{border-radius:8px;padding:14px 16px;margin-bottom:10px}
+.biz-cur{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.22)}
+.biz-imp{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.22)}
+.biz-fut{background:rgba(0,194,203,.06);border:1px solid rgba(0,194,203,.22)}
+.biz-h{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+.biz-cur .biz-h{color:var(--amber)}
+.biz-imp .biz-h{color:var(--red)}
+.biz-fut .biz-h{color:var(--cyan)}
+.biz-b{display:flex;gap:8px;font-size:12px;color:var(--text);margin-bottom:6px;line-height:1.55}
+.biz-dot{flex-shrink:0;margin-top:1px}
+.biz-cur .biz-dot{color:var(--amber)}
+.biz-imp .biz-dot{color:var(--red)}
+.biz-fut .biz-dot{color:var(--cyan)}
+
+/* PURSUIT */
+.pursuit-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.task{border-radius:8px;padding:14px;border:1px solid var(--border);border-left-width:3px;background:var(--card)}
+.t-done{border-left-color:var(--green);border-color:rgba(16,185,129,.25);background:rgba(16,185,129,.04)}
+.t-prog{border-left-color:var(--amber);border-color:rgba(245,158,11,.25);background:rgba(245,158,11,.04)}
+.t-pend{border-left-color:var(--border)}
+.t-num{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid var(--border);display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:var(--dim);margin-bottom:8px}
+.t-action{font-size:12.5px;font-weight:600;color:var(--text);margin-bottom:8px;line-height:1.4}
+.t-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.t-pill{display:inline-flex;align-items:center;gap:4px;font-size:10px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--muted)}
+.t-status{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.05em}
+.s-done{background:rgba(16,185,129,.12);color:var(--green);border:1px solid rgba(16,185,129,.25)}
+.s-prog{background:rgba(245,158,11,.12);color:var(--amber);border:1px solid rgba(245,158,11,.25)}
+.s-pend{background:rgba(100,116,139,.1);color:var(--dim);border:1px solid rgba(100,116,139,.2)}
+
+/* HEAT MAP */
+.heat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:28px}
+.heat{background:var(--card);border-radius:var(--r);padding:18px;border:2px solid}
+.h-green{border-color:var(--green)}
+.h-amber{border-color:var(--amber)}
+.h-red{border-color:var(--red)}
+.h-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.h-name{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}
+.pulse{width:8px;height:8px;border-radius:50%}
+.p-g{background:var(--green);box-shadow:0 0 0 3px rgba(16,185,129,.2)}
+.p-a{background:var(--amber);box-shadow:0 0 0 3px rgba(245,158,11,.2)}
+.p-r{background:var(--red);box-shadow:0 0 0 3px rgba(239,68,68,.2)}
+.h-score{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;font-family:'IBM Plex Mono',monospace}
+.h-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.h-ml{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.h-mv{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600}
+.cov-bar{height:5px;background:var(--border);border-radius:3px;overflow:hidden;margin-bottom:10px}
+.cov-fill{height:100%;border-radius:3px}
+.h-tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;letter-spacing:.04em}
+.ht-green{background:rgba(16,185,129,.12);color:var(--green);border:1px solid rgba(16,185,129,.25)}
+.ht-amber{background:rgba(245,158,11,.12);color:var(--amber);border:1px solid rgba(245,158,11,.25)}
+.ht-red{background:rgba(239,68,68,.12);color:var(--red);border:1px solid rgba(239,68,68,.25)}
+.h-warn{background:rgba(239,68,68,.09);border:1px solid rgba(239,68,68,.28);border-radius:6px;padding:7px 10px;font-size:11px;color:#fca5a5;margin-top:10px}
+
+/* COACHING PANEL */
+.coach-panel{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:28px}
+.coach-hdr{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.coach-ttl{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
+.coach-sub{font-size:11px;color:var(--dim);margin-top:2px}
+.coach-body{padding:16px 20px}
+.coach-s{border-radius:8px;padding:12px 14px;margin-bottom:10px;border:1px solid var(--border);border-left-width:3px}
+.coach-sh{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.coach-sb{font-size:12.5px;color:var(--muted);line-height:1.75}
+.coach-li{list-style:none;margin-top:6px}
+.coach-li li{display:flex;gap:8px;font-size:12px;color:var(--muted);margin-bottom:5px;line-height:1.5}
+.coach-li li::before{content:'—';color:var(--dim);flex-shrink:0}
+
+/* QUOTE */
+.quote{background:rgba(0,194,203,.05);border:1px solid rgba(0,194,203,.2);border-left:3px solid var(--cyan);border-radius:var(--r);padding:22px 24px}
+.quote p{font-size:15px;color:var(--text);line-height:1.7;font-style:italic}
+
+/* GET STARTED */
+.p-note{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:24px;margin-bottom:28px}
+.p-note-h{font-size:14px;font-weight:700;color:var(--cyan);margin-bottom:10px}
+.p-note-b{font-size:13px;color:var(--muted);line-height:1.8}
+.acc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
+.acc-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:22px}
+.acc-card-h{font-size:15px;font-weight:700;margin-bottom:4px}
+.acc-card-s{font-size:11px;color:var(--dim);font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px}
+.acc-card-b{font-size:12.5px;color:var(--muted);line-height:1.7;margin-bottom:14px}
+.acc-url{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--cyan);background:rgba(0,194,203,.07);border:1px solid rgba(0,194,203,.2);border-radius:5px;padding:6px 10px;margin-bottom:12px;display:block;word-break:break-all}
+.btn{display:inline-block;padding:9px 18px;border-radius:6px;font-size:12.5px;font-weight:600;text-decoration:none;border:none;transition:all .15s}
+.btn-c{background:var(--cyan);color:#0D1B2A}
+.btn-c:hover{background:#00d4de}
+.btn-ghost{background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--border)}
+.steps-h{font-size:13px;font-weight:700;margin-bottom:16px}
+.steps-ul{list-style:none;margin-bottom:28px}
+.step{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid rgba(30,58,95,.5)}
+.step:last-child{border-bottom:none}
+.step-n{width:26px;height:26px;border-radius:50%;background:rgba(0,194,203,.1);border:1px solid rgba(0,194,203,.3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:var(--cyan);flex-shrink:0;margin-top:1px}
+.step-t{font-size:13px;font-weight:700;margin-bottom:4px}
+.step-b{font-size:12.5px;color:var(--muted);line-height:1.65}
+.closing{text-align:center;font-size:13px;color:var(--muted);padding:24px 0}
+
+/* PAGE FOOTER */
+.pg-footer{background:#090F1A;border-top:1px solid var(--border);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--dim)}
+.pf-left{font-family:'IBM Plex Mono',monospace}
+
+/* UTILS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 </style>
 </head>
 <body>
-<div class="page">
 
-  <!-- HEADER -->
-  <div class="header">
-    <div class="logo">Cyera · SPIS · Internal Demo</div>
-    <div class="headline">Sales Planning Intelligence System<br><span>Built for Cyera Regional Directors</span></div>
-    <div class="subhead">SPIS turns territory planning from a once-a-quarter Word doc into a living, AI-assisted workflow — helping RDs run better coaching conversations and helping AEs build sharper account plans in less time.</div>
+<!-- TOP NAV -->
+<nav class="topnav">
+  <div>
+    <div class="brand-name">CYERA · SPIS</div>
+    <div class="brand-sub">Sales Planning Intelligence System</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#overview" class="active">Overview</a></li>
+    <li><a href="#territory">Territory Plan</a></li>
+    <li><a href="#account">Account Plan</a></li>
+    <li><a href="#coaching">Coaching</a></li>
+    <li><a href="#get-started">Get Started</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     SECTION 1 — OVERVIEW
+══════════════════════════════════════════ -->
+<section id="overview">
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="sec-label">Cyera · SPIS · Internal Demo</div>
+    <h1 class="hero-h">Territory and Account Planning,<br>built for Cyera.</h1>
+    <p class="hero-p">An AI-powered sales planning system that eliminates the administrative tax on enterprise sellers — so every hour saved on planning is an hour gained in front of Economic Buyers.</p>
   </div>
 
-  <!-- TABS -->
-  <div class="tabs-bar">
-    <button class="tab-btn active" onclick="showTab('idea', this)">The Idea</button>
-    <button class="tab-btn" onclick="showTab('signals', this)">The Signals</button>
-    <button class="tab-btn" onclick="showTab('format', this)">The Format</button>
+  <!-- THREE SIGNAL CARDS -->
+  <div class="signal-grid">
+    <div class="sig-card sig-sf">
+      <span class="sig-icon">⚡</span>
+      <div class="sig-type">Salesforce Auto-Populated</div>
+      <div class="sig-title">What the CRM Already Knows</div>
+      <ul class="sig-list">
+        <li>Quota and current pipeline</li>
+        <li>Win rate and average deal size</li>
+        <li>Forecast commit and best case</li>
+        <li>Opportunity stage and close date</li>
+        <li>YTD closed and open opp count</li>
+      </ul>
+      <div class="sig-note">AE never re-enters what Salesforce already knows</div>
+    </div>
+
+    <div class="sig-card sig-sel">
+      <span class="sig-icon">✏️</span>
+      <div class="sig-type">Seller Enters</div>
+      <div class="sig-title">What Only a Great Seller Can Provide</div>
+      <ul class="sig-list">
+        <li>Pain hypothesis and trigger type</li>
+        <li>Competitive intel and champion context</li>
+        <li>Partner strategy and named contacts</li>
+        <li>Relationship context and access path</li>
+        <li>Evaluation criteria and buyer insight</li>
+      </ul>
+      <div class="sig-note">The judgment Salesforce can never capture</div>
+    </div>
+
+    <div class="sig-card sig-ai">
+      <span class="sig-icon">✦</span>
+      <div class="sig-type">AI Generates</div>
+      <div class="sig-title">Hours of Work in Seconds</div>
+      <ul class="sig-list">
+        <li>Territory thesis and account tiering</li>
+        <li>Trigger hypotheses for all 8 accounts</li>
+        <li>Stakeholder maps with named contacts</li>
+        <li>Business case — current state, impact, future state</li>
+        <li>Pursuit task list and outreach narrative</li>
+      </ul>
+      <div class="sig-note">All content grounded in Cyera's selling motion</div>
+    </div>
   </div>
 
-  <!-- ── TAB: THE IDEA ── -->
-  <div id="tab-idea">
-
-    <div class="signal-row">
-      <span class="signal-badge sig-sf">⚡ Salesforce pulls CRM data automatically</span>
-      <span class="signal-badge sig-seller">✏️ Seller adds judgment and context</span>
-      <span class="signal-badge sig-ai">✦ AI generates structured output</span>
+  <!-- SIX SCREEN CHIPS -->
+  <div class="chips-head">Six screens · One workflow</div>
+  <div class="chips-grid">
+    <div class="s-chip">
+      <div class="chip-num">01</div>
+      <div class="chip-title">Regional Dashboard</div>
+      <div class="chip-desc">Pipeline vs 3.5x target, tier breakdown, competitive landscape, and plan scores across all sellers — the RD's single view of the region.</div>
     </div>
-
-    <div class="chips-section">
-      <div class="chips-section-label">Six screens · One workflow</div>
-      <div class="chips-grid">
-
-        <div class="chip">
-          <div class="chip-icon">◉</div>
-          <div class="chip-label">Screen 1</div>
-          <div class="chip-title">Regional Dashboard</div>
-          <div class="chip-desc">Pipeline, coverage, forecast, and plan health for all three sellers at a glance. The RD's single view of the region — no spreadsheet required.</div>
-        </div>
-
-        <div class="chip">
-          <div class="chip-icon">◈</div>
-          <div class="chip-label">Screen 2</div>
-          <div class="chip-title">Territory Plan</div>
-          <div class="chip-desc">AE enters their pain hypothesis, competitive context, and partner strategy. The tool enriches all eight accounts with AI intelligence and generates a structured territory plan with tier breakdown, pursuit motion, and 30/60/90 milestones.</div>
-        </div>
-
-        <div class="chip">
-          <div class="chip-icon">◆</div>
-          <div class="chip-label">Screen 3</div>
-          <div class="chip-title">Account Plans</div>
-          <div class="chip-desc">Deep-dive into each Tier 1 account. Generates account overview and outreach point of view, a named stakeholder map with stance and recommended action, a CURRENT STATE / BUSINESS IMPACT / FUTURE STATE business case, and an eight-step pursuit task list.</div>
-        </div>
-
-        <div class="chip">
-          <div class="chip-icon">◐</div>
-          <div class="chip-label">Screen 4</div>
-          <div class="chip-title">Weekly Coaching</div>
-          <div class="chip-desc">RD selects a seller and generates a structured coaching agenda — pipeline snapshot, account spotlight with coaching questions, a targeted strategy coaching moment, and explicit commitments from both AE and RD for the week.</div>
-        </div>
-
-        <div class="chip">
-          <div class="chip-icon">◇</div>
-          <div class="chip-label">Screen 5</div>
-          <div class="chip-title">Executive Summary</div>
-          <div class="chip-desc">One-click regional summary formatted for VP and CRO consumption. Covers pipeline health, forecast confidence, top opportunities, key risks, and recommended actions — structured for a 30-second read.</div>
-        </div>
-
-        <div class="chip">
-          <div class="chip-icon">✦</div>
-          <div class="chip-label">Across All Screens</div>
-          <div class="chip-title">Inline AI Generation</div>
-          <div class="chip-desc">Every Generate and Enrich button in the tool produces output in a structured, pre-defined format — never a wall of text. Outputs are immediately readable and actionable without editing or reformatting.</div>
-        </div>
-
-      </div>
+    <div class="s-chip">
+      <div class="chip-num">02</div>
+      <div class="chip-title">Territory Plan Builder</div>
+      <div class="chip-desc">Salesforce intake plus seller judgment plus AI-generated tier rationale, pursuit motions, and 30/60/90 milestones — structured and ready for review.</div>
     </div>
-
-    <!-- HOW TO NAVIGATE THE DEMO -->
-    <div class="nav-section">
-      <div class="nav-section-title">How to Navigate the Demo</div>
-      <div class="nav-cards">
-
-        <div class="nav-card">
-          <div class="badge badge-green">Pre-Populated</div>
-          <div class="nav-card-heading">Alex Rivera — Full Demo Experience</div>
-          <div class="nav-card-body">Alex Rivera's territory and account plans are fully built out so you can see exactly what SPIS looks like in practice. His territory plan shows a complete tier breakdown, pursuit strategy, and 30/60/90 milestones. All five of his Tier 1 account plans — Salesforce, Wells Fargo, McKesson, Visa, and Chevron — are pre-populated across every tab including the stakeholder map, business case, and pursuit task list. Start here to see the full picture.</div>
-        </div>
-
-        <div class="nav-card">
-          <div class="badge badge-cyan">Try It Live</div>
-          <div class="nav-card-heading">Morgan Lee and Taylor Brooks — Test Drive</div>
-          <div class="nav-card-body">Morgan Lee and Taylor Brooks are set up for you to explore the simulation. Select either seller from the sidebar, navigate to their Territory Plan or Account Plans, and click any Generate or Enrich button. The system will simulate AI generation in real time — spinning for half a second then delivering structured output specific to that account. Try enriching an account, generating a business case, or building a pursuit plan to see how the tool works in practice.</div>
-        </div>
-
-      </div>
-      <div class="nav-note">No API key required — all content is pre-written and loads instantly.</div>
+    <div class="s-chip">
+      <div class="chip-num">03</div>
+      <div class="chip-title">Account Plan Builder</div>
+      <div class="chip-desc">Five tabs per Tier 1 account: intake, executive overview with outreach narrative, stakeholder map, business case, and pursuit task checklist.</div>
     </div>
-
-    <div class="footer">
-      <div class="footer-logo">CYERA · SPIS</div>
-      <div class="footer-text">Sales Planning Intelligence System · Internal Demo · Q2 FY2026</div>
+    <div class="s-chip">
+      <div class="chip-num">04</div>
+      <div class="chip-title">Weekly Coaching</div>
+      <div class="chip-desc">Heat map cards per seller, AI-generated 30-minute coaching agenda with pipeline snapshot, account spotlight, and explicit AE and RD commitments.</div>
     </div>
-
-  </div><!-- /tab-idea -->
-
-  <!-- ── TAB: THE SIGNALS ── -->
-  <div id="tab-signals" style="display:none">
-
-    <div style="text-align:center;margin-bottom:28px">
-      <div style="font-size:14px;color:var(--muted);line-height:1.7;max-width:580px;margin:0 auto">
-        Every field in SPIS is labeled with one of three signals so the AE always knows where the data came from and what they own. This removes the friction of re-entering data that already exists in Salesforce and makes the seller's judgment inputs explicit.
-      </div>
+    <div class="s-chip">
+      <div class="chip-num">05</div>
+      <div class="chip-title">Executive Summary</div>
+      <div class="chip-desc">Pipeline health, forecast confidence, top opportunities, key risks, and recommended leadership actions — structured for a 30-second read.</div>
     </div>
-
-    <div class="signals-grid">
-
-      <div class="signal-card signal-card-sf">
-        <div class="signal-card-icon">⚡</div>
-        <div class="signal-card-title">Salesforce</div>
-        <div class="signal-card-sub">Auto-populated · Never re-entered</div>
-        <div class="signal-card-body">Quota, pipeline, win rate, average deal size, forecast commit, YTD closed, open opportunities — all pulled from Salesforce and displayed automatically. The AE never types these fields. If the CRM data is wrong, fix it in Salesforce.</div>
-        <div class="signal-examples">
-          <div class="sig-example sig-example-sf">Quota: $2.2M</div>
-          <div class="sig-example sig-example-sf">Pipeline: $4.8M · 2.2x coverage</div>
-          <div class="sig-example sig-example-sf">Win Rate: 21%</div>
-        </div>
-      </div>
-
-      <div class="signal-card signal-card-seller">
-        <div class="signal-card-icon">✏️</div>
-        <div class="signal-card-title">Seller Enters</div>
-        <div class="signal-card-sub">Judgment-based · The AE's perspective</div>
-        <div class="signal-card-body">Pain hypothesis, competitive context, partner strategy, self-assessment, and manager ask — these are the fields where the seller's judgment and knowledge of the territory actually lives. SPIS makes this judgment explicit, structured, and visible to the RD before the coaching conversation.</div>
-        <div class="signal-examples">
-          <div class="sig-example sig-example-seller">Pain hypothesis</div>
-          <div class="sig-example sig-example-seller">Competitive presence</div>
-          <div class="sig-example sig-example-seller">Manager ask</div>
-        </div>
-      </div>
-
-      <div class="signal-card signal-card-ai">
-        <div class="signal-card-icon">✦</div>
-        <div class="signal-card-title">AI Generates</div>
-        <div class="signal-card-sub">Structured output · Account-specific</div>
-        <div class="signal-card-body">Account intelligence, territory plans, stakeholder maps, business cases, pursuit task lists, coaching agendas, and executive summaries — all generated in structured, pre-defined formats that are immediately readable. The AI never produces a wall of text; every output is parsed into a visual layout.</div>
-        <div class="signal-examples">
-          <div class="sig-example sig-example-ai">Territory plan · 30/60/90</div>
-          <div class="sig-example sig-example-ai">Stakeholder map · Stance + Action</div>
-          <div class="sig-example sig-example-ai">Business case · Current / Impact / Future</div>
-        </div>
-      </div>
-
+    <div class="s-chip">
+      <div class="chip-num">06</div>
+      <div class="chip-title">No API Key Required</div>
+      <div class="chip-desc">All generation is pre-written and loads in under one second. Alex Rivera's plan is fully pre-populated. Morgan and Taylor are set up to explore the simulation.</div>
     </div>
+  </div>
 
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:36px">
-      <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:12px">Why this matters for coaching</div>
-      <div style="font-size:13px;color:var(--muted);line-height:1.8">
-        When an RD opens SPIS before a 1:1, they can see exactly what the seller has entered versus what the system generated. If the pain hypothesis is thin, that's a coaching signal. If the competitive section is blank, that's another signal. The three-signal design makes the quality of the seller's thinking visible before the conversation starts — which means the RD can spend the coaching session on the actual gaps instead of asking the AE to explain their territory from scratch.
-      </div>
+  <hr class="div">
+
+  <!-- HOW TO NAVIGATE -->
+  <div class="nav-demo-h">How to Navigate the Demo</div>
+  <div class="nav-demo-grid">
+    <div class="nav-demo-card nd-green">
+      <div class="badge bg-green">Pre-Populated</div>
+      <div class="nd-head">Alex Rivera — Full Demo Experience</div>
+      <div class="nd-body">Alex Rivera's territory and account plans are fully built out. All five Tier 1 accounts — Salesforce, Wells Fargo, McKesson, Visa, and Chevron — are pre-populated across every tab including the stakeholder map, business case, and pursuit task list. Start here to see the full picture.</div>
     </div>
-
-    <div class="footer">
-      <div class="footer-logo">CYERA · SPIS</div>
-      <div class="footer-text">Sales Planning Intelligence System · Internal Demo · Q2 FY2026</div>
+    <div class="nav-demo-card nd-cyan">
+      <div class="badge bg-cyan">Try It Live</div>
+      <div class="nd-head">Morgan Lee and Taylor Brooks — Test Drive</div>
+      <div class="nd-body">Select either seller, navigate to Territory Plan or Account Plans, and click any Generate or Enrich button. Structured output loads in under one second specific to that account and trigger.</div>
     </div>
+  </div>
+  <div class="nav-note">No API key required — all content is pre-written and loads instantly.</div>
 
-  </div><!-- /tab-signals -->
+  <div class="sec-footer">Screen 1 of 4 · Cyera SPIS · Sales Planning Intelligence System</div>
+</div>
+</section>
 
-  <!-- ── TAB: THE FORMAT ── -->
-  <div id="tab-format" style="display:none">
+<!-- ══════════════════════════════════════════
+     SECTION 2 — TERRITORY PLAN
+══════════════════════════════════════════ -->
+<section id="territory">
+<div class="wrap">
+  <div class="sec-label">Screen 2 of 4</div>
+  <h2 class="sec-heading">Territory Plan Builder — Three Signal Types in One Workflow</h2>
+  <p class="sec-sub">Salesforce fields pre-populated in blue · Seller judgment fields in amber · AI-generated output in cyan · Tier breakdown visible at a glance</p>
 
-    <div style="text-align:center;margin-bottom:28px">
-      <div style="font-size:14px;color:var(--muted);line-height:1.7;max-width:580px;margin:0 auto">
-        Every AI output in SPIS is rendered into a structured visual layout — not displayed as raw text. The tool parses the AI response and maps it to pre-defined visual components so every generate produces output that is immediately readable and shareable.
-      </div>
+  <!-- MOCK APP CHROME -->
+  <div class="chrome">
+    <div class="chrome-bar">
+      <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+      <div class="chrome-ttl">Cyera SPIS · Alex Rivera — Territory Plan · Majors</div>
     </div>
+    <div class="chrome-body">
+      <div class="chrome-cols">
 
-    <div class="format-grid">
-
-      <div class="format-card">
-        <div class="format-card-title">Account Overview</div>
-        <div class="format-card-sub">Overview Tab · OverviewRenderer</div>
-        <div class="format-card-body">Splits into two sections: an executive summary card and a Point of View outreach block. The Point of View is styled as ready-to-use cold outreach copy — the AE can paste it directly into an email.</div>
-        <div class="format-sample">
-          <div class="format-section-label">Executive Summary</div>
-          Salesforce's Agentforce rollout is blocked by the CISO pending a governance layer on CRM data...
-          <br><br>
-          <div class="format-section-label">Point of View · Ready to use as outreach</div>
-          Before Agentforce goes to production, every enterprise security leader at a company of your scale is asking...
-        </div>
-      </div>
-
-      <div class="format-card">
-        <div class="format-card-title">Stakeholder Map</div>
-        <div class="format-card-sub">Stakeholders Tab · StakeholderRenderer</div>
-        <div class="format-card-body">Parsed from pipe-delimited text into a structured table with name, title, department, color-coded stance (Supporter / Neutral / Risk), and a recommended next action for each stakeholder.</div>
-        <div class="format-sample">
-          <div style="display:flex;gap:8px;font-size:10px;color:var(--dim);margin-bottom:6px;border-bottom:1px solid var(--border);padding-bottom:4px">
-            <span style="width:100px">Name</span><span style="width:130px">Title</span><span style="flex:1">Action</span>
-          </div>
-          <div style="display:flex;gap:8px;font-size:11px;margin-bottom:4px">
-            <span style="width:100px;color:var(--text);font-weight:600">Sara Chen</span>
-            <span style="width:130px;color:var(--muted)">VP Data Governance</span>
-            <span style="flex:1;color:var(--muted)">Request CISO intro</span>
-          </div>
-          <div style="display:flex;gap:8px;font-size:11px">
-            <span style="width:100px;color:var(--text);font-weight:600">Mark Torres</span>
-            <span style="width:130px;color:var(--muted)">CISO</span>
-            <span style="flex:1;color:var(--muted)">Economic Buyer</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="format-card">
-        <div class="format-card-title">Business Case</div>
-        <div class="format-card-sub">Business Case Tab · BusinessCaseRenderer</div>
-        <div class="format-card-body">Three colored sections — amber for Current State, red for Business Impact, cyan for Future State — each rendered as a bulleted list with color-coded leading dots. Structured for executive consumption.</div>
-        <div class="format-sample">
-          <div style="color:var(--amber);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">● CURRENT STATE</div>
-          <div style="color:var(--muted);font-size:11px;margin-bottom:8px">Agentforce agents access unclassified CRM data including customer PII and deal records...</div>
-          <div style="color:#EF4444;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">● BUSINESS IMPACT</div>
-          <div style="color:var(--muted);font-size:11px">Board AI mandate delayed — direct revenue implications from Agentforce timeline slip...</div>
-        </div>
-      </div>
-
-      <div class="format-card">
-        <div class="format-card-title">Pursuit Task List</div>
-        <div class="format-card-sub">Pursuit Tab · PursuitTaskList</div>
-        <div class="format-card-body">Eight pursuit actions rendered as interactive task cards — each with a bold action, stakeholder pill, timeline pill, and a status dropdown the AE updates as they work the account. Border color updates with status.</div>
-        <div class="format-sample">
-          <div style="border-left:3px solid var(--border);border:1px solid var(--border);border-left-width:3px;border-radius:6px;padding:8px 10px;margin-bottom:6px">
-            <div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:4px">Brief Sara Chen on Cyera Agentforce governance positioning</div>
-            <div style="display:flex;gap:12px;font-size:10px;color:var(--muted)">
-              <span>👤 Sara Chen, VP Data Governance</span>
-              <span>🗓 Week 1</span>
+        <!-- LEFT: AE INTAKE -->
+        <div>
+          <div class="col-head">Tab 1 — AE Intake</div>
+          <div class="sf-blk">
+            <div class="sf-lbl">⚡ Salesforce Auto-Populated</div>
+            <div class="sf-metrics">
+              <div class="sf-m"><div class="sf-ml">Annual Quota</div><div class="sf-mv">$2.2M</div></div>
+              <div class="sf-m"><div class="sf-ml">Current Pipeline</div><div class="sf-mv">$4.8M</div></div>
+              <div class="sf-m"><div class="sf-ml">Win Rate</div><div class="sf-mv">21%</div></div>
+              <div class="sf-m"><div class="sf-ml">Forecast Commit</div><div class="sf-mv">$900K</div></div>
             </div>
           </div>
-          <div style="border-left:3px solid var(--green);border:1px solid rgba(34,197,94,.3);border-left-width:3px;border-radius:6px;padding:8px 10px;background:rgba(34,197,94,.05)">
-            <div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:4px">Sara Chen facilitates introduction to CISO Mark Torres</div>
-            <div style="display:flex;gap:12px;font-size:10px;color:var(--muted)">
-              <span>👤 Mark Torres, CISO</span>
-              <span style="color:var(--green)">✓ Complete</span>
+          <div class="sel-blk">
+            <div class="sel-lbl">✏️ Seller Enters</div>
+            <div class="sel-f">
+              <div class="sel-fl">Pain Hypothesis</div>
+              <div class="sel-fv">Five of my eight accounts have announced AI production initiatives without a visible data governance layer — the Agentforce governance gap at Salesforce is the clearest board-level trigger I have this quarter.</div>
+            </div>
+            <div class="sel-f" style="margin-bottom:0">
+              <div class="sel-fl">Competitive Context</div>
+              <div class="sel-fv">Varonis is up for renewal at NetApp — CISO dissatisfied with agent overhead. Microsoft Purview is the default at Wells Fargo but CDO is not satisfied with multi-cloud depth.</div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="format-card">
-        <div class="format-card-title">Territory Plan</div>
-        <div class="format-card-sub">Generated Plan Tab · TerritoryPlanRenderer</div>
-        <div class="format-card-body">Ten structured sections rendered in a visual grid — Tier 1/2/3 accounts side by side, milestones in a three-column 30/60/90 grid, and cyan-bordered cards for thesis, pursuit motion, ecosystem, and risks.</div>
-        <div class="format-sample">
-          <div style="font-size:10px;font-weight:700;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;border-bottom:1px solid rgba(0,194,203,.18);padding-bottom:4px">TERRITORY THESIS</div>
-          <div style="font-size:11px;color:var(--muted);margin-bottom:2px">• Five of eight accounts have AI production initiatives without a governance layer</div>
-          <div style="font-size:11px;color:var(--muted)">• Three accounts face active regulatory pressure with confirmed audit findings</div>
+        <!-- RIGHT: AI GENERATED PLAN -->
+        <div>
+          <div class="col-head">Tab 3 — AI-Generated Plan</div>
+          <div class="ai-blk">
+            <div class="ai-badge">✦ AI Generated · Territory Plan</div>
+            <div class="ai-sec">
+              <div class="ai-sh">Territory Thesis</div>
+              <div class="ai-b">Five of eight accounts have active AI production initiatives without a visible data classification or governance layer — the exact board-level risk condition Cyera resolves.</div>
+              <div class="ai-b">Three accounts face active regulatory pressure with classification gaps confirmed in recent audits or consent orders.</div>
+            </div>
+            <div class="ai-sec">
+              <div class="ai-sh">Tier 1 Accounts</div>
+              <div class="ai-b">Salesforce — Agentforce blocked by CISO pending governance layer</div>
+              <div class="ai-b">Wells Fargo — OCC consent order requires Q4 remediation</div>
+              <div class="ai-b">McKesson — HIPAA exposure confirmed in post-divestiture audit</div>
+              <div class="ai-b">Visa — PCI-DSS 4.0 deadline on AI fraud detection data</div>
+              <div class="ai-b">Chevron — OT/IT convergence exposing operational data in cloud</div>
+            </div>
+            <div class="ai-sec">
+              <div class="ai-sh">30 Day Milestones</div>
+              <div class="ai-b">Confirm CISO introduction at Salesforce via Sara Chen champion relationship</div>
+              <div class="ai-b">Activate Deloitte co-sponsor for McKesson executive briefing</div>
+              <div class="ai-b">First meeting with Visa CISO via AWS alliance contact</div>
+            </div>
+            <div class="ai-sec" style="margin-bottom:0">
+              <div class="ai-sh">Key Risks</div>
+              <div class="ai-b">Cold access at McKesson and Chevron — no warm path confirmed, partner activation is critical</div>
+              <div class="ai-b">Visa PCI-DSS timeline may compress evaluation window — must move quickly after first meeting</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ENRICHMENT + TIER SUMMARY -->
+  <div class="g2">
+    <div>
+      <div class="col-head">Tab 2 — Account Enrichment</div>
+      <div class="enrich-r"><span class="enrich-name">Salesforce</span><span class="enrich-tag">✦ Enriched</span></div>
+      <div class="enrich-r"><span class="enrich-name">Wells Fargo</span><span class="enrich-tag">✦ Enriched</span></div>
+      <div class="enrich-r"><span class="enrich-name">McKesson Corporation</span><span class="enrich-tag">✦ Enriched</span></div>
+      <div class="enrich-r"><span class="enrich-name">Visa Inc.</span><span class="enrich-tag">✦ Enriched</span></div>
+      <div class="enrich-r"><span class="enrich-name">Chevron Corporation</span><span class="enrich-tag">✦ Enriched</span></div>
+    </div>
+    <div>
+      <div class="col-head">Tier Summary</div>
+      <div class="tier-box">
+        <div class="tier-g">
+          <div class="tier-lbl" style="color:var(--cyan)">
+            <span style="font-size:9px;background:rgba(0,194,203,.12);border:1px solid rgba(0,194,203,.3);padding:2px 7px;border-radius:3px">T1</span>
+            5 accounts
+          </div>
+          <div class="tier-accs">
+            <span class="t-chip" style="background:rgba(0,194,203,.07);border-color:rgba(0,194,203,.25);color:var(--cyan)">Salesforce</span>
+            <span class="t-chip" style="background:rgba(0,194,203,.07);border-color:rgba(0,194,203,.25);color:var(--cyan)">Wells Fargo</span>
+            <span class="t-chip" style="background:rgba(0,194,203,.07);border-color:rgba(0,194,203,.25);color:var(--cyan)">McKesson</span>
+            <span class="t-chip" style="background:rgba(0,194,203,.07);border-color:rgba(0,194,203,.25);color:var(--cyan)">Visa</span>
+            <span class="t-chip" style="background:rgba(0,194,203,.07);border-color:rgba(0,194,203,.25);color:var(--cyan)">Chevron</span>
+          </div>
+        </div>
+        <div class="tier-g">
+          <div class="tier-lbl" style="color:var(--amber)">
+            <span style="font-size:9px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);padding:2px 7px;border-radius:3px">T2</span>
+            2 accounts
+          </div>
+          <div class="tier-accs">
+            <span class="t-chip" style="background:rgba(245,158,11,.07);border-color:rgba(245,158,11,.25);color:var(--amber)">Gap Inc.</span>
+            <span class="t-chip" style="background:rgba(245,158,11,.07);border-color:rgba(245,158,11,.25);color:var(--amber)">Levi Strauss &amp; Co.</span>
+          </div>
+        </div>
+        <div class="tier-g" style="margin-bottom:0">
+          <div class="tier-lbl" style="color:var(--dim)">
+            <span style="font-size:9px;background:rgba(100,116,139,.1);border:1px solid rgba(100,116,139,.25);padding:2px 7px;border-radius:3px">T3</span>
+            1 account
+          </div>
+          <div class="tier-accs">
+            <span class="t-chip" style="background:rgba(100,116,139,.07);border-color:rgba(100,116,139,.2);color:var(--dim)">Intel Corporation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-footer">Screen 2 of 4 · Cyera SPIS · Territory Plan Builder</div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SECTION 3 — ACCOUNT PLAN
+══════════════════════════════════════════ -->
+<section id="account">
+<div class="wrap">
+  <div class="sec-label">Screen 3 of 4</div>
+  <h2 class="sec-heading">Account Plan Builder — Five Tabs Per Tier 1 Account</h2>
+  <p class="sec-sub">Intake captures seller judgment. AI generates the overview, stakeholder map, business case, and pursuit strategy — grounded in the account's specific trigger and Cyera's differentiation.</p>
+
+  <!-- MOCK APP CHROME -->
+  <div class="chrome">
+    <div class="chrome-bar">
+      <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+      <div class="chrome-ttl">Cyera SPIS · Alex Rivera — Account Plan · Salesforce</div>
+    </div>
+    <div class="chrome-body">
+
+      <!-- ACCOUNT HEADER -->
+      <div class="acc-hdr">
+        <div class="acc-name-row">
+          <span class="acc-name">Salesforce</span>
+          <div class="acc-badges">
+            <span class="ab ab-ind">Technology</span>
+            <span class="ab ab-rev">$26B Revenue</span>
+            <span class="ab ab-tier">Tier 1</span>
+          </div>
+        </div>
+        <div class="trigger">
+          <strong style="color:var(--blue)">⚡ Trigger:</strong> Board mandate to govern AI agents accessing CRM and customer data before CISO approves Agentforce production expansion.
         </div>
       </div>
 
-      <div class="format-card">
-        <div class="format-card-title">Coaching Agenda</div>
-        <div class="format-card-sub">Coaching Tab · CoachingAgendaRenderer</div>
-        <div class="format-card-body">Five colored sections with left-border styling — Pipeline Snapshot (blue), Account Spotlight (cyan), Strategy Coaching Moment (amber), This Week's Focus (green), and RD Commitment (green). Built for a 30-minute 1:1.</div>
-        <div class="format-sample">
-          <div style="border-left:3px solid var(--blue);padding-left:8px;margin-bottom:8px">
-            <div style="font-size:10px;font-weight:700;color:var(--blue);letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px">◉ PIPELINE SNAPSHOT</div>
-            <div style="font-size:11px;color:var(--muted)">Alex is at 2.2x coverage against a 3.5x target — below goal but Salesforce and Wells Fargo are credible...</div>
-          </div>
-          <div style="border-left:3px solid var(--amber);padding-left:8px">
-            <div style="font-size:10px;font-weight:700;color:var(--amber);letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px">◐ STRATEGY COACHING MOMENT</div>
-            <div style="font-size:11px;color:var(--muted)">Alex has not yet tested the champion relationship with a specific ask...</div>
-          </div>
-        </div>
+      <!-- TABS -->
+      <div class="mock-tabs">
+        <div class="m-tab">Intake</div>
+        <div class="m-tab">Overview</div>
+        <div class="m-tab">Stakeholders</div>
+        <div class="m-tab on">Business Case</div>
+        <div class="m-tab">Pursuit</div>
+      </div>
+
+      <!-- BUSINESS CASE CONTENT -->
+      <div class="biz biz-cur">
+        <div class="biz-h">Current State</div>
+        <div class="biz-b"><span class="biz-dot">•</span><span>Agentforce agents access unclassified CRM data including customer PII and deal records across the platform</span></div>
+        <div class="biz-b"><span class="biz-dot">•</span><span>Manual classification covers less than 40% of the cloud data estate and runs on a quarterly cycle</span></div>
+        <div class="biz-b"><span class="biz-dot">•</span><span>CISO has blocked Agentforce production expansion until a governance layer is confirmed</span></div>
+      </div>
+
+      <div class="biz biz-imp">
+        <div class="biz-h">Business Impact</div>
+        <div class="biz-b"><span class="biz-dot">•</span><span>Board AI mandate delayed — direct revenue and competitive implications from Agentforce timeline slip</span></div>
+        <div class="biz-b"><span class="biz-dot">•</span><span>Estimated $2M+ annual cost of manual classification work that produces incomplete results</span></div>
+        <div class="biz-b"><span class="biz-dot">•</span><span>CCPA and emerging AI governance regulations create regulatory exposure for unclassified PII accessed by agents</span></div>
+      </div>
+
+      <div class="biz biz-fut" style="margin-bottom:0">
+        <div class="biz-h">Future State with Cyera</div>
+        <div class="biz-b"><span class="biz-dot">•</span><span>Complete visibility across Salesforce cloud and SaaS estate within 72 hours of Cyera deployment</span></div>
+        <div class="biz-b"><span class="biz-dot">•</span><span>CISO approves Agentforce production expansion before Q3 board presentation</span></div>
+        <div class="biz-b" style="margin-bottom:0"><span class="biz-dot">•</span><span>Automated classification eliminates manual overhead and creates a continuous AI governance posture</span></div>
       </div>
 
     </div>
+  </div>
 
-    <div class="footer">
-      <div class="footer-logo">CYERA · SPIS</div>
-      <div class="footer-text">Sales Planning Intelligence System · Internal Demo · Q2 FY2026</div>
+  <!-- PURSUIT TAB CALLOUT -->
+  <div style="margin-bottom:24px">
+    <div style="font-size:13px;font-weight:700;margin-bottom:14px;">Pursuit Tab — Interactive Task Checklist</div>
+    <div class="pursuit-grid">
+
+      <div class="task t-done">
+        <div class="t-num">1</div>
+        <div class="t-action">Brief Sara Chen on Cyera Agentforce governance positioning</div>
+        <div class="t-pills">
+          <span class="t-pill">👤 Sara Chen, VP Data Governance</span>
+          <span class="t-pill">🗓 Week 1</span>
+        </div>
+        <span class="t-status s-done">Complete</span>
+      </div>
+
+      <div class="task t-prog">
+        <div class="t-num">2</div>
+        <div class="t-action">Sara Chen facilitates introduction to CISO Mark Torres</div>
+        <div class="t-pills">
+          <span class="t-pill">👤 Mark Torres, CISO</span>
+          <span class="t-pill">🗓 Week 2</span>
+        </div>
+        <span class="t-status s-prog">In Progress</span>
+      </div>
+
+      <div class="task t-pend">
+        <div class="t-num">3</div>
+        <div class="t-action">First CISO meeting — lead with Agentforce governance gap, not product</div>
+        <div class="t-pills">
+          <span class="t-pill">👤 Mark Torres, CISO</span>
+          <span class="t-pill">🗓 Week 3</span>
+        </div>
+        <span class="t-status s-pend">Not Started</span>
+      </div>
+
+      <div class="task t-pend">
+        <div class="t-num">4</div>
+        <div class="t-action">Cyera VP executive peer meeting with CISO</div>
+        <div class="t-pills">
+          <span class="t-pill">👤 Mark Torres, CISO</span>
+          <span class="t-pill">🗓 Week 4</span>
+        </div>
+        <span class="t-status s-pend">Not Started</span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="sec-footer">Screen 3 of 4 · Cyera SPIS · Account Plan Builder</div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SECTION 4 — COACHING
+══════════════════════════════════════════ -->
+<section id="coaching">
+<div class="wrap">
+  <div class="sec-label">Screen 4 of 4</div>
+  <h2 class="sec-heading">Weekly Coaching Dashboard — The Plan Data Drives the Agenda</h2>
+  <p class="sec-sub">Heat map cards show pipeline coverage and plan score at a glance. AI generates a 30-minute structured coaching agenda for each seller — no status report, no prep required.</p>
+
+  <!-- HEAT MAP CARDS -->
+  <div class="heat-grid">
+
+    <!-- ALEX -->
+    <div class="heat h-green">
+      <div class="h-top">
+        <div class="h-name"><div class="pulse p-g"></div>Alex Rivera</div>
+        <div class="h-score" style="background:rgba(16,185,129,.15);border:2px solid var(--green);color:var(--green)">88</div>
+      </div>
+      <div class="h-metrics">
+        <div><div class="h-ml">Pipeline</div><div class="h-mv">$4.8M</div></div>
+        <div><div class="h-ml">Coverage</div><div class="h-mv" style="color:var(--green)">2.19x</div></div>
+        <div><div class="h-ml">Commit</div><div class="h-mv">$900K</div></div>
+        <div><div class="h-ml">Plan Score</div><div class="h-mv">88%</div></div>
+      </div>
+      <div class="cov-bar"><div class="cov-fill" style="width:62.6%;background:var(--green)"></div></div>
+      <span class="h-tag ht-green">Plan Approved</span>
     </div>
 
-  </div><!-- /tab-format -->
+    <!-- MORGAN -->
+    <div class="heat h-amber">
+      <div class="h-top">
+        <div class="h-name"><div class="pulse p-a"></div>Morgan Lee</div>
+        <div class="h-score" style="background:rgba(245,158,11,.15);border:2px solid var(--amber);color:var(--amber)">74</div>
+      </div>
+      <div class="h-metrics">
+        <div><div class="h-ml">Pipeline</div><div class="h-mv">$3.2M</div></div>
+        <div><div class="h-ml">Coverage</div><div class="h-mv" style="color:var(--amber)">1.69x</div></div>
+        <div><div class="h-ml">Commit</div><div class="h-mv">$700K</div></div>
+        <div><div class="h-ml">Plan Score</div><div class="h-mv">74%</div></div>
+      </div>
+      <div class="cov-bar"><div class="cov-fill" style="width:48.3%;background:var(--amber)"></div></div>
+      <span class="h-tag ht-amber">Plan Approved</span>
+    </div>
 
-</div><!-- /page -->
+    <!-- TAYLOR -->
+    <div class="heat h-red">
+      <div class="h-top">
+        <div class="h-name"><div class="pulse p-r"></div>Taylor Brooks</div>
+        <div class="h-score" style="background:rgba(239,68,68,.15);border:2px solid var(--red);color:var(--red)">52</div>
+      </div>
+      <div class="h-metrics">
+        <div><div class="h-ml">Pipeline</div><div class="h-mv">$2.1M</div></div>
+        <div><div class="h-ml">Coverage</div><div class="h-mv" style="color:var(--red)">1.05x</div></div>
+        <div><div class="h-ml">Commit</div><div class="h-mv">$400K</div></div>
+        <div><div class="h-ml">Plan Score</div><div class="h-mv">52%</div></div>
+      </div>
+      <div class="cov-bar"><div class="cov-fill" style="width:30%;background:var(--red)"></div></div>
+      <span class="h-tag ht-red">Needs Revision</span>
+      <div class="h-warn">⚠ Pipeline below 70% of 3.5x target — coaching intervention needed</div>
+    </div>
+
+  </div>
+
+  <!-- COACHING AGENDA PANEL -->
+  <div class="coach-panel">
+    <div class="coach-hdr">
+      <div>
+        <div class="coach-ttl"><span style="color:var(--cyan)">✦</span> Coaching Agenda — Taylor Brooks</div>
+        <div class="coach-sub">30-minute session · Territory and Account Strategy</div>
+      </div>
+      <div class="badge bg-cyan" style="margin-bottom:0;align-self:center">AI Generated</div>
+    </div>
+    <div class="coach-body">
+
+      <div class="coach-s" style="border-left-color:var(--muted)">
+        <div class="coach-sh" style="color:var(--muted)">◉ Pipeline Snapshot</div>
+        <div class="coach-sb">Taylor is at 1.05x coverage against a 3.5x target with a 52% plan completeness score — the largest gaps on the team. Converting two Tier 1 cold accounts into first meetings in the next 30 days is the only path to closing the coverage gap this quarter.</div>
+      </div>
+
+      <div class="coach-s" style="border-left-color:var(--cyan)">
+        <div class="coach-sh" style="color:var(--cyan)">◆ Account Spotlight — PG&amp;E Corporation</div>
+        <ul class="coach-li">
+          <li>Have you confirmed the CISO is the budget owner for NERC CIP remediation or does this require CIO approval?</li>
+          <li>What specific outreach have you sent to PG&amp;E this week and what response did you receive?</li>
+          <li>Is the Palo Alto Networks alliance introduction confirmed with a date or still aspirational?</li>
+        </ul>
+      </div>
+
+      <div class="coach-s" style="border-left-color:var(--amber)">
+        <div class="coach-sh" style="color:var(--amber)">◐ Strategy Coaching Moment</div>
+        <div class="coach-sb">The primary gap is converting regulatory triggers into first meetings on cold accounts. Coaching focus: build a specific personalized outbound sequence for the PG&amp;E CISO using the CPUC oversight announcement as the hook — not a generic data security pitch.</div>
+      </div>
+
+      <div class="coach-s" style="border-left-color:var(--green)">
+        <div class="coach-sh" style="color:var(--green)">◈ This Week's Focus — AE</div>
+        <div class="coach-sb">Send a three-touch personalized outbound sequence to PG&amp;E CISO referencing the CPUC oversight announcement and NERC CIP deadline. Target a 20-minute call. Have the first touch out by Wednesday.</div>
+      </div>
+
+      <div class="coach-s" style="border-left-color:var(--green);margin-bottom:0">
+        <div class="coach-sh" style="color:var(--green)">◇ This Week's Commitment — RD</div>
+        <div class="coach-sb">Activate the Palo Alto Networks alliance contact at PG&amp;E and make a personal warm introduction to Taylor by end of week. This removes the single biggest access barrier in Taylor's territory.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CLOSING QUOTE -->
+  <div class="quote">
+    <p>If your sellers had a complete AI-generated territory plan and account strategy on day one of every quarter — and spent every hour they saved in front of Economic Buyers — what does that do to your number?</p>
+  </div>
+
+  <div class="sec-footer">Screen 4 of 4 · Cyera SPIS · Weekly Coaching Dashboard</div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SECTION 5 — GET STARTED
+══════════════════════════════════════════ -->
+<section id="get-started" style="border-bottom:none">
+<div class="wrap">
+  <div class="sec-label">Get Started</div>
+  <h2 class="sec-heading">Get Started</h2>
+
+  <!-- PERSONAL NOTE -->
+  <div class="p-note">
+    <div class="p-note-h">A note on what you're looking at</div>
+    <div class="p-note-b">Greg — everything in this demo is built specifically for Cyera's selling motion and the Majors segment. The accounts are real Bay Area companies over $1B in revenue. The triggers reflect actual data security and AI governance pressure points those companies are facing. I built this to show how I think about building sales infrastructure at Cyera's pace of growth — and I wanted you to be able to explore it without needing me in the room.</div>
+  </div>
+
+  <!-- ACCESS CARDS -->
+  <div class="acc-grid">
+    <div class="acc-card">
+      <div class="acc-card-h">Executive Overview</div>
+      <div class="acc-card-s">You are here · No setup required</div>
+      <div class="acc-card-b">This one-pager covers the full SPIS story — the three signal types, territory plan workflow, account plan structure, and coaching dashboard. Use the navigation above to jump between sections.</div>
+      <span class="acc-url">danmredmond-ui.github.io/cyera-spis/Cyera_SPIS_OnePager.html</span>
+      <span class="btn btn-ghost" style="font-size:12px;padding:8px 16px">You are already here</span>
+    </div>
+    <div class="acc-card" style="border-color:rgba(0,194,203,.3)">
+      <div class="acc-card-h">Live Interactive Demo</div>
+      <div class="acc-card-s">Full tool · No API key needed</div>
+      <div class="acc-card-b">The complete SPIS application. Select Alex Rivera for a fully pre-populated territory and account plan. Select Morgan Lee or Taylor Brooks and click any Generate button to see AI output load in under one second.</div>
+      <span class="acc-url">danmredmond-ui.github.io/cyera-spis/Cyera_SPIS.html</span>
+      <a class="btn btn-c" href="https://danmredmond-ui.github.io/cyera-spis/Cyera_SPIS.html" target="_blank" rel="noopener">Open Live Demo →</a>
+    </div>
+  </div>
+
+  <!-- NUMBERED STEPS -->
+  <div class="steps-h">How to explore the demo in 10 minutes</div>
+  <ol class="steps-ul">
+    <li class="step">
+      <div class="step-n">1</div>
+      <div>
+        <div class="step-t">Open the live demo</div>
+        <div class="step-b">Navigate to the demo URL above. The app opens directly to the Regional Dashboard — no login required.</div>
+      </div>
+    </li>
+    <li class="step">
+      <div class="step-n">2</div>
+      <div>
+        <div class="step-t">Explore the Regional Dashboard</div>
+        <div class="step-b">Review pipeline coverage for all three sellers, the tier breakdown showing Tier 1, Tier 2, and Tier 3 accounts, and the competitive landscape card.</div>
+      </div>
+    </li>
+    <li class="step">
+      <div class="step-n">3</div>
+      <div>
+        <div class="step-t">Review Alex Rivera's complete plan</div>
+        <div class="step-b">Click Alex Rivera in the sidebar, open Territory Plan to see the pre-generated plan, then open Account Plans and select Salesforce to see all five tabs — including the stakeholder map, business case, and pursuit task list.</div>
+      </div>
+    </li>
+    <li class="step">
+      <div class="step-n">4</div>
+      <div>
+        <div class="step-t">Test drive AI simulation</div>
+        <div class="step-b">Select Morgan Lee or Taylor Brooks, open Account Plans, select any Tier 1 account, and click Generate on any tab. Structured output loads in under one second.</div>
+      </div>
+    </li>
+    <li class="step">
+      <div class="step-n">5</div>
+      <div>
+        <div class="step-t">Review the coaching dashboard</div>
+        <div class="step-b">Click Weekly Coaching in the sidebar and click any seller card to see the pre-written 30-minute coaching agenda.</div>
+      </div>
+    </li>
+  </ol>
+
+  <div class="closing">Questions or want a live walkthrough? Happy to walk through SPIS on your schedule.</div>
+</div>
+</section>
+
+<!-- PAGE FOOTER -->
+<footer class="pg-footer">
+  <div class="pf-left">Cyera SPIS · Sales Planning Intelligence System · Prepared by Daniel · June 2026 · Confidential</div>
+  <div>Built on Cyera's Territory and Account Plan Framework</div>
+</footer>
 
 <script>
-function showTab(id, btn) {
-  document.querySelectorAll('[id^="tab-"]').forEach(el => el.style.display = 'none');
-  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-  document.getElementById('tab-' + id).style.display = '';
-  btn.classList.add('active');
-}
+const sections = document.querySelectorAll('section[id]');
+const links = document.querySelectorAll('.nav-links a');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      links.forEach(l => {
+        l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+sections.forEach(s => obs.observe(s));
 </script>
 </body>
 </html>
